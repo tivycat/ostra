@@ -19,7 +19,6 @@
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
@@ -94,38 +93,45 @@
     </nav>
 
     <div class="container-fluid py3">
-        <div class="row my-3">
-            <div class="col ml-5">
-                <div id="header_btn_row" class="form-inline">
-                    <div class="form-group">
-                        <label class for="select_weeks_to_display" style="font-weight: bold;">Visningsperiod</label>
-                        <select id="select_weeks_to_display" class="form-control ml-2">
-                            <option selected value="3">3 närmaste veckorna</option>
-                            <option value="5">5 närmaste veckorna</option>
-                            <option value="10">10 närmaste veckorna</option>
-                            <option value="all">Hela läsåret</option>
-                        </select>
+        <div id="loading" class="d-flex justify-content-center align-items-center">
+            <div class="spinner-border" role="status">
+                <span class="sr-only">Laddar...</span>
+            </div>
+        </div>
+        <div id="ui" class="hidden">
+            <div class="row my-3">
+                <div class="col ml-5">
+                    <div id="header_btn_row" class="form-inline">
+                        <div class="form-group">
+                            <label class for="select_weeks_to_display" style="font-weight: bold;">Visningsperiod</label>
+                            <select id="select_weeks_to_display" class="form-control ml-2">
+                                <option selected value="3">3 närmaste veckorna</option>
+                                <option value="5">5 närmaste veckorna</option>
+                                <option value="10">10 närmaste veckorna</option>
+                                <option value="all">Hela läsåret</option>
+                            </select>
+                        </div>
+                    </div>
+    
+                </div>
+            </div>
+            <div class="table">
+                <div class="thead">
+                    <div class="tr">
+                        <div class="main_table_head_cell">Vecka</div>
+                        <div class="main_table_head_cell">Måndag</div>
+                        <div class="main_table_head_cell">Tisdag</div>
+                        <div class="main_table_head_cell">Onsdag</div>
+                        <div class="main_table_head_cell">Torsdag</div>
+                        <div class="main_table_head_cell">Fredag</div>
                     </div>
                 </div>
-
+                <div id="week_body"></div>
             </div>
-        </div>
-        <div class="table">
-            <div class="thead">
-                <div class="tr">
-                    <div class="main_table_head_cell">Vecka</div>
-                    <div class="main_table_head_cell">Måndag</div>
-                    <div class="main_table_head_cell">Tisdag</div>
-                    <div class="main_table_head_cell">Onsdag</div>
-                    <div class="main_table_head_cell">Torsdag</div>
-                    <div class="main_table_head_cell">Fredag</div>
+            <div class="row">
+                <div class="col" style="text-align: center">
+                    <button id="fetch_next_week" class="btn btn-info" type="button">Visa nästa vecka</button>
                 </div>
-            </div>
-            <div id="week_body"></div>
-        </div>
-        <div class="row">
-            <div class="col" style="text-align: center">
-                <button id="fetch_next_week" class="btn btn-info" type="button">Visa nästa vecka</button>
             </div>
         </div>
     </div>

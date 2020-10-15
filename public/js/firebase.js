@@ -99,6 +99,7 @@ function addSizeToGoogleProfilePic(url) {
   return url;
 }
 
+// Initialize load
 function get_load_data() {
   firebase.auth().onAuthStateChanged(function () {
     let weeks = firebase.firestore().collection('weeks');
@@ -114,7 +115,14 @@ function get_load_data() {
           add_event_to_calendar(doc.id, doc.data())
         })
       })
-    }).then(() => display_active_weeks())
+    }).then(() => {
+      // After load complete, show the weeks, then remove preloader and show the UI
+      display_active_weeks()
+      document.getElementById('loading').classList.add('hidden')
+      document.getElementById('ui').classList.remove('hidden')
+    }).catch(e => {
+      console.error(e)
+    })
   });
 }
 
@@ -202,4 +210,6 @@ signInButtonElement.addEventListener('click', signIn);
 
 // initialize Firebase
 initFirebaseAuth();
+
+// Initialize load process
 get_load_data();

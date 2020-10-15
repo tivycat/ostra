@@ -683,6 +683,7 @@ function handle_event_dragged(event_id, target) {
             docRef.update({
                 date_id: target.id
             })
+            
             resolve()
         })
     }).then(() => {
@@ -706,6 +707,16 @@ Element.prototype.setAttributes = function (attributes) {
     }
     recursiveSet(attributes, this);
 }
+
+
+function loading_start() {
+    document.getElementById('loading').classList.remove('hidden')
+}
+
+function loading_end() {
+    document.getElementById('loading').classList.add('hidden')
+}
+
 
 document.addEventListener('click', function (event) {
     let targ = event.target;
