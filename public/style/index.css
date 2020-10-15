@@ -1,0 +1,236 @@
+#user-container {
+  display: flex;
+  flex-direction: row;
+  top: 22px;
+  right: 0;
+  padding-left: 10px;
+  justify-content: flex-end;
+  padding-right: 10px;
+}
+
+#user-container #user-pic {
+  top: -3px;
+  position: relative;
+  display: inline-block;
+  background-image: url('/images/profile_placeholder.png');
+  background-repeat: no-repeat;
+  width: 40px;
+  height: 40px;
+  background-size: 40px;
+  border-radius: 20px;
+}
+
+#user-container #user-name {
+  font-size: 16px;
+  line-height: 36px;
+  padding-right: 10px;
+  padding-left: 20px;
+  color: white;
+}
+
+/* GENERAL */
+.block {
+  display: block;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.loginlogout {
+  cursor: pointer;
+  pointer-events: auto;
+  text-decoration: none;
+}
+.loginlogout:hover {
+  color: #4285f4;
+}
+
+/* Tabeller */
+.table {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+  overflow-x: auto;
+}
+
+.tr {
+  display:table-row;
+}
+
+.td {
+  display: table-cell;
+  white-space: normal;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.td_modal {
+  display: table-cell;
+  white-space: normal;
+  vertical-align: top;
+}
+
+.tr {
+  display: table-row;
+}
+   
+.thead {
+  display: table-header-group;
+}
+    
+#week_body {
+  display: table-row-group;
+}
+
+.main_table_cell {
+  display: table-cell;
+  padding: 7px;
+  white-space: normal;
+  border: 1px solid #999999;
+  text-align: center;
+  vertical-align:top;
+}
+
+.main_table_head_cell {
+  display: table-cell;
+  padding: 7px;
+  border: 1px solid #999999;
+  vertical-align: middle;
+  font-weight: bold;
+  background-color: #1967d2;
+  color: white;
+  text-decoration: none;
+  text-align: center;
+}
+
+.week_table_cell {
+  display: table-cell;
+  padding: 7px;
+  white-space: normal;
+  text-align: center;
+  vertical-align:top;
+}
+
+/* BODY */
+
+.week_row {
+  display: table-row;
+}
+
+.inactive_week {
+  display: none;
+}
+
+
+.week_col_title_week_num {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.event_table {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+  overflow-x: auto;
+  border-collapse: separate;
+  border-spacing: 0 5px;
+}
+
+.event_row {
+  display: table-row;
+  width: 100%;
+}
+
+.event {
+  display: table-cell;
+  border: none;
+  border-radius: 5px;
+  padding: 7px;
+  display: block;
+  cursor: pointer;
+  text-align: center;
+  font-size: 9pt;
+}
+
+.event:hover {
+  background-color: #ddd;
+}
+
+/*Disable so that children of event cannot be clicked on*/
+.event > * {
+  pointer-events: none;
+}
+
+
+.event_icon {
+  float:right; 
+  margin-top: 2px; 
+  font-size: 14px;
+}
+.week_event {
+  display: table-cell;
+  border: none;
+  border-radius: 5px;
+  padding: 7px;
+  display: block;
+  cursor: pointer;
+  text-align: center;
+}
+
+.week_event:hover {
+  background-color: #ddd;
+}
+
+/*Disable so that children of week_event cannot be clicked on*/
+.week_event > * {
+  pointer-events: none;
+}
+
+.ET_normal { background-color: #eee }
+.ET_test { background-color: #ffc966 }
+.ET_meet1 { background-color: #00ecff}
+.ET_meet2 { background-color: #ffc0eb}
+.ET_special { background-color: #ffff00}
+.ET_holiday { background-color: #00cd00}
+.ET_week { background-color: #FFE5B4}
+
+.event_caption {
+  font-weight: bold;
+}
+
+.event_groups {
+  font-style: italic;
+  font-size: 0.75rem;
+  overflow-wrap: break-word;
+
+}
+
+.event_groups:before {
+  content: '['
+}
+
+.event_groups:after {
+  content: ']'
+}
+
+#input_event_groups {
+  padding-left: 1.25rem;
+}
+#input_event_groups > dd {
+  list-style-type: none;
+  font-size: 0.85rem;
+}
+
+
+/* ARR THIS BE TOAST! */
+.toast-color-box {
+  width: 17.5px;
+  height: 17.5px;
+  font-size: 0.85rem;
+  display: inline-block;
+  background-color: #ffc107;
+  border-radius: 5px;
+  margin-right: 5px;
+}
+

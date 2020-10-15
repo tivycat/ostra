@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Planering</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="style/index.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+        <a class="navbar-brand" href="#">Östra Läsårsplanering</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" type="button" id="show_start">Start <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">Åk1</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                        <a class="dropdown-item show_group" data-level='Åk1' id="show_EE20">EE20</a>
+                        <a class="dropdown-item show_group" data-level='Åk1' id="show_EKJU20">EKJU20</a>
+                        <a class="dropdown-item show_group" data-level='Åk1' id="show_EKEKES20">EKEKES20</a>
+                        <a class="dropdown-item show_group" data-level='Åk1' id="show_NANA20">NANA20</a>
+                        <a class="dropdown-item show_group" data-level='Åk1' id="show_NANASAES20">NANASAES20</a>
+                        <a class="dropdown-item show_group" data-level='Åk1' id="show_SABE20">SABE20</a>
+                        <a class="dropdown-item show_group" data-level='Åk1' id="show_SASAESME20">SASAESME20</a>
+                        <a class="dropdown-item show_group" data-level='Åk1' id="show_TEIN20">TEIN20</a>
+                        <a class="dropdown-item show_group" data-level='Åk1' id="show_TETEES20">TETEES20</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown2" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">Åk2</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item show_group" data-level='Åk2' id="show_EE19">EE19</a>
+                        <a class="dropdown-item show_group" data-level='Åk2' id="show_EKEKES19">EKEKES19</a>
+                        <a class="dropdown-item show_group" data-level='Åk2' id="show_EKJU19">EKJU19</a>
+                        <a class="dropdown-item show_group" data-level='Åk2' id="show_NANA19">NANA19</a>
+                        <a class="dropdown-item show_group" data-level='Åk2' id="show_NANASAES19">NANASAES19</a>
+                        <a class="dropdown-item show_group" data-level='Åk2' id="show_SABE19">SABE19</a>
+                        <a class="dropdown-item show_group" data-level='Åk2' id="show_SASAESME19">SASAESME19</a>
+                        <a class="dropdown-item show_group" data-level='Åk2' id="show_TEIN19">TEIN19</a>
+                        <a class="dropdown-item show_group" data-level='Åk2' id="show_TETEES19">TETEES19</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown3" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">Åk3</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item show_group" data-level='Åk3' id="show_EE18">EE18</a>
+                        <a class="dropdown-item show_group" data-level='Åk3' id="show_EKJU18">EKJU18</a>
+                        <a class="dropdown-item show_group" data-level='Åk3' id="show_EKEKES18">EKEKES18</a>
+                        <a class="dropdown-item show_group" data-level='Åk3' id="show_NANA18">NANA18</a>
+                        <a class="dropdown-item show_group" data-level='Åk3' id="show_NANASAES18">NANASAES18</a>
+                        <a class="dropdown-item show_group" data-level='Åk3' id="show_SABE18">SABE18</a>
+                        <a class="dropdown-item show_group" data-level='Åk3' id="show_SASAESME18">SASAESME18</a>
+                        <a class="dropdown-item show_group" data-level='Åk3' id="show_TEIN18">TEIN18</a>
+                        <a class="dropdown-item show_group" data-level='Åk3' id="show_TETEES18">TETEES18</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" type="button" id="show_personal">Endast personal</span></a>
+                </li>
+            </ul>
+
+            <!-- <form class="form-inline my-2 my-lg-0">
+                <input id="user_details" type="text" readonly class="form-control mr-sm-2" aria-label="User details">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="button" id="login_button" style="display: none;">Logga in</button>
+                <button class="btn btn-outline-success my-2 my-sm-0" type="button" id="logout_button" style="display: none;">Logga ut</button>
+            </form> -->
+        </div>
+        <div id="user-container">
+            <div hidden id="user-pic"></div>
+            <div hidden id="user-name"></div>
+            <button hidden id="sign-out" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
+                Sign-out
+            </button>
+            <button id="sign-in" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
+                <i class="material-icons">account_circle</i>Sign-in with Google
+            </button>
+        </div>
+    </nav>
+
+    <div class="container-fluid py3">
+        <div class="row my-3">
+            <div class="col ml-5">
+                <div id="header_btn_row" class="form-inline">
+                    <div class="form-group">
+                        <label class for="select_weeks_to_display" style="font-weight: bold;">Visningsperiod</label>
+                        <select id="select_weeks_to_display" class="form-control ml-2">
+                            <option selected value="3">3 närmaste veckorna</option>
+                            <option value="5">5 närmaste veckorna</option>
+                            <option value="10">10 närmaste veckorna</option>
+                            <option value="all">Hela läsåret</option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="table">
+            <div class="thead">
+                <div class="tr">
+                    <div class="main_table_head_cell">Vecka</div>
+                    <div class="main_table_head_cell">Måndag</div>
+                    <div class="main_table_head_cell">Tisdag</div>
+                    <div class="main_table_head_cell">Onsdag</div>
+                    <div class="main_table_head_cell">Torsdag</div>
+                    <div class="main_table_head_cell">Fredag</div>
+                </div>
+            </div>
+            <div id="week_body"></div>
+        </div>
+        <div class="row">
+            <div class="col" style="text-align: center">
+                <button id="fetch_next_week" class="btn btn-info" type="button">Visa nästa vecka</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="new_event_modal" class="modal fade" data-backdrop="static" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="new_event_modal_title" class="modal-title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <form>
+                            <div class="form-group row">
+                                <label for="input_event_caption" class="col-sm-2 col-form-label">Eventrubrik<span
+                                        style="color: red">*</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="input_event_caption" placeholder="...">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="input_event_date" class="col-sm-2 col-form-label">Datum<span
+                                        style="color: red">*</label>
+                                <div class="col-sm-10 input-group">
+                                    <div id="input_event_date_weekprefix" class="input-group-prepend"
+                                        style="display:none"><span class="input-group-text">v</span></div>
+                                    <input type="date" class="form-control" id="input_event_date"
+                                        placeholder="mm-dd-yyy" min="2020-08-10" max="2021-06-18">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="input_event_typecode" class="col-sm-2 col-form-label">Eventtyp<span
+                                        style="color: red">*</span></label>
+                                <div class="col-sm-10">
+                                    <select id="input_event_typecode" class="form-control">
+                                        <option class='ET_normal' value='ET_normal' selected>Vardagsevent</option>
+                                        <option class="ET_test" value='ET_test'>Prov/större inlämning</option>
+                                        <option class="ET_meet1" value='ET_meet1'>Möte</option>
+                                        <option class="ET_meet2" value='ET_meet2'>Möte (alternativ)</option>
+                                        <option class="ET_special" value='ET_special'>Evenemang</option>
+                                        <option class="ET_holiday " value='ET_holiday'>Ledighet</option>
+                                        <option class="ET_week " value='ET_week'>Veckoavvikelse</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="input_event_description" class="col-sm-2 col-form-label">Detaljer</label>
+                                <div class="col-sm-10">
+                                    <textarea id="input_event_description" class="form-control" rows='7'></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-2">Välj grupper som eventet berör<span style="color: red">*</span>
+                                </div>
+                                <div class="col-sm-10">
+                                    <div id="input_event_groups" class="row">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="new_event_modal_save" type="button" class="btn btn-primary">Spara</button>
+                    <button id="new_event_modal_close" type="button" class="btn btn-secondary">Stäng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div aria-atomic="true" role="alert" aria-live="assertive"
+        style="position: fixed; top: 5rem; right: 2rem;min-height: 200px;">
+        <div id="toast" class="toast" data-delay="4500" style="z-index: 999999;">
+            <div class="toast-header bg-dark text-warning">
+                <div class="toast-color-box" class="rounded mr-2"></div>
+                <strong class="mr-auto">Notifikation</strong>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body bg-dark text-white">
+            </div>
+        </div>
+    </div>
+
+    <div id="event_details_modal" class="modal fade" data-backdrop="static" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Eventdetaljer</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+
+                            <div class="col-sm-3" style="border-right: 1px solid grey">
+                                <div class="form-group row">
+                                    <div class="col">
+                                        <label for="event_details_modal_date" style="display:none">Datum</label>
+                                        <div class="input-group">
+                                            <input readonly class="form-control-plaintext event_details_form"
+                                                id="event_details_modal_date">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col">
+                                        <label for="event_details_modal_typecode"
+                                            style="display:none">Eventtyp</span></label>
+                                        <select id="event_details_modal_typecode" disabled
+                                            class="form-control form-control-sm event_details_form">
+                                            <option class='ET_normal' value='ET_normal' selected>Vardagsevent (grå)
+                                            </option>
+                                            <option class="ET_test" value='ET_test'>Prov/större inlämning (orange)
+                                            </option>
+                                            <option class="ET_meet1" value='ET_meet1'>Möte (aqua)</option>
+                                            <option class="ET_meet2" value='ET_meet2'>Möte (alternativ) (rosa)</option>
+                                            <option class="ET_special" value='ET_special'>Evenemang (gul)</option>
+                                            <option class="ET_holiday " value='ET_holiday'>Ledighet (grön)</option>
+                                            <option class="ET_week " value='ET_week'>Veckoavvikelse</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-9">
+                                <div class="form-group row">
+                                    <div class="col">
+                                        <label for="event_details_modal_caption"
+                                            style="display:none">Eventrubrik</label>
+                                        <div class="input-group">
+                                            <input type="text" readonly
+                                                class="form-control-plaintext event_details_form"
+                                                id="event_details_modal_caption"
+                                                style="font-size: 1.15rem; font-weight:bold;">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col">
+                                        <label for="event_details_modal_description"
+                                            style="display:none">Detaljer</label>
+                                        <textarea id="event_details_modal_description" readonly
+                                            class="form-control-plaintext event_details_form" rows='7'></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div>Visas för</div>
+                                <div id="event_details_modal_groups" class="row ml-2">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer" style="display: block !important">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            Skapad av: <span id="event_details_modal_creator" style="font-style: italic"></span>
+                        </div>
+                        <div class="col-sm-6">
+                            <div id="event_details_modal_button_group" style="text-align: right;">
+                                <button id="event_details_modal_edit" type="button" class="btn btn-warning"
+                                    style="display: none">Ändra</button>
+                                <button id="event_details_modal_close" type="button"
+                                    class="btn btn-secondary">Stäng</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="/__/firebase/7.19.1/firebase-app.js"></script>
+
+    <!-- Add Firebase products -->
+    <script src="/__/firebase/7.19.1/firebase-auth.js"></script>
+    <script src="/__/firebase/7.19.1/firebase-firestore.js"></script>
+
+    <!-- Initiate FB script-->
+    <script src="/__/firebase/init.js"></script>
+
+    <!-- The rest of the f*****n owl-->
+    <script type="text/javascript" src="/js/firebase.js"></script>
+    <script type="text/javascript" src="/js/onload-user.js"></script>
+    <script type="text/javascript" src="/js/funcs.js"></script>
+    
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js" type="text/javascript"></script>
+
+    </script>
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
