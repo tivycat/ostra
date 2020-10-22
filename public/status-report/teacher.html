@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/general.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <title>Östra gymnasiet - Lägesrapportering</title>
 </head>
 
@@ -20,6 +21,16 @@
       <li><a href="coach.html">Din coachgrupp</a></li>
       <li><a href="admin.html">Adminvy</a></li>
     </ul>
+    <div id="user-container">
+      <div hidden id="user-pic"></div>
+      <div hidden id="user-name"></div>
+      <button hidden id="sign-out" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
+        Sign-out
+      </button>
+      <button id="sign-in" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
+        <i class="material-icons">account_circle</i>Sign-in with Google
+      </button>
+    </div>
     <div class="burger">
       <div class="line1"></div>
       <div class="line2"></div>
@@ -38,13 +49,17 @@
 
       </div>
       <div class="second-col">
-        <div>34/50 Filled in</div>
-        <div>5/50 Has comments</div>
+        <div><span id="teacher-amount-saved"></span> / 50 elever har fått omdömen</div>
+        <div><span id="teacher-amount-commented"></span> / 50 elever har fått kommentarer</div>
       </div>
       <div>
       </div>
     </header>
-    <section class="course" id="EN6SABE19">
+    <section class="welcome-teacher">
+      <h4>Välkommen till Lägesrapporteringen!</h4>
+      <p>Kom igång genom att välja kurs. Om du saknar en kurs eller något annat är fel, kontakta</p>
+    </section>
+    <section class="course hidden" id="EN6SABE19">
       <div class="row">
         <div class="student-details">
           <div class="student-portrait">
@@ -64,9 +79,12 @@
 
         </div>
         <div class="student-report-assessment">
-          <select class="select-css">
-            <option>Tillfredsställande (T)</option>
-            <option>Icke tillfredsställande (IT)</option>
+          <select class="select-css select-assessment">
+            <option selected disabled>Välj omdöme</option>
+            <option value="T" class="option-T">Tillfredsställande</option>
+            <option value="IT" class="option-IT">Icke tillfredsställande</option>
+            <option value="UB" class="option-UB">Underlag bristfälligt</option>
+
           </select>
         </div>
         <div class="student-report-comment">
