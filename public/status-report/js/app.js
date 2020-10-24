@@ -57,13 +57,101 @@ function sign_out() {
 function load_teacher() {
   let temp_teacher = 'viktor.tysk@edu.huddinge.se';
   let active_teacher = TEACHER_DATA.find(t => t.email == temp_teacher)
-  console.log(active_teacher)
+  
+  // Loopa igenom "courses".
+  for (let course of active_teacher.courses) {
+    // Skapa ny option till select
+    let select_course = document.getElementById('teacher-choose-course');
+    let new_option = document.createElement('option');
+    new_option.textContent = course.course_id;
+    select_course.appendChild(new_option)
 
-  // Loopa igenom "members".
+    // Skapa ny section för kurs
+    let section = document.createElement('section');
+    let main = document.querySelector('main')
+    section.classList.add('course', 'hidden')
+    section.id = course.course_id;
+    main.appendChild(section)
 
-  // Skapa kurs. Om kurs finns, lägg till elev i kurs
+    // Loopa igenom "members".
+    for (let member of course.members) {
+      console.log(member)
+      
+      // Skapa en egen rad för eleven
+      let row = document.createElement('div');
+      row.classList.add('row');
+      section.appendChild(row)
 
-  // ??
+      // Elevinfo  
+      let student_details_container = document.createElement('div');
+      row.appendChild(student_details_container)
+      student_details_container.classList.add('student-details-container')
+      
+      let student_portrait = document.createElement('div');
+      student_details_container.appendChild(student_portrait)
+      student_portrait.classList.add('student-portrait')
+      
+      let img = document.createElement('img')
+      student_portrait.appendChild(img)
+      img.setAttribute('src', '../resources/images/profile_placeholder.png');
+      img.setAttribute('alt', 'portrait')
+
+      let student_personal_info = document.createElement('div')
+      student_details_container.appendChild(student_personal_info)
+      student_personal_info.classList.add('student-personal-info')
+
+      let student_name = document.createElement('div');
+      student_personal_info.appendChild(student_name)
+      student_name.classList.add('student-name')
+      student_name.textContent = member
+      // Omdöme
+
+      // Kommentar
+    }
+    
+
+  }
+  
+  {/* <section class="course hidden" id="EN6SABE19">
+      <div class="row">
+        <div class="student-details">
+          <div class="student-portrait">
+            <img src="" alt="portrait">
+          </div>
+          <div class="student-personal-info">
+            <div class="student-name">
+              Viktor Tysk
+            </div>
+            <div class="student-class">
+              SABE19
+            </div>
+            <div class="student-pnr">
+              871109-xxxx
+            </div>
+          </div>
+
+        </div>
+        <div class="student-report-assessment">
+          <select class="select-css select-assessment">
+            <option selected disabled>Välj omdöme</option>
+            <option value="T" class="option-T">Tillfredsställande</option>
+            <option value="IT" class="option-IT">Icke tillfredsställande</option>
+            <option value="UB" class="option-UB">Underlag bristfälligt</option>
+
+          </select>
+        </div>
+        <div class="student-report-comment">
+          <textarea rows=5></textarea>
+
+        </div>
+      </div>
+
+    </section> */}
+
+
+  
+
+  // ???
 
 
 }

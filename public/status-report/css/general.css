@@ -211,7 +211,7 @@ nav {
     position: absolute;
     right: 0px;
     height: 92vh;
-    top: 4vh;
+    top: 6vh;
     background-color: #5d4954;
     display:block;
     flex-direction: column;
@@ -355,20 +355,10 @@ textarea:focus {
   }
 }
 
-.first-col {
-  margin: 0 0 0 20px;
-  flex-basis: 40%;
-}
-
-.second-col {
-  margin: 0 0 0 20px;
-  flex-basis: 40%;
-}
 
 .row {
   display: flex;
-  flex: 2;
-  margin: 20px 0 20px 0;
+  margin: 20px 0;
   width: 100%;
 }
 
