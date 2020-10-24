@@ -1,5 +1,5 @@
 const navSlide = () => {
-  const burger = document.querySelector('.burger')
+  const burger = document.querySelector('.hamburger-menu-container')
   const nav = document.querySelector('.nav-links')
   const navLinks = document.querySelectorAll('.nav-links li')
 
@@ -45,60 +45,120 @@ document.addEventListener('change', (ev) => {
 })
 
 
+function sign_in() {
+  load_teacher()
+
+}
+
+function sign_out() {
+
+}
+
+function load_teacher() {
+  let temp_teacher = 'viktor.tysk@edu.huddinge.se';
+  let active_teacher = TEACHER_DATA.find(t => t.email == temp_teacher)
+  console.log(active_teacher)
+
+  // Loopa igenom "members".
+
+  // Skapa kurs. Om kurs finns, lägg till elev i kurs
+
+  // ??
+
+
+}
+
+
 
 
 const STUDENT_DATA = {
-  'anna.andersson@edu.huddinge.se': {
-    email: 'anna.andersson@edu.huddinge.se',
-    name: 'Anna Andersson',
-    class: 'SABE19',
+  'edna.aga@edu.huddinge.se' : {
+    name: "Aga Edna",
+    pnr : "031130-0040",
+    email:"edna.aga@edu.huddinge.se",
+    class: "SABE19",
+    coach_name: "Tysk, Viktor",
+    coach_email: "viktor.tysk@edu.huddinge.se",
     courses: [
       {
-        course_id: 'EN6SABE19',
-        course_title: 'Engelska 6',
-        assessment: 'T',
-        comment: 'Mycket bra'
+        course_id: "EN6SABE19",
+        course_title: "Engelska 6",
+        teacher_email: "viktor.tysk@edu.huddinge.se", 
+        teacher_name: "Tysk, Viktor",
+        attendance :
+          {total: 0,
+          not_reported: 0,
+          reported: ""
+        }
       }
     ]
   },
-  'bertil.bertilsson@edu.huddinge.se': {
-    email: 'bertil.bertilsson@edu.huddinge.se',
-    name: 'Bertil Bertilsson',
-    class: 'SABE19',
-    courses: [
+  "elif.akdeve@edu.huddinge.se" : {
+    name: "Akdeve Elif",
+    pnr: "031223-3489",
+    email: "elif.akdeve@edu.huddinge.se",
+    class: "SABE19",
+    coach_name: "Tysk, Viktor",
+    coach_email: "viktor.tysk@edu.huddinge.se",
+    courses : [
       {
-        course_id: 'EN6SABE19',
-        course_title: 'Engelska 6',
-        assessment: 'IT',
-        comment: 'Inte så bra'
+        course_id: "EN6SABE19",
+        course_title: "Engelska 6",
+        teacher_email: "viktor.tysk@edu.huddinge.se", 
+        teacher_name: "Tysk, Viktor",
+        attendance :
+          {
+            total: 12,
+            not_reported: 6,
+            reported: 6
+          }
       }
     ]
   },
-  'cecil.citron@edu.huddinge.se': {
-    email: 'cecil.citron@edu.huddinge.se',
-    name: 'Cecil Citron',
-    class: 'SABE20',
-    courses: [
+  "elev.elevsson@edu.huddinge.se" : {
+    name: "Elev Elevsson",
+    pnr: "031223-3489",
+    email: "elev.elevsson@edu.huddinge.se",
+    class: "SABE20",
+    coach_name: "Nån Annan",
+    coach_email: "nan.annan@edu.huddinge.se",
+    courses : [
       {
-        course_id: 'DIGSABE20',
-        course_title: 'Digitalt Skapande 1',
-        assessment: 'T',
-        comment: 'Mycket bra'
+        course_id: "DIGSABE19",
+        course_title: "Digitalt Skapande 1",
+        teacher_email: "viktor.tysk@edu.huddinge.se", 
+        teacher_name: "Tysk, Viktor",
+        attendance :
+          {
+            total: 34,
+            not_reported: 6,
+            reported: 28
+          }
       }
     ]
   },
-  'david.dagolad@edu.huddinge.se': {
-    email: 'david.dagolad@edu.huddinge.se',
-    name: 'David Dagolad',
-    class: 'SABE20',
-    courses: [
+  "anna.andersson@edu.huddinge.se" : {
+    name: "Anna Andersson",
+    pnr: "031223-3489",
+    email: "anna.andersson@edu.huddinge.se",
+    class: "SABE20",
+    coach_name: "Nån Annan",
+    coach_email: "nan.annan@edu.huddinge.se",
+    courses : [
       {
-        course_id: 'DIGSABE20',
-        course_title: 'Digitalt Skapande 1',
-        assessment: 'T',
-        comment: 'Mycket bra'
+        course_id: "DIGSABE19",
+        course_title: "Digitalt Skapande 1",
+        teacher_email: "viktor.tysk@edu.huddinge.se", 
+        teacher_name: "Tysk, Viktor",
+        attendance :
+          {
+            total: 0,
+            not_reported: 0,
+            reported: 0
+          }
       }
     ]
+
   }
 }
 
@@ -113,51 +173,21 @@ const TEACHER_DATA = [
         course_id: 'EN6SABE19',
         course_title: 'Engelska 6',
         members: [
-          'anna.andersson@edu.huddinge.se',
-          'bertil.bertilsson@edu.huddinge.se'
+          "anna.andersson@edu.huddinge.se",
+          "elev.elevsson@edu.huddinge.se"
         ]
       },
       {
         course_id: 'DIGSABE20',
         course_title: 'Digitalt Skapande 1',
         members: [
-          'cecil.citron@edu.huddinge.se',
-          'david.dagolad@edu.huddinge.se'
+          "elif.akdeve@edu.huddinge.se",
+          'edna.aga@edu.huddinge.se'
         ]
       }
     ]
   }
 ]
-
-function sign_in() {
-  load_teacher()
-
-}
-
-function sign_out() {
-
-}
-
-function load_teacher() {
-  let temp_teacher = 'viktor.tysk@edu.huddinge.se'
-  console.log(TEACHER_DATA)
-  let get_teacher_data = get_teacher_data(temp_teacher)
-  console.log(get_teacher_data)
-
-
-}
-
-function get_teacher_data(teacher) {
-  /* return new Promise ((resolve, reject) => { */
-    let active_teacher = TEACHER_DATA.find( t => t.email == teacher)
-    return active_teacher
-    /* if (typeof active_teacher === 'string') {
-      resolve(active_teacher)
-    } else {
-      reject()
-    }
-  }) */
-}
 
 
 var userPicElement = document.getElementById('user-pic');

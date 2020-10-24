@@ -16,10 +16,14 @@ body {
   margin-left: auto;
   margin-right: auto;
   font-family: 'Poppins', sans-serif;
+  background-color: #5d4954;
 }
 
 main {
-  margin : 20px;
+  margin: 30px 10px 10px 10px;
+  border-radius: 15px;
+  padding: 7.5px;
+  background-color: #fff;
 }
 
 .hidden {
@@ -34,30 +38,41 @@ main {
 
 nav {
   display: flex;
-  justify-content: space-around; /* Display with spaces before, between, and after the items  */ 
+  justify-content: space-around;  /* Display with spaces before, between, and after the items   */
   align-items: center; /* Center vertically */
   min-height: 10vh;
   background-color: #5d4954;
-  margin-bottom: 20px;
+  align-self: stretch;
+  box-shadow: 0 6px 5px -10px rgba(0,0,0,3);
 }
 
-.logo {
-  margin-top: 10px;
-  margin-bottom: 10px;
+.logo-container {
+  margin: 10px 20px 10px 20px;
   color:rgb(226,226,226);
   letter-spacing: 2px;
-
+  flex: 1 0 auto;
+  text-align: center;
 }
-.logo h4 {
+.logo-container h4 {
   text-transform: uppercase;
+  font-weight: 300;
   letter-spacing: 5px;
   font-size: 20px;
+}
+
+.logo-emphasized {
+  font-weight: 900;
+  font-size: 22px;
+}
+
+.logo-site-section {
+  font-style: italic;
 }
 
 .nav-links {
   display: flex;
   justify-content: space-around;
-  width: 55%;
+  flex: 3 0 auto;
   align-self: stretch;
 }
 
@@ -72,23 +87,58 @@ nav {
   color:rgb(226,226,226);
   text-decoration: none;
   letter-spacing: 3px;
-  font-weight: bold;
+  font-weight: 500;
   font-size: 14px;
   align-self: center;
-  
+  transition: 0.5s;
   padding: 0 15px;
+}
+
+.nav-links a:hover {
+  transform:scale(1.1);
 }
 
 .nav-active {
   background-color: rgba(0,0,0,0.1);
 }
 
-.burger {
-  display: none; /* Burger is only used for mobile*/
-  cursor: pointer;
+.user-container {
+  flex: 1 0 auto;
+  margin: 10px;
+  display: flex;
+  justify-content: center;
 }
 
-.burger div{
+.user-container button {
+  background-color: transparent;
+  transition: 0.3s;
+  color: white;
+  border: 2px solid white; ;
+  padding: 10px 45px;
+  text-align: center;
+  font-size: 16px;
+  vertical-align: middle;
+  border-radius: 12px;
+}
+
+.user-container button:hover {
+  background-color: white;
+  color: black;
+}
+
+.user-container .material-icons { 
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+
+.hamburger-menu-container {
+  display: none; /* hamburger-menu-container is only used for mobile*/
+  cursor: pointer;
+  justify-content: flex-end;
+}
+
+.hamburger-menu-container div{
   width: 25px;
   height: 3px;
   background-color:rgb(226,226,226);
@@ -98,15 +148,62 @@ nav {
 
 
 @media screen and (max-width: 1024px) {
-  .nav-links {
-    width: 65%;
+  nav {
+    min-height: 5vh;
   }
+  .logo-container {
+    margin: 5px 10px;
+  }
+  .logo-container h4, .logo-emphasized {
+    font-size: 14px;
+  }
+  .logo-container .logo-site-section {
+    font-size: 12px;
+  }
+  /* .nav-links {
+    width: 65%;
+  } */
   .nav-links a {
     font-size: 10px;
   }
+  .user-container button{
+    font-size: 12px;
+    padding: 10px 16px;
+  }
+  .user-container .material-icons { 
+    font-size: 14px;
+  }
+
 }
 
 @media screen and (max-width: 768px) {
+  nav {
+    min-height: 4vh;
+  }
+  .logo-container h4 {
+    display: inline-block;
+  }
+  .logo-container {
+    flex: 1 0 auto;
+  }
+  .user-container {
+    flex: 1 0 auto;
+    margin: 5px;
+  }
+  .logo-container h4, .logo-emphasized {
+    font-size: 12px;
+  }
+  .logo-container .logo-site-section {
+    font-size: 8px;
+  }
+  .user-container button{
+    font-size: 10px;
+    padding: 7px 16px;
+  }
+  .user-container .material-icons { 
+    font-size: 12px;
+  }
+
   body {
     overflow-x: hidden; /* Since nav-links is pushed outside, there will be a scroll if you don't remove it*/ 
   }
@@ -114,19 +211,20 @@ nav {
     position: absolute;
     right: 0px;
     height: 92vh;
-    top: 8vh;
+    top: 4vh;
     background-color: #5d4954;
-    display:flex;
+    display:block;
     flex-direction: column;
     align-items: center;
-    width: 50%;
+    width: 100%;
     transform: translateX(100%); /* Push it to the right*/
     transition: transform 0.5s ease-in;
   }
   .nav-links li {
     opacity: 0;
+    padding: 10px 0 10px 0;
   }
-  .burger {
+  .hamburger-menu-container {
     display: block;
   }
 }

@@ -12,31 +12,30 @@
 
 <body>
   <nav>
-    <div class="logo">
-      <h4>Östra gymnasiet</h4>
-      <span>Studielägesrapportering</span>
+    <div class="logo-container">
+      <h4><span class="logo-emphasized">Ö</span>stra <span class="logo-emphasized">g</span>ymnasiet</h4>
+      <span class="logo-site-section">Studielägesrapportering</span>
     </div>
     <ul class="nav-links">
-      <li class="nav-active"><a href="teacher.html">Dina lägesrapport</a></li>
-      <li><a href="coach.html">Din coachgrupp</a></li>
+      <li class="nav-active"><a href="teacher.html">Lägesrapport</a></li>
+      <li><a href="coach.html">Coachgrupp</a></li>
       <li><a href="admin.html">Adminvy</a></li>
     </ul>
-    <div id="user-container">
+    <div class="user-container" id="user-container">
       <div hidden id="user-pic"></div>
       <div hidden id="user-name"></div>
-      <button hidden id="sign-out" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
+      <button hidden id="sign-out">
         Sign-out
       </button>
-      <button id="sign-in" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
-        <i class="material-icons">account_circle</i>Sign-in with Google
+      <button id="sign-in">
+        <i class="material-icons">account_circle</i>Logga in
       </button>
     </div>
-    <div class="burger">
+    <div class="hamburger-menu-container">
       <div class="line1"></div>
       <div class="line2"></div>
       <div class="line3"></div>
     </div>
-
   </nav>
   <main>
     <header class="status-report-header">
@@ -52,7 +51,8 @@
         <div><span id="teacher-amount-saved"></span> / 50 elever har fått omdömen</div>
         <div><span id="teacher-amount-commented"></span> / 50 elever har fått kommentarer</div>
       </div>
-      <div>
+      <div class="third-col">
+        <button>Spara ändringar</button>
       </div>
     </header>
     <section class="welcome-teacher">
