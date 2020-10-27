@@ -19,14 +19,12 @@
     <ul class="nav-links">
       <li class="nav-active"><a href="teacher.html">Lägesrapport</a></li>
       <li><a href="coach.html">Coachgrupp</a></li>
-      <li><a href="admin.html">Adminvy</a></li>
+      <li><a href="admin.html">Statistik</a></li>
     </ul>
     <div class="user-container" id="user-container">
-      <div hidden id="user-pic"></div>
-      <div hidden id="user-name"></div>
-      <button hidden id="sign-out">
-        Sign-out
-      </button>
+      <div class="hidden" id="user-pic"></div>
+      <div class="hidden" id="user-name"></div>
+      <button class="hidden" id="sign-out">Logga ut</button>
       <button id="sign-in">
         <i class="material-icons">account_circle</i>Logga in
       </button>
@@ -39,18 +37,17 @@
   </nav>
   <main>
     <header class="status-report-header">
-      <div class="first-col">
+      <div class="col1">
         <select id="teacher-choose-course" class="select-css">
           <option selected disabled>Välj kurs</option>
         </select>
-
       </div>
-      <div class="second-col">
-        <div><span id="teacher-amount-saved"></span> / 50 elever har fått omdömen</div>
-        <div><span id="teacher-amount-commented"></span> / 50 elever har fått kommentarer</div>
+      <div class="col2">
+        <div><span id="teacher-amount-saved"></span> / 50 elever har fått omdömen (%)</div>
+        <div><span id="teacher-amount-commented"></span> / 50 elever har fått kommentarer (%)</div>
       </div>
-      <div class="third-col">
-        <button>Spara ändringar</button>
+      <div class="col3">
+        <button id="teacher-save" class="btn-save">Spara ändringar</button>
       </div>
     </header>
     <section class="welcome-teacher">
@@ -59,6 +56,38 @@
     </section>
     
   </main>
+  <div id="clone" style="display: none">
+    <div class="student row">
+      <div class="student-details-container">
+        <div class="student-portrait">
+          <img src="../resources/images/profile_placeholder.png" alt="portrait">
+        </div>
+        <div class="student-personal-info">
+          <div class="student-name"></div>
+          <div class="student-class"></div>
+          <div class="student-pnr"></div>
+        </div>
+
+      </div>
+      <div class="assessment-container">
+        <select class="select-css select-assessment">
+          <option selected value ="">Välj omdöme</option>
+          <option value="T" class="option-T">Tillfredsställande</option>
+          <option value="IT" class="option-IT">Icke tillfredsställande</option>
+          <option value="UB" class="option-UB">Underlag bristfälligt</option>
+
+        </select>
+        <div class="student-attendance" title="Frånvaro i din kurs under perioden terminsstart - 22 oktober">
+          <strong>Frånvaro:</strong> <span class="attendance-total"></span>% varav <span class="attendance-unreported"></span>% orapporterad<i class="material-icons">info</i>
+        </div>
+      </div>
+      <div class="comment-container">
+        <textarea class="textarea-comment" placeholder="En kommentar om dagen gör varje elev gla'"></textarea>
+
+      </div>
+    </div>
+
+  </div>
   <script type="text/javascript" src="js/app.js"></script>
 </body>
 

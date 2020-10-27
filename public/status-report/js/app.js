@@ -1,63 +1,34 @@
-const navSlide = () => {
-  const burger = document.querySelector('.hamburger-menu-container')
-  const nav = document.querySelector('.nav-links')
-  const navLinks = document.querySelectorAll('.nav-links li')
-
-  burger.addEventListener('click', () => {
-    // Toggle Nav
-    nav.classList.toggle('nav-burger-active')
-
-
-    // Animate Links
-    navLinks.forEach((link, index) => {
-      if (link.style.animation) {
-        link.style.animation = '';
-
-      } else {
-        link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.3}s`;
-      }
-    })
-
-    // Burger Animation
-    burger.classList.toggle('toggle')
-  })
-}
-
-navSlide();
-
-document.getElementById('teacher-choose-course').addEventListener('change', (event) => {
-  const all_sections = document.querySelectorAll('section');
-  for (let s of all_sections) {
-    if (s.id === event.target.value) {
-      s.classList.remove('hidden')
-    } else {
-      s.classList.add('hidden')
-    }
-  }
-})
-
-document.addEventListener('change', (ev) => {
-  let tar = ev.target;
-  if (tar.classList.contains('select-assessment')) {
-    ['option-T', 'option-UB', 'option-IT'].forEach((c) => { tar.classList.remove(c) })
-    tar.classList.add(`option-${tar.value}`)
-  }
-})
-
 
 function sign_in() {
   load_teacher()
+  user_name_element.textContent = 'Viktor Tysk';
+  user_name_element.classList.remove('hidden');
+  user_pic_element.classList.remove('hidden');
+  sign_out_button.classList.remove('hidden');
 
+  // Hide sign-in button.
+  sign_in_button.classList.add('hidden');
 }
 
 function sign_out() {
+  // Hide user's profile and sign-out button.
+  user_name_element.classList.add('hidden');
+  user_pic_element.classList.add('hidden');
+  sign_out_button.classList.add('hidden');
 
+  // Show sign-in button.
+  sign_in_button.classList.remove('hidden');
+}
+
+function handle_load_teacher() {
+  // Loading start
+  // Promises and shiz
 }
 
 function load_teacher() {
   let temp_teacher = 'viktor.tysk@edu.huddinge.se';
   let active_teacher = TEACHER_DATA.find(t => t.email == temp_teacher)
-  
+
   // Loopa igenom "courses".
   for (let course of active_teacher.courses) {
     // Skapa ny option till select
@@ -75,95 +46,73 @@ function load_teacher() {
 
     // Loopa igenom "members".
     for (let member of course.members) {
-      console.log(member)
-      
-      // Skapa en egen rad för eleven
-      let row = document.createElement('div');
-      row.classList.add('row');
+      // Hämta elevens riktiga data
+      let student = STUDENT_DATA[member];
+      console.log(student)
+      console.log(course)
+
+      // Kopiera en elevrad template
+      let row = document.querySelector('#clone .student').cloneNode(true)
       section.appendChild(row)
+      row.id = member;
 
-      // Elevinfo  
-      let student_details_container = document.createElement('div');
-      row.appendChild(student_details_container)
-      student_details_container.classList.add('student-details-container')
-      
-      let student_portrait = document.createElement('div');
-      student_details_container.appendChild(student_portrait)
-      student_portrait.classList.add('student-portrait')
-      
-      let img = document.createElement('img')
-      student_portrait.appendChild(img)
-      img.setAttribute('src', '../resources/images/profile_placeholder.png');
-      img.setAttribute('alt', 'portrait')
+      // Elevinfo 
+      row.querySelector('.student-name').textContent = student.name;
+      row.querySelector('.student-class').textContent = student.class;
+      row.querySelector('.student-pnr').textContent = student.pnr.slice(0, 6) + '-xxxx';
+      // = pnr.toString().slice(2, 8) + "-" + pnr.toString().slice(8) 
+      // 871109-0137
 
-      let student_personal_info = document.createElement('div')
-      student_details_container.appendChild(student_personal_info)
-      student_personal_info.classList.add('student-personal-info')
-
-      let student_name = document.createElement('div');
-      student_personal_info.appendChild(student_name)
-      student_name.classList.add('student-name')
-      student_name.textContent = member
       // Omdöme
+      let active_course = student.courses.find(x => x.course_id === course.course_id);
+      console.log(active_course)
+      if ('assessment' in active_course) {
+        row.querySelector('.select-assessment').value = active_course.assessment
+      }
+
+      // Närvaro. Inte 100% säker på att det alltid finns
+      try {
+        row.querySelector('.attendance-total').textContent = active_course.attendance.total
+        row.querySelector('.attendance-unreported').textContent = active_course.attendance.not_reported
+      } catch (e) {
+        console.error(e)
+      }
 
       // Kommentar
+      if ('comment' in active_course) {
+        row.querySelector('.textarea-comment').value = active_course.comment;
+      }
     }
-    
+
 
   }
-  
-  {/* <section class="course hidden" id="EN6SABE19">
-      <div class="row">
-        <div class="student-details">
-          <div class="student-portrait">
-            <img src="" alt="portrait">
-          </div>
-          <div class="student-personal-info">
-            <div class="student-name">
-              Viktor Tysk
-            </div>
-            <div class="student-class">
-              SABE19
-            </div>
-            <div class="student-pnr">
-              871109-xxxx
-            </div>
-          </div>
+}
 
-        </div>
-        <div class="student-report-assessment">
-          <select class="select-css select-assessment">
-            <option selected disabled>Välj omdöme</option>
-            <option value="T" class="option-T">Tillfredsställande</option>
-            <option value="IT" class="option-IT">Icke tillfredsställande</option>
-            <option value="UB" class="option-UB">Underlag bristfälligt</option>
-
-          </select>
-        </div>
-        <div class="student-report-comment">
-          <textarea rows=5></textarea>
-
-        </div>
-      </div>
-
-    </section> */}
-
-
-  
-
-  // ???
-
-
+function register_student_change(email, course) {
+  // sessionStorage used because if session is reset, no data will be available anyway
+  let get_item = sessionStorage.getItem('changelist');
+  let set_item;
+  let arr;
+  if (get_item == null) {
+    arr = new Array();
+  } else {
+    arr = JSON.parse(get_item)
+    let already_exists = arr.find(x => x.email === email)
+    if (already_exists) { return }
+  }
+  arr.push({ email: email, course: course });
+  set_item = JSON.stringify(arr);
+  sessionStorage.setItem('changelist', set_item)
 }
 
 
 
 
 const STUDENT_DATA = {
-  'edna.aga@edu.huddinge.se' : {
+  'edna.aga@edu.huddinge.se': {
     name: "Aga Edna",
-    pnr : "031130-0040",
-    email:"edna.aga@edu.huddinge.se",
+    pnr: "031130-0040",
+    email: "edna.aga@edu.huddinge.se",
     class: "SABE19",
     coach_name: "Tysk, Viktor",
     coach_email: "viktor.tysk@edu.huddinge.se",
@@ -171,79 +120,80 @@ const STUDENT_DATA = {
       {
         course_id: "EN6SABE19",
         course_title: "Engelska 6",
-        teacher_email: "viktor.tysk@edu.huddinge.se", 
+        teacher_email: "viktor.tysk@edu.huddinge.se",
         teacher_name: "Tysk, Viktor",
-        attendance :
-          {total: 0,
+        attendance:
+        {
+          total: 0,
           not_reported: 0,
           reported: ""
         }
       }
     ]
   },
-  "elif.akdeve@edu.huddinge.se" : {
+  "elif.akdeve@edu.huddinge.se": {
     name: "Akdeve Elif",
     pnr: "031223-3489",
     email: "elif.akdeve@edu.huddinge.se",
     class: "SABE19",
     coach_name: "Tysk, Viktor",
     coach_email: "viktor.tysk@edu.huddinge.se",
-    courses : [
+    courses: [
       {
         course_id: "EN6SABE19",
         course_title: "Engelska 6",
-        teacher_email: "viktor.tysk@edu.huddinge.se", 
+        teacher_email: "viktor.tysk@edu.huddinge.se",
         teacher_name: "Tysk, Viktor",
-        attendance :
-          {
-            total: 12,
-            not_reported: 6,
-            reported: 6
-          }
+        attendance:
+        {
+          total: 12,
+          not_reported: 6,
+          reported: 6
+        }
       }
     ]
   },
-  "elev.elevsson@edu.huddinge.se" : {
+  "elev.elevsson@edu.huddinge.se": {
     name: "Elev Elevsson",
     pnr: "031223-3489",
     email: "elev.elevsson@edu.huddinge.se",
     class: "SABE20",
     coach_name: "Nån Annan",
     coach_email: "nan.annan@edu.huddinge.se",
-    courses : [
+    courses: [
       {
-        course_id: "DIGSABE19",
+        course_id: "DIGSABE20",
         course_title: "Digitalt Skapande 1",
-        teacher_email: "viktor.tysk@edu.huddinge.se", 
+        teacher_email: "viktor.tysk@edu.huddinge.se",
         teacher_name: "Tysk, Viktor",
-        attendance :
-          {
-            total: 34,
-            not_reported: 6,
-            reported: 28
-          }
+        attendance:
+        {
+          total: 34,
+          not_reported: 6,
+          reported: 28
+        }
       }
     ]
   },
-  "anna.andersson@edu.huddinge.se" : {
+  "anna.andersson@edu.huddinge.se": {
     name: "Anna Andersson",
     pnr: "031223-3489",
     email: "anna.andersson@edu.huddinge.se",
     class: "SABE20",
     coach_name: "Nån Annan",
     coach_email: "nan.annan@edu.huddinge.se",
-    courses : [
+    courses: [
       {
-        course_id: "DIGSABE19",
+        course_id: "DIGSABE20",
         course_title: "Digitalt Skapande 1",
-        teacher_email: "viktor.tysk@edu.huddinge.se", 
+        teacher_email: "viktor.tysk@edu.huddinge.se",
         teacher_name: "Tysk, Viktor",
-        attendance :
-          {
-            total: 0,
-            not_reported: 0,
-            reported: 0
-          }
+        attendance:
+        {
+          total: 0,
+          not_reported: 0,
+          reported: 0
+        }
       }
     ]
 
@@ -261,16 +211,17 @@ const TEACHER_DATA = [
         course_id: 'EN6SABE19',
         course_title: 'Engelska 6',
         members: [
-          "anna.andersson@edu.huddinge.se",
-          "elev.elevsson@edu.huddinge.se"
+          "elif.akdeve@edu.huddinge.se",
+          'edna.aga@edu.huddinge.se'
+
         ]
       },
       {
         course_id: 'DIGSABE20',
         course_title: 'Digitalt Skapande 1',
         members: [
-          "elif.akdeve@edu.huddinge.se",
-          'edna.aga@edu.huddinge.se'
+          "anna.andersson@edu.huddinge.se",
+          "elev.elevsson@edu.huddinge.se"
         ]
       }
     ]
@@ -278,10 +229,84 @@ const TEACHER_DATA = [
 ]
 
 
-var userPicElement = document.getElementById('user-pic');
-var userNameElement = document.getElementById('user-name');
-var sign_in_button = document.getElementById('sign-in');
-var sign_out_button = document.getElementById('sign-out');
+let user_pic_element = document.getElementById('user-pic');
+let user_name_element = document.getElementById('user-name');
+let sign_in_button = document.getElementById('sign-in');
+let sign_out_button = document.getElementById('sign-out');
 
 sign_out_button.addEventListener('click', sign_out);
 sign_in_button.addEventListener('click', sign_in);
+
+
+/**************************************
+ * ===================================
+ *  E V E N T    L I S T E N E R S
+ * ===================================
+ ************************************ */
+
+document.querySelector('.hamburger-menu-container').addEventListener('click', () => {
+  // This is for toggling the hamburger nav
+  const nav = document.querySelector('.nav-links')
+  const navLinks = document.querySelectorAll('.nav-links li')
+
+  // Toggle Nav
+  nav.classList.toggle('nav-burger-active')
+
+
+  // Animate Links
+  navLinks.forEach((link, index) => {
+    if (link.style.animation) {
+      link.style.animation = '';
+
+    } else {
+      link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.3}s`;
+    }
+  })
+
+  // Burger Animation
+  document.querySelector('.hamburger-menu-container').classList.toggle('toggle')
+})
+
+document.getElementById('teacher-choose-course').addEventListener('change', (event) => {
+  // Select in the teacher <main> header
+  const all_sections = document.querySelectorAll('section');
+  for (let s of all_sections) {
+    if (s.id === event.target.value) {
+      s.classList.remove('hidden')
+    } else {
+      s.classList.add('hidden')
+    }
+  }
+})
+
+
+document.addEventListener('change', (ev) => {
+  let tar = ev.target;
+
+  /* ============================================
+  * Changes made to a student row
+  * ============================================= */
+  if (tar.classList.contains('select-assessment')) {
+    // Omdöme changed
+    ['option-T', 'option-UB', 'option-IT'].forEach((c) => { tar.classList.remove(c) })
+    if (tar.value !== '') { // "Välj omdöme" har value ''
+      tar.classList.add(`option-${tar.value}`)
+
+      // Add to storage that a change has been made:
+      let student = tar.closest('.student.row');
+      let email = student.id;
+      let course = student.parentNode.id;
+      register_student_change(email, course)
+    }
+  }
+  if (tar.classList.contains('textarea-comment')) {
+    // TODO: ALSO RESIZE HERE!
+
+    // Add to storage that a change has been made:
+      let student = tar.closest('.student.row');
+      let email = student.id;
+      let course = student.parentNode.id;
+      register_student_change(email, course)
+
+  }
+})
