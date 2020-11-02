@@ -1,12 +1,12 @@
 /* * * * * * * * * * * * * * * * * * * *
 * T A B L E    O F    C O N T E N T S
-* 1) Global Styles
-* 2) Header & Nav
-* 3) Main - Status Report
-* 4) Responsiveness
-* 5) Custom select
-* 6) Loader
-* 7) Toast
+* = Global Styles
+* = Header & Nav
+* = Custom select
+* = Loader
+* = Toast
+* = Responsiveness 
+*
 * * * * * * * * * * * * * * * * * * * * */
 
 
@@ -23,13 +23,17 @@
   box-sizing: border-box;
 }
 
+:root {
+  font-size: 16px;
+}
+
 a {
   text-decoration: none;
   color: inherit;
 }
 
-html {
-  font-size: 100%;
+.d-flex {
+  display: flex;
 }
 
 body {
@@ -55,93 +59,101 @@ main {
   display: none !important;
 }
 
+/* .text-black {
+  color:black
+} */
+
+
 /* =========================================
 * Header & Nav
 ============================================*/
 
-nav {
+.nav {
   display: flex;
-  justify-content: space-around;  /* Display with spaces before, between, and after the items   */
-  align-items: center; /* Center vertically */
   min-height: 10vh;
   background-color: #ed730a;
   align-self: stretch;
   box-shadow: 0 6px 5px -10px rgba(0,0,0,3);
+  align-items: center;
 }
 
-nav, .logo-container, .nav-links, .user-container {
-  color:black
-}
-
-.logo-container {
-  margin: 10px 10px 10px 20px;
+.nav__logo {
+  margin: 10px 10px 10px 30px;
   width: calc(25% - 50px);
-  
+  display: flex;
+  align-items: center;
 }
 
-.logo-container h4, .logo-emphasized {
+.nav__title {
   text-transform: uppercase;
   font-size: 1.4rem;
 }
 
-.logo-container h4 {
+.nav__title--thin {
   font-weight: 200;
 }
 
-.logo-emphasized {
+.nav__title--emphasized {
   font-weight: 800;
 }
 
-.logo-site-section {
+.nav__subtitle {
   font-style: italic;
   font-weight: 200;
   font-size: 1rem;
-  
 }
 
-.nav-links {
+.nav__menu {
   display: flex;
-  justify-content: space-around;
   width: calc(50% - 50px);
   align-self: stretch;
+  margin-left: auto; /* Center*/
+  margin-right: auto; /* Center*/
 }
 
-.nav-links li {
+.nav__li {
   list-style: none;
   flex: 1 0 auto;
   display: flex;
   justify-content: center;
 }
 
-.nav-links a {
-  color: inherit;
-  text-decoration: none;
+.nav__a {
   letter-spacing: 2px;
   font-weight: 500;
   font-size: 0.9rem;
   align-self: center;
   transition: 0.5s;
   padding: 0 15px;
+  text-decoration: none;
+  color: inherit;
 }
 
-.nav-links a:hover {
+.nav__a:hover {
   transform:scale(1.1);
 }
 
-.nav-active {
+.nav__li--active {
   background-color: rgba(0,0,0,0.1);
 }
 
-.user-container {
+.nav__user {
   width: calc(25% - 50px);
   margin: 10px;
+  align-self: stretch;
+  margin-left: auto;
+}
+
+
+.nav__signedIn, .nav__signedOut {
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: flex-end;
-  align-self: stretch;
   vertical-align: middle;
 }
 
-.user-container .col1 {
+.nav__userColumn--left {
   text-align: right;
   display: flex;
   flex-direction: column;
@@ -150,78 +162,72 @@ nav, .logo-container, .nav-links, .user-container {
   width: calc(100% - 30px)
 }
 
-.user-container .col2 {
+.nav__userColumn--right {
   display: flex;
   justify-content: center;
   align-items: center;
+
 }
 
-#sign-in {
+.nav__sign-in {
+  width: 50%;
+  height: 3.5rem;
   cursor: pointer;
   text-transform: uppercase;
   transition: 0.3s;
   font-size: 1rem;
   display: flex;
   border: 1px solid black;
-  border-radius: 12px;
   padding: 8px;
   align-items: center; /* Center vertically */
+  justify-content: center; /* Center horizontally */
 }
 
-#sign-in:hover {
+.nav__sign-in:hover {
   transform:scale(1.1);
 }
 
-#sign-in img {
+.nav__sign-in-icon {
   height: 20px;
   width: 20px;
   margin-left: 10px;
-
 }
 
-#user-email {
+.nav__email {
   font-size: .9rem;
   white-space: nowrap; 
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-#sign-out {
+.nav__sign-out {
   cursor: pointer;
   font-size: .8rem;
 }
 
-#sign-out:hover {
+.nav__sign-out:hover {
   color: rgb(45, 112, 255);
   transition: 0.3s
   
 }
 
-#user-pic {
+.nav__picture {
   background-repeat:no-repeat;
   background-size:contain;
-  height:35px;
-  width:35px;
+  height:2rem;
+  width:2rem;
   margin-left: 10px;
   vertical-align: middle;
 }
 
-.user-container button:hover {
-  background-color: white;
-  color: black;
-}
 
-.user-container .material-icons { 
-  margin-right: 5px;
-}
-
-.hamburger-menu-container {
-  display: none; /* hamburger-menu-container is only used for mobile*/
+.nav__hamburger {
+  display: none;
   cursor: pointer;
   justify-content: flex-end;
 }
 
-.hamburger-menu-container div{
+.nav__hamburger div{
   width: 25px;
   height: 3px;
   background-color:rgb(226,226,226);
@@ -229,11 +235,11 @@ nav, .logo-container, .nav-links, .user-container {
   transition: all 0.3s ease;
 }
 
-.nav-active {
+.nav__link-container--active {
   font-weight: bold;
 }
 
-.nav-burger-active {
+.nav__hamburger--active {
   transform: translateX(0%) !important; /* Push it back to normality*/
 }
 
@@ -247,252 +253,15 @@ nav, .logo-container, .nav-links, .user-container {
   }
 }
 
-.toggle .line1 {
+.toggle .hamburger__line1 {
   transform: rotate(-45deg) translate(-5px, 6px);
 }
-.toggle .line2 {
+.toggle .hamburger__line2 {
   opacity: 0;
 }
-.toggle .line3 {
+.toggle .hamburger__line3 {
   transform: rotate(45deg) translate(-5px, -6px);
 }
-
-/* =========================================
-* Main - Status Report
-============================================ */
-
-.status-report-header {
-  display: flex;
-  justify-content: space-between;
-}
-
-.status-report-header .col1 {
-  width: calc(25% - 20px);
-  margin-right: 20px;
-}
-
-.status-report-header .col2 {
-  width: calc(50% - 20px);
-  display: flex;
-  align-items: center;
-}
-
-.statistics-container header{
-  font-weight: 600;
-  font-size: 1rem;
-  margin-right: 15px;
-}
-.statistics-containers .statistics {
-  display: flex;
-  flex-direction: column;
-}
-
-.status-report-header .col3 {
-  width: calc(25%-20px);
-  text-align: right;
-}
-
-.btn-save {  
-  border: 0;
-  border-radius: 6px;
-  padding: 8px 14px;
-  background-color: rgba(39, 102, 39, 0.651);
-  color: white;
-}
-
-.btn-save:hover {
-  background-color: rgb(37, 211, 37);
-}
-
-.row {
-  display: flex;
-  margin: 25px 0;
-  width: 100%;
-}
-
-.student-details-container {
-  margin-right: 10px;
-  width: calc(25% - 20px);
-  display: flex;
-  justify-content: center;
-}
-
-
-.student-portrait {
-  overflow: hidden;
-  background-size: 2.5rem;
-  background-position: top;
-  background-repeat: no-repeat;
-  background-image: url('/resources/images/profile_placeholder.png');
-  margin-right:10px;
-  width: calc(20% - 10px);
-}
-
-.student-personal-info {
-  width: calc(80% - 10px);
-}
-
-.student-class, .student-pnr {
-  font-size: 0.9rem;
-  margin-bottom: -5px;
-}
-
-
-.student-name {
-  font-weight: 900;
-  font-size: 1.1rem;
-  white-space: nowrap; 
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.assessment-container {
-  margin-right: 10px;
-  width: calc(25% - 20px)
-}
-
-.student-attendance {
-  margin-top: .3rem;
-  font-style: italic;
-  font-size: 0.8rem;
-}
-
-.student-attendance .tooltip-icon {
-  height: 1rem;
-  width: 1rem;
-}
-
-.comment-container {
-  width: calc(52% - 20px)
-}
-
-.comment-container textarea {
-  width: 100%;
-  padding: 5px;
-  border: 1px solid gray;
-  resize: vertical;
-  overflow-y:hidden;
-}
-     
-.option-IT {
-  background-color: #ffd2cf !important;
-}
-
-.option-T {
-  background-color: #96f2af !important;
-}
-
-.option-TEB {
-  background-color: #6ec76e !important;
-}
-
-.option-UB {
-  background-color: #feffd9 !important;
-}
-     
- 
-
-/* =========================================
-* Responsiveness
-============================================ */
-
-@media screen and (max-width: 1024px) {
-  html, textarea, button, .select-css {
-    font-size: 75%
-  }
-
-  .logo-container h4, .logo-emphasized {
-    font-size: 1.2rem;
-  }
-  nav {
-    min-height: 5vh;
-  }
-  .logo-container {
-    margin: 5px 10px;
-  }
-  #sign-in{
-    padding: 6px 10px;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  html, textarea, button, .select-css {
-    font-size: 65%;
-  }
-  body {
-    overflow-x: hidden; /* Since nav-links is pushed outside, there will be a scroll if you don't remove it*/ 
-  }
-  
-  nav {
-    min-height: 4vh;
-  }
-  .logo-container h4 {
-    display: inline-block;
-  }
-  .logo-container {
-    flex: 1 0 auto;
-  }
-  .user-container {
-    flex: 1 0 auto;
-    margin: 5px;
-  }
-  /* .logo-container h4, .logo-emphasized {
-    font-size: 12px;
-  }
-  .logo-container .logo-site-section {
-    font-size: 8px;
-  } */
-  .user-container button{
-    /* font-size: 10px; */
-    padding: 7px 16px;
-  }
-  /* .user-container .material-icons { 
-    font-size: 12px;
-  } */
-
-  .nav-links {
-    position: absolute;
-    right: 0px;
-    height: 92vh;
-    top: 6vh;
-    background-color: #ed730a;
-    display:block;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    transform: translateX(100%); /* Push it to the right*/
-    transition: transform 0.5s ease-in;
-  }
-  .nav-links li {
-    opacity: 0;
-    padding: 10px 0 10px 0;
-  }
-  .hamburger-menu-container {
-    display: block;
-  }
-}
-
-/* 
-@media screen and (max-width: 1024px) {
-  .select-css {
-    font-size: 12px;
-    flex: 1;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .select-css {
-    font-size: 12px;
-    flex: 1;
-  }
-} */
-
-/* 
-@media screen and (max-width: 768) {
-  .status-report-header {
-    flex-direction: column;
-  }
-} */
 
 
 /* =========================================
@@ -537,7 +306,7 @@ nav, .logo-container, .nav-links, .user-container {
 	color: #222;
 	outline: none;
 }
-textarea:focus {
+.textarea-comment:focus {
   border-color: #aaa;
 	box-shadow: 0 0 1px 3px rgba(59, 153, 252, .7);
 	box-shadow: 0 0 0 3px -moz-mac-focusring;
@@ -642,3 +411,72 @@ textarea:focus {
   border-color: #BA0000;
   color: #ffffff;
 }
+
+
+/* =========================================
+* Responsiveness
+============================================ */
+
+@media screen and (max-width: 1024px) {
+  :root,
+  textarea {
+    font-size: 14px;
+  }
+  .nav__title {
+    font-size: 1.2rem;
+  }
+
+  .nav__logo {
+    margin: 5px 10px;
+    width: calc(15%-50px);
+  }
+  .nav__menu {
+    width: calc(65%-50px);
+  }
+  .nav__email {
+    font-size: 0.8rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  :root,
+  textarea  {
+    font-size: 8px;
+  }
+  body {
+    overflow-x: hidden; /* Since nav-links is pushed outside, there will be a scroll if you don't remove it*/ 
+  }
+
+  .nav__title {
+    display: inline-block;
+  }
+  .nav__logo {
+    flex: 1 0 auto;
+  }
+  .nav__user {
+    flex: 1 0 auto;
+    margin: 5px;
+  }
+
+  .nav__menu {
+    position: absolute;
+    right: 0px;
+    height: 92vh;
+    top: 10vh;
+    background-color: #ed730a;
+    display:block;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    transform: translateX(100%); /* Push it to the right*/
+    transition: transform 0.5s ease-in;
+  }
+  .nav__li {
+    opacity: 0;
+    padding: 10px 0 10px 0;
+  }
+  .nav__hamburger {
+    display: block;
+  }
+}
+

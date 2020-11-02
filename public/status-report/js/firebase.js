@@ -1,5 +1,3 @@
-const CURRENT_TERM = 'HT20'
-
 function signIn() {
   // Sign into Firebase using FORCED account-pick auth & Google as the identity provider.
   let googleAuthProvider = new firebase.auth.GoogleAuthProvider();
@@ -42,6 +40,8 @@ function isUserSignedIn() {
 
 // Triggers when the auth state change for instance when the user signs-in or signs-out.
 function authStateObserver(user) {
+  let signed_in_element = document.querySelector('.nav__signedIn')
+  let signed_out_element = document.querySelector('.nav__signedOut')
   if (user) { // User is signed in!
 
     // Get the signed-in user's profile pic and name.
@@ -53,17 +53,35 @@ function authStateObserver(user) {
     userEmailElement.textContent = userEmail;
 
     // Show user's profile and sign-out button.
-    document.querySelector('.user-container .col1').classList.remove('hidden')
-    document.querySelector('.user-container .col2').classList.remove('hidden')
-
+    signed_in_element.classList.remove('hidden')
     // Hide sign-in button.
-    signInButtonElement.classList.add('hidden');
+    signed_out_element.classList.add('hidden');
 
     // Initiate load
-    handle_load_user(userEmail)
+    let active_page = document.body.dataset.page;
+    try {
+      let user_doc = firebase.firestore().collection("status-report").doc(CURRENT_TERM).collection('teachers').doc(userEmail);
+      user_doc.get().then((response) => {
+        if (active_page === 'teacher') {
+          handle_load_teacher(response)
+        } else if (active_page === 'coach') {
+          handle_load_coach(response)
+        } else if (active_page === 'admin') {
+          handle_load_admin(response)
+        }
+      })
+
+    } catch(e) {
+      console.log('error error')
+
+    }
 
   } else { // User is signed out!
     Onload.signedOut()
+    // Hide sign-in button.
+    signed_in_element.classList.add('hidden');
+    signed_out_element.classList.remove('hidden');
+
   }
 }
 
@@ -75,31 +93,17 @@ function addSizeToGoogleProfilePic(url) {
   return url;
 }
 
-
-function save_changes_to_firebase(student) {
-  return new Promise( (resolve, reject) => {
-      let docRef = firebase.firestore().collection("status-report").doc(CURRENT_TERM).collection('students').doc(student.email).collection('courses').doc(student.course);
-      docRef.update({
-        assessment : student.assessment,
-        comment: student.comment
-      }).then(() => {
-        resolve(student.email)
-      })
-  }) 
-}
-
-
-function save_changes_to_firebase(student) {
-  return new Promise( (resolve, reject) => {
-      let docRef = firebase.firestore().collection("status-report").doc(CURRENT_TERM).collection('students').doc(student.email).collection('courses').doc(student.course);
-      docRef.update({
-        assessment : student.assessment,
-        comment: student.comment
-      }).then(() => {
-        resolve(student.email)
-      })
-  }) 
-}
+// function save_changes_to_firebase(student) {
+//   return new Promise( (resolve, reject) => {
+//       let docRef = firebase.firestore().collection("status-report").doc(CURRENT_TERM).collection('students').doc(student.email).collection('courses').doc(student.course);
+//       docRef.update({
+//         assessment : student.assessment,
+//         comment: student.comment
+//       }).then(() => {
+//         resolve(student.email)
+//       })
+//   }) 
+// }
 
 
 
@@ -117,3 +121,5 @@ signInButtonElement.addEventListener('click', signIn);
 
 // initialize Firebase
 initFirebaseAuth();
+
+

@@ -4,39 +4,55 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/general.css">
+  <link rel="stylesheet" href="css/teacher.css">
+  <link rel="stylesheet" href="css/core.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins" rel="stylesheet">
   <title>Östra gymnasiet - Lägesrapportering</title>
 </head>
 
-<body>
-  <nav>
-    <div class="logo-container"><a href="../index.html">
-        <h4><span class="logo-emphasized">ÖSTRA</span>gymnasiet</h4>
-        <span class="logo-site-section">Studielägesrapportering</span>
+<body data-page="teacher">
+  <nav class="nav">
+
+    <div class="nav__logo">
+      <a href="../index.html">
+        <h4 class="nav__title nav__title--thin">
+          <span class="nav__title nav__title--emphasized">ÖSTRA</span>gymnasiet
+        </h4>
+        <span class="nav__subtitle">Studielägesrapportering</span>
       </a>
     </div>
-    <ul class="nav-links">
-      <li class="nav-active"><a href="teacher.html">Lägesrapport</a></li>
-      <li><a href="coach.html">Coachgrupp</a></li>
-      <li><a href="admin.html">Statistik</a></li>
+
+    <ul class="nav__menu">
+      <li class="nav__li nav__li--active">
+        <a class="nav__a" href="teacher.html">Lägesrapport</a>
+      </li>
+      <li class="nav__li">
+        <a class="nav__a" href="coach.html">Coachgrupp</a>
+      </li>
+      <li class="nav__li">
+        <a class="nav__a" href="admin.html">Statistik</a></li>
     </ul>
-    <div class="user-container" id="user-container">
-      <div class="col1 hidden">
-        <div id="user-email"></div>
-        <div id="sign-out">Logga ut</div>
+
+    <div class="nav__user">
+      <div class="nav__signedIn hidden">
+        <div class="nav__userColumn--left">
+          <div class="nav__email" id="user-email"></div>
+          <div class="nav__sign-out" id="sign-out">Logga ut</div>
+        </div>
+        <div class="nav__userColumn--right">
+          <div class="nav__picture" id="user-pic"></div>
+        </div>
       </div>
-      <div class="col2 hidden">
-        <div id="user-pic"></div>
-      </div>
-      <div id="sign-in">Logga in
-        <img src="../resources/images/login.svg" alt="login">
+      <div class="nav__signedOut hidden">
+        <div class="nav__sign-in" id="sign-in">Logga in
+          <img class="nav__sign-in-icon" src="../resources/images/login.svg" alt="login">
+        </div>
       </div>
     </div>
-    <div class="hamburger-menu-container">
-      <div class="line1"></div>
-      <div class="line2"></div>
-      <div class="line3"></div>
+    <div class="nav__hamburger">
+      <div class="hamburger__line1"></div>
+      <div class="hamburger__line2"></div>
+      <div class="hamburger__line3"></div>
     </div>
   </nav>
   <main>
@@ -58,29 +74,40 @@
       <p>Kontakta <a href="mailto:viktor.tysk@edu.huddinge.se">Viktor Tysk</a> om data borde finnas att tillgå!</p>
     </div>
 
-    <div id="content" class="hidden">
-      <header class="status-report-header">
-        <div class="col1">
-          <select id="teacher-choose-course" class="select-css">
-            <option selected disabled>Välj kurs</option>
-          </select>
-        </div>
-        <div class="col2 statistics-container">
-          <header>Rapportstatistik</header>
-          <div class="statistics">
-            <div>
-              <span class="amount-assessment"></span>/<span class="amount-total"></span> omdömen rapporterade
+    <div class="report hidden" id="data">
+      <nav class="reportNav">
+        <div class="reportNav__col1">
+          <div class="reportNav__selectBlock">
+            <select id="reportNav__selectCourse" class="select-css">
+              <option selected disabled>Välj kurs</option>
+            </select>
+          </div>
+          <div class="reportNav__statsBlock">
+            <div class="reportNav__progressRow">
+              <div class="reportNav__barHeader">Omdömen</div>
+              <div class="reportNav__bar">
+                <div class="reportNav__progress" id="asmt_progressBar">
+                  <span class="reportNav__asmtsReported"></span>/<span
+                    class="reportNav__totalStudents"></span>(<span class="reportNav__asmtsReportedPCT"></span>%)
+                </div>
+              </div>
             </div>
-            <div>
-              <span class="amount-comments"></span>/<span class="amount-total"></span> elever med skriftlig kommentar
+            <div class="reportNav__progressRow">
+              <div class="reportNav__barHeader">Kommentarer</div>
+              <div class="reportNav__bar">
+                <div class="reportNav__progress" id="cmt_progressBar">
+                  <span class="reportNav__commentsReported"></span>/<span
+                    class="reportNav__totalStudents"></span>(<span class="reportNav__commentsReportedPCT"></span>%)
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <div class="col3">
+        <div class="reportNav__col2">
           <button id="btn-save" class="btn-save">Spara ändringar</button>
         </div>
-      </header>
-      <section class="welcome-teacher">
+      </nav>
+      <section class="report_greetTeacher">
         <h3>Välkommen till Lägesrapporteringen!</h3>
         <p>Kom igång genom att välja kurs. Om du saknar en kurs eller något annat är fel, kontakta <a
             href="mailto:viktor.tysk@edu.huddinge.se">Viktor Tysk</a></p>
@@ -107,14 +134,15 @@
           <option value="IT" class="option-IT">Icke tillfredsställande</option>
           <option value="UB" class="option-UB">Underlag bristfälligt</option>
         </select>
-        <div class="student-attendance" title="Frånvaro i din kurs under perioden terminsstart - 22 oktober">
+        <div class="student-attendance"
+          title="Frånvaro i din kurs under perioden terminsstart - 22 oktober. X = frånvarorapport saknas">
           <strong>Frånvaro:</strong> <span class="attendance-total"></span>% varav <span
             class="attendance-unreported"></span>% orapporterad <img class="tooltip-icon"
             src="../resources/images/tooltip.png" alt="">
         </div>
       </div>
       <div class="comment-container">
-        <textarea oninput='auto_grow(this)' class="textarea-comment"
+        <textarea oninput='auto_grow(this)' class="textarea-comment" rows=3
           placeholder="Personlig kommentar till eleven"></textarea>
       </div>
     </div>
@@ -127,7 +155,8 @@
   <!-- Initiate FB script-->
   <script src="/__/firebase/init.js"></script>
   <!-- Rest-->
-  <script type="text/javascript" src="js/app.js"></script>
+  <script type="text/javascript" src="js/core.js"></script>
+  <script type="text/javascript" src="js/teacher.js"></script>
   <script type="text/javascript" src="js/firebase.js"></script>
 
   <!-- <script type="text/javascript" src="js/update-db.js"></script> -->
