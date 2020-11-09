@@ -5,7 +5,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/core.css">
-  <link rel="stylesheet" href="css/admin.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins" rel="stylesheet">
   <title>Östra gymnasiet - Lägesrapportering</title>
 </head>
@@ -78,20 +77,18 @@
         </div>
         <div id="search" class="tabs__section tabs__section--active" data-tab='0'>
           <div class="tabs__body">
-            <h3 class="header--medium">
-              Sök på individuell elevs studielägesrapport
-            </h3>
-            <form>
-              <label for="search-student"></label>
-              <input class="search_input" type="text" id="search-student" />
-
+            <h3 class="header--medium">Sök på individuell elev</h3>
+            <p>Klicka sedan på deras namn för att öppna rapport</p>
+            <form class="search__form">
+              <input class="inputText" type="text" id="search-student" />
             </form>
-            <div class="search__result hidden">
-              <button class="search__print">
+            <div class="search__matchList" id="matchList"></div>
+            <div class="search__result mt-3 hidden">
+              <button class="search__print button">
                 Skriv ut
               </button>
-              <div class="search__content">
-                <div class="student">
+              <div class="search__content my-2">
+                <div class="search__student">
                   <header class="student__header">
                     <div class="student__printOnly">
                       <span class="student__school">Östra gymnasiet - </span>
@@ -118,9 +115,9 @@
                       <col style="width:55%">
                       <thead class="sReport__thead">
                         <tr class="sReport__tr sReport__tr--head">
-                          <th class="sReport__th">Kurs</th>
-                          <th class="sReport__th">Omdöme</th>
-                          <th class="sReport__th">Kommentar</th>
+                          <th class="th th--orange">Kurs</th>
+                          <th class="th th--orange">Omdöme</th>
+                          <th class="th th--orange">Kommentar</th>
                         </tr>
                       </thead>
                       <tbody class="sReport__tbody">
@@ -134,17 +131,72 @@
         </div>
         <div id="studentStats" class="tabs__section" data-tab='1'>
           <div class="tabs__body">
-            <h3 class="header--medium">
+            <h2 class="header--medium">
               Statistik och översikt för alla elever
-            </h3>
-            <p>Tips: Klicka på elev för att öppna dennes studielägesrapport</p>
+            </h2>
+            <h5>Klicka på klassen för att öppna en mer detaljerad vy med eleverna. Färgkodningen är relaterat till antal
+              % av klassens omdömen som är "Tillfredsställande"</h5>
+            <p><span class="option-T">Grönmarkering</span> betyder att mer än 90% av alla omdömen är
+              "Tillfredsställande".</p>
+            <p><span class="option-UB">Gulmarkering</span> innebär att mellan 65% och 50% är "Tillfredsställande"</p>
+            <p><span class="option-IT">Rödmarkering</span> innebär att under 50% av alla omdömen är "Tillfredsställande"
+            </p>
+            <p class="my-2 text-italic"><span class="text-bold">Tips:</span> Klicka på elev för att öppna dennes
+              studielägesrapport</p>
+            <div class="stuStat my-2" id="student_statistics">
+              <div class="d-flex">
+                <h4 class="classRow__col--header">Klass</h4>
+                <div class="classRow__col-T classRow__col">Antal T</div>
+                <div class="classRow__col-IT classRow__col">Antal IT</div>
+                <div class="classRow__col-UB classRow__col">Antal UB</div>
+              </div>
+            </div>
           </div>
         </div>
         <div id="teacherStats" class="tabs__section" data-tab='2'>
           <div class="tabs__body">
-            <h3 class="header--medium">
+            <h2 class="header--medium">
               Statistik för lärarrapportering
-            </h3>
+            </h2>
+            <div class="teaStat my-2">
+              <div class="teaStat__row row flex--centerX my-3">
+                <div class="teaStat__col">
+                  <header class="teaStat__header my-2">
+                    <h3>
+                      Omdömen
+                    </h3>
+                  </header>
+                  <p class="teaStat__p">Totalt: <span id="asmts_total"></span></p>
+                  <h4 class="teaStat__p mt-2">Rapporterade: <span id="asmts_reported"></span></h4>
+                  <p class="teaStat__p">Läge - Tillfredsställande: <span id="asmts_T"></span></p>
+                  <p class="teaStat__p">Läge - Icke Tillfredsställande: <span id="asmts_IT"></span></p>
+                  <p class="teaStat__p">Läge - Underlag bristfälligt: <span id="asmts_UB"></span></p>
+                  <h4 class="teaStat__p mt-2">Ej rapporterade: <span id="asmts_unreported"></span></h4>
+
+                </div>
+                <div class="teaStat__col">
+                  <header class="teaStat__header my-2">
+                    <h3>
+                      Ej rapporterade
+                    </h3>
+                  </header>
+                  <div class="teaStat__scrollBlock">
+                    <table class="table">
+                      <col style="width:80%">
+                      <col style="width:20%">
+                      <thead class="thead">
+                        <tr class="tr">
+                          <th class="th th--orange">Lärare</th>
+                          <th class="th th--orange">Antal</th>
+                        </tr>
+                      </thead>
+                      <tbody class="tbody" id="tbody">
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -156,6 +208,15 @@
   </div>
 
   <div id="clone" style="display: none">
+    <div class="card classRow">
+      <div class="accordion__button d-flex">
+        <h4 class="classRow__col--header"></h4>
+        <div class="classRow__col-T classRow__col"></div>
+        <div class="classRow__col-IT classRow__col"></div>
+        <div class="classRow__col-UB classRow__col"></div>
+      </div>
+      <div class="accordion__content"></div>
+    </div>
   </div>
   <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
   <script src="/__/firebase/7.19.1/firebase-app.js"></script>

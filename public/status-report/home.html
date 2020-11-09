@@ -4,40 +4,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/core.css">
 
   <title>Östra gymnasiet - Lägesrapportering</title>
-  <style>
-    body {
-      height: 60vh;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      flex-direction: column;
-      font-family: sans-serif;
-    }
-  </style>
 </head>
 
+
 <body data-page="home">
-
   <header>
-    <div style="text-align: center"><img src="../resources/images/og-logo.jpg">
+    <div style="text-align: center">
+      <img src="../resources/images/og-logo.jpg">
+      <h1 style="margin-top:10px">Östra gymnasiet</h1>
+      <h2>Lägesrapportering</h2>
     </div>
-    <nav>
-      <h1>Lägesrapportering</h1>
-    </nav>
   </header>
-  <section>
-    <div class="list">
-      <a href="teacher.html" class="item">Lärare</a>
-      <a href="student.html" class="item">Elev</a>
-      <a href="admin.html" class="item">Admin</a>
-    </div>
+  <div class="home__nav">
+    <ul class="home__ul">
+      <a href="teacher.html"><li class="home__li button button--blue">Lärare</li></a>
+      <a href="student.html"><li class="home__li button button--green" >Elev</li></a>
+      <a href="admin.html"><li class="home__li button button--yellow">Admin</li></a>
+    </ul>
+  </div>
 
-  </section>
-
-  <footer>
-    Ansvarig: <a href="mailto: viktor.tysk@edu.huddinge.se">Viktor Tysk</a>
+  <footer style="text-align: center;">
+    Ansvarig <a href="mailto: viktor.tysk@edu.huddinge.se">Viktor Tysk</a>
   </footer>
 </body>
 

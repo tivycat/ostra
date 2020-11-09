@@ -1,9 +1,18 @@
 // Körs från firebase.js onload. Datan innehåller metafiler så att vi kan köra teacher.exists!
 async function handle_load_teacher(teacher) {
-  if (!teacher.exists) {
-    // Data not found on db for this user
+  const no_data = () => {
     document.querySelector('#no-data .user-email').textContent = getUserEmail();
     Onload.noData();
+  }
+  if (teacher == null) {
+      // user lacks credentials
+      no_data()
+      return;
+  }
+
+  if (!teacher.exists) {
+    // Data not found on this doc
+    no_data()
     return;
   }
 
@@ -14,41 +23,30 @@ async function handle_load_teacher(teacher) {
     total: 0
   }
 
+  teacher = teacher.data();
   // Töm containern där kurserna ska placeras ifall funktion körs på en session med tidigare inloggad
   document.querySelectorAll('.course').forEach(x => x.parentNode.removeChild(x))
-
   // Loopa igenom alla existerande kurser
-  for (let c of teacher.data().courses) {
+  for (let c of teacher.courses) {
     create_course_section(c) // Skapa kurser
 
-    // Loopa igenom varje elev och hämta deras "riktiga" data
-    for (let s of c.students) {
-      if (s.length === 0) {
-        console.log('==============================================')
-        console.error('Elev utan epost funnen i kurs ' + c.course_id)
-        console.log('==============================================')
-        continue;
-      }
-      let get_student = ((email, course_id) => {
-        return new Promise((res) => {
-          let data = firebase.firestore().collection("status-report").doc(CURRENT_TERM).collection('students').doc(email).collection('courses').doc(course_id).get();
-          res(data)
-        })
+    // Querya alla elever som har kursidn och sortera efter efternamn
+    let get_students = ((course_id) => {
+      return new Promise((resolve) => {
+        const db = firebase.firestore();
+        const query = db.collectionGroup('courses').where('course_id', '==', course_id).orderBy('name').get()
+        resolve(query)
       })
-      // Pusha alla promises till en array för att slippa att de hämtas en och en åt gången
-      promises.push(get_student(s, c.course_id))
-    }
+    })
+    promises.push(get_students(c.course_id))
   }
-  Promise.all(promises).then((all_students) => {
-    for (let student of all_students) {
-      // Två saker: Den data som man får direkt från fb är inte ren data.. och mycket som returnas verkar inte ens vara data eftersom de
-      // returnerar "Undefined". Alltså behövs .exists för att den ska filtrera bort sånt
-      // För det andra måste man använda .data() för att endast datan och inte metadata ska gå att processa
-      if (student.exists) {
+  Promise.all(promises).then((all_courses) => {
+    for (let course of all_courses) {
+      course.forEach( (student) => {
         let data = student.data()
         create_student_row(data)
         statistics.total++
-        // denna statistik är för status-header-statistics
+        // denna statistik är för statistiken i navReport
         if ('assessment' in data) {
           if (data.assessment.length > 0) {
             statistics.assessments++
@@ -59,7 +57,7 @@ async function handle_load_teacher(teacher) {
             statistics.comments++
           }
         }
-      }
+      })
     }
   }).then(() => {
     // Efter allt om och men så är vi äntligen redo att visa statistik :o)
@@ -68,7 +66,6 @@ async function handle_load_teacher(teacher) {
     Onload.signedIn();
   })
 }
-
 
 function create_course_section(course) {
   // Skapa ny option till select
@@ -172,7 +169,6 @@ function save_changes_to_firebase(student) {
   })
 }
 
-
 document.getElementById('reportNav__selectCourse').addEventListener('change', (event) => {
   // Select in the teacher <main> header
   const all_sections = document.querySelectorAll('#data section');
@@ -182,9 +178,9 @@ document.getElementById('reportNav__selectCourse').addEventListener('change', (e
 
       // Körs här för att textareas måste resizas efter load och det här verkar seriöst
       // som första tillfället när scrollHeight inte returnar 0. Weird men okej.. 
-      document.querySelectorAll(`#${s.id} .textarea-comment`).forEach( (TA) => { 
-      auto_grow(TA)
-    })
+      document.querySelectorAll(`#${s.id} .textarea-comment`).forEach((TA) => {
+        auto_grow(TA)
+      })
     } else {
       s.classList.add('hidden')
     }

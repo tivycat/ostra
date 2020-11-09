@@ -1,49 +1,65 @@
 function handle_load_coach(data) {
-  if (!data.exists) {
+  const no_data = () => {
     document.querySelector('#no-data .user-email').textContent = getUserEmail();
     Onload.noData();
+  }
+
+  if (data == null) {
+    // user lacks credentials
+    no_data()
     return;
   }
 
-  data = data.data();
-  let promises = [];
-
-  for (let s of data.coach_students) {
-    let get_coach_student_data = ((email) => {
-      return new Promise((res) => {
-        let data = firebase.firestore().collection("status-report").doc(CURRENT_TERM).collection('students').doc(email).collection('courses');
-        let values = data.get();
-        res(values)
-      })
-    })
-    promises.push(get_coach_student_data(s))
+  if (!data.exists) {
+    no_data()
+    return;
   }
 
-  Promise.all(promises).then((all_students) => {
+  // Töm containern där kurserna ska placeras ifall funktion körs på en session med tidigare inloggad
+  let container = document.getElementById('content');
+  while (container.firstChild) { container.parentElement.removeChild(container.firstChild) }
+
+  let coach = data.data();
+  // Querya alla elever som har aktiv lärare som coach_email och sortera efter efternamn
+  let get_coach_students = ((coach) => {
+    return new Promise((resolve) => {
+      const db = firebase.firestore();
+      const query = db.collectionGroup('courses').where('coach_email', '==', coach).orderBy('name').get()
+      resolve(query)
+    })
+  })
+
+  get_coach_students(coach.email).then((querySnapshot) => {
+    // Det som returneras är ju en lista av alla kurser (typ 100+) alltså inte en array med elever
+    // Därför måste vi loopa igenom varje kurs och först se vilken elev den ska adderas till
     let i = 0;
-    for (i; i < all_students.length; i++) {
-      let stu = all_students[i];
+    let active_student;
+    let el;
 
-      // Ta först bästa och skapa section med detaljer
-      // Skicka med coachnamn men även i som ska göra det lättare att hitta med select
-      let section = create_student_section(stu.docs[0].data(), data.name, i)
-      document.getElementById('content').appendChild(section)
-
-      //Lägg till kurser
-      let j = 0;
-      for (j; j < stu.docs.length; j++) {
-        let course = stu.docs[j].data();
-        add_course_to_section(course, section);
+    querySnapshot.forEach((doc) => {
+      if (doc.exists) {
+        let s = doc.data();
+        if (active_student === s.email) {
+          // Gör inget (loopen behöver tidigare värden)
+        } else {
+          el = create_student_section(s, coach.name, i) // index för select
+          document.getElementById('content').appendChild(el)
+          active_student = s.email;
+          i++ // öka i för nästa elev
+        }
+        // Lägg till kurs till sektion
+        add_course_to_section(s, el)
       }
-    }
+    })
   }).then(() => {
-    Onload.signedIn()
+    Onload.signedIn();
   })
 }
 
 function create_student_section(student, coach, index) {
   let section = document.querySelector('#clone .student').cloneNode(true);
   section.dataset.section = index;
+  section.id = student.email;
   section.querySelector('.student__currentTerm').textContent = CURRENT_TERM;
   section.querySelector('.student__name').textContent = student.name;
   section.querySelector('.student__class').textContent = student.class;
@@ -61,11 +77,12 @@ function create_student_section(student, coach, index) {
 
 function add_course_to_section(data, section) {
   let tr = document.createElement('tr');
+  tr.classList.add('tr', 'tr--alternativeRows')
 
   // Personlig info
   let td_info = document.createElement('td')
   tr.appendChild(td_info)
-  td_info.classList.add('sReport__td', 'sReport__td--leftAligned')
+  td_info.classList.add('td', 'text-left')
 
   let course_title = document.createElement('div')
   td_info.appendChild(course_title)
@@ -81,10 +98,10 @@ function add_course_to_section(data, section) {
   // Omdöme
   let td_asmt = document.createElement('td')
   tr.appendChild(td_asmt)
-  td_asmt.classList.add('sReport__td')
+  td_asmt.classList.add('td')
 
   let asmt = document.createElement('div')
-  asmt.classList.add('sReport__asmt', `option-${data.assessment}`)
+  asmt.classList.add('sReport__asmt', `option-${data.assessment}`) // undefined if none
   td_asmt.appendChild(asmt)
 
   let asmt_spelled_out;
@@ -98,8 +115,8 @@ function add_course_to_section(data, section) {
     case 'UB':
       asmt_spelled_out = 'Underlag bristfälligt'
       break;
-    default: 
-    asmt_spelled_out = 'Ej rapporterad av lärare'
+    default:
+      asmt_spelled_out = 'Ej rapporterad av lärare'
       break;
   }
   asmt.textContent = asmt_spelled_out;
@@ -107,7 +124,7 @@ function add_course_to_section(data, section) {
   // Kommentar
   let td_cmt = document.createElement('td')
   tr.appendChild(td_cmt)
-  td_cmt.classList.add('sReport__td')
+  td_cmt.classList.add('td')
 
   let comment = document.createElement('textarea')
   comment.classList.add('sReport__textarea')
@@ -126,7 +143,7 @@ document.getElementById('select_coach_student').addEventListener('change', (el) 
 
   let sections = document.querySelectorAll('.student');
 
-  sections.forEach( (s) => {
+  sections.forEach((s) => {
     s.classList.add('hidden')
   })
 
@@ -134,7 +151,7 @@ document.getElementById('select_coach_student').addEventListener('change', (el) 
 
   // Körs här för att textareas måste resizas efter load och det här verkar seriöst
   // som första tillfället när scrollHeight inte returnar 0. Weird men okej.. 
-  document.querySelectorAll(`.sReport__textarea`).forEach( (TA) => { 
+  document.querySelectorAll(`.sReport__textarea`).forEach((TA) => {
     auto_grow(TA)
   })
 
@@ -150,7 +167,7 @@ document.getElementById('btn-print').addEventListener('click', () => {
 /** =======================
   * Auto-grow textarea
   * ===================== */
- function auto_grow(textarea) {
+function auto_grow(textarea) {
   textarea.style.height = 'auto';
   textarea.style.height = textarea.scrollHeight + 'px'
 }

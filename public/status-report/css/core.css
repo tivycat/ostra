@@ -1,6 +1,16 @@
 /* * * * * * * * * * * * * * * * * * * *
-* T A B L E    O F    C O N T E N T S
+*  _______     .    ____   .     .____         ___   .____        ___    ___   __    _  _______ .____  __    _  _______   _____
+* '   /       /|    /   \  /     /           .'   `. /          .'   \ .'   `. |\   |  '   /    /      |\   |  '   /     (     
+*     |      /  \   |,_-<  |     |__.        |     | |__.       |      |     | | \  |      |    |__.   | \  |      |      `--. 
+*     |     /---'\  |    ` |     |           |     | |          |      |     | |  \ |      |    |      |  \ |      |         | 
+*     /   ,'      \ `----' /---/ /----/       `.__.' /           `.__,  `.__.' |   \|      /    /----/ |   \|      /    \___.'                                                                                                                               
+*                                                                      
+*
 * = Global Styles
+* = Status Report: Teacher
+* = Status Report: Coach
+* = Status Report: Admin
+* = Status Report: Student
 * = Header & Nav
 * = Custom select
 * = Loader
@@ -8,7 +18,6 @@
 * = Responsiveness 
 *
 * * * * * * * * * * * * * * * * * * * * */
-
 
 
 /* =========================================
@@ -25,8 +34,33 @@
 
 :root {
   font-size: 16px;
+  line-height: 1.4;
+  color: rgba(0,0,0,0.85);
+  font-family: 'Poppins', sans-serif;
 }
 
+textarea, input, button, select { font-family: inherit; font-size: inherit; }
+
+h5 {
+  font-weight: 1rem;
+}
+
+h4 {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+h3 {
+  font-size: 2rem;
+  color: black;
+}
+h2 {
+  font-size: 3rem;
+  font-weight: 200;
+}
+h1 {
+  font-size: 4rem;
+  font-weight: 100; /* Hairline */
+}
 a {
   text-decoration: none;
   color: inherit;
@@ -43,10 +77,6 @@ body {
   background-color: #ed730a;
 }
 
-body,textarea,button,select {
-  font-family: 'Poppins', sans-serif;
-}
-
 main {
   min-height: 5vh;
   margin: 30px 10px 10px 10px;
@@ -59,9 +89,143 @@ main {
   display: none !important;
 }
 
-/* .text-black {
-  color:black
-} */
+.text-left {
+  text-align: left;
+}
+
+.button {
+  display: block;
+  padding: 10px 15px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: 0.4s;
+}
+
+.button--blue {
+  background-color: rgb(33, 158, 216);
+}
+
+.button--green {
+  background-color: rgb(61, 172, 111);
+}
+
+.button--yellow {
+  background-color: rgb(238, 209, 95);
+}
+
+.button:hover {
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.row {
+  display: flex;
+  width: 100%;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.d-block {
+  display: block;
+}
+
+.flex--centerY {
+  align-items: center; /* Center vertically */
+}
+
+.flex--centerX {
+  justify-content: center; /* Center horizontally */
+}
+
+.text-italic {
+  font-style: italic;
+}
+
+.text-bold {
+  font-weight: 600;
+}
+
+
+/*
+HOME 
+*/
+
+.home__nav {
+  width: 375px;
+  margin: 30px auto;
+}
+
+.home__ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+}
+
+.home__li {
+  padding: 25px 30px;
+  border-radius: 25%;
+  font-size: 1rem;
+  font-weight: 600px;
+  text-transform: uppercase;
+}
+
+
+.card {
+  /* Add shadows to create the "card" effect */
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  margin-bottom: 10px;
+  background-color: #9e9e9e;
+}
+
+
+/* On mouse-over, add a deeper shadow */
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  background-color: #555555;
+}
+
+/* Add some padding inside the card container */
+.card__body {
+  padding: 15px;
+}
+
+.inputText {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
+
+
+
+.mt-1 { margin-top: .25rem; }
+.mt-2 { margin-top: .5rem; }
+.mt-3 { margin-top: 1rem; }
+.mt-4 { margin-top: 1.5rem; }
+.mb-1 { margin-bottom: .25rem; }
+.mb-2 { margin-bottom: .5rem; }
+.mb-3 { margin-bottom: 1rem; }
+.mb-4 { margin-bottom: 1.5rem; }
+.ml-1 { margin-left: .25rem; }
+.ml-2 { margin-left: .5rem; }
+.ml-3 { margin-left: 1rem; }
+.ml-4 { margin-left: 1.5rem; }
+.mr-1 { margin-right: .25rem; }
+.mr-2 { margin-right: .5rem; }
+.mr-3 { margin-right: 1rem; }
+.mr-4 { margin-right: 1.5rem; }
+.mx-1 { margin-left: .25rem; margin-right: .25rem; }
+.mx-2 { margin-left: .5rem; margin-right: .5rem; }
+.mx-3 { margin-left: 1rem; margin-right: 1rem; }
+.mx-4 { margin-left: 1.5rem; margin-right: 1.5rem; }
+.my-1 { margin-top: .25rem; margin-bottom: .25rem }
+.my-2 { margin-top: .5rem; margin-bottom: .5rem }
+.my-3 { margin-top: 1rem; margin-bottom: 1rem}
+.my-4 { margin-top: 1.5rem; margin-bottom: 1.5rem }
+
 
 
 /* =========================================
@@ -220,7 +384,6 @@ main {
   vertical-align: middle;
 }
 
-
 .nav__hamburger {
   display: none;
   cursor: pointer;
@@ -261,6 +424,506 @@ main {
 }
 .toggle .hamburger__line3 {
   transform: rotate(45deg) translate(-5px, -6px);
+}
+
+/* =========================================
+* Status Report: Teacher
+*
+*  _______ .____      .      ___  __  __ .____  .___ 
+* '   /    /         /|    .'   \ |   |  /      /   \
+*     |    |__.     /  \   |      |___|  |__.   |__-'
+*     |    |       /---'\  |      |   |  |      |  \ 
+*     /    /----/,'      \  `.__, /   /  /----/ /   \
+* ============================================ */
+
+.reportNav {
+  display: flex;
+  justify-content: space-between;
+}
+
+.reportNav__col1 {
+  width: calc(85% - 1rem);
+  margin-right: 1rem;
+}
+
+.reportNav__col2 {
+  width: calc(20% - 1rem);
+  display: flex;
+  justify-content: flex-end;
+}
+
+
+.reportNav__statsBlock {
+  margin: 10px 5px 10px 0px;
+}
+
+.reportNav__progressRow {
+  width: 100%;
+  display: flex;
+  margin: 5px 0;
+}
+
+.reportNav__barHeader {
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-right: 5px;
+  text-align:right;
+  font-size: .9rem;
+  width: 15%;
+} 
+
+.reportNav__bar {
+  width: 85%;
+  background-color: grey;
+}
+
+.reportNav__progress {
+  height: 30px;
+  background-color: #4CAF50;
+  text-align: center; /* To center it horizontally (if you want) */
+  line-height: 30px; /* To center it vertically */
+  color: white;
+}
+
+
+.btn-save {
+  width: 100%;
+  height: 100%;
+  background-color: #4CAF50; /* Green */
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: .9rem;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border: 2px solid #4CAF50;
+  color: white;
+}
+
+.btn-save:hover {
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+
+.student-details-container {
+  margin-right: 10px;
+  width: calc(25% - 20px);
+  display: flex;
+  justify-content: center;
+}
+
+.student-portrait {
+  overflow: hidden;
+  background-size: 2.5rem;
+  background-position: top;
+  background-repeat: no-repeat;
+  background-image: url('/resources/images/profile_placeholder.png');
+  margin-right:10px;
+  width: calc(20% - 10px);
+}
+
+.student-personal-info {
+  width: calc(80% - 10px);
+}
+
+.student-class, .student-pnr {
+  font-size: 0.9rem;
+  margin-bottom: -5px;
+}
+
+
+.student-name {
+  font-weight: 600;
+  font-size: 1rem;
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.assessment-container {
+  margin-right: 10px;
+  width: calc(25% - 20px)
+}
+
+.student-attendance {
+  margin-top: .3rem;
+  font-style: italic;
+  font-size: 0.8rem;
+}
+
+.student-attendance .tooltip-icon {
+  height: 1rem;
+  width: 1rem;
+}
+
+.comment-container {
+  width: calc(52% - 20px)
+}
+
+.comment-container textarea {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid gray;
+  resize: vertical;
+  overflow-y:hidden;
+}
+.comment-container textarea::placeholder {
+  letter-spacing: 2px;
+}
+
+/* Färgkodning för omdömen */
+.option-IT {
+  background-color: #ffd2cf !important;
+}
+
+.option-T {
+  background-color: #96f2af !important;
+}
+
+.option-TEB {
+  background-color: #6ec76e !important;
+}
+
+.option-UB {
+  background-color: #feffd9 !important;
+}
+     
+
+/* =========================================
+* Status Report: Coach
+* 
+*   ___    ___       .      ___  __  __
+* .'   \ .'   `.    /|    .'   \ |   | 
+* |      |     |   /  \   |      |___| 
+* |      |     |  /---'\  |      |   | 
+*  `.__,  `.__.','      \  `.__, /   / 
+*                                      
+* ============================================ */
+
+
+.d-header__selectContainer {
+  display: flex;
+  margin: 10px 0px
+}
+
+.d-header__col--left{
+  flex: 1;
+}
+
+.d-header__col--right{
+  margin-left: 10px;
+  flex: 1;
+}
+
+.d-header__btn {
+  padding: 10px;
+  border: none;
+  outline: none;
+}
+
+.d-header__btn:hover {
+  background-color: hotpink;
+}
+
+.student__printOnly {
+  font-style: italic;
+}
+
+.student__name {
+  font-weight: 600;
+  font-size: 2.5rem;
+  text-transform: uppercase;
+}
+
+.student__classCoach {
+  font-weight: .8rem;
+}
+
+.student__classCoach--header {
+  font-weight: 600;
+}
+
+.sReport__courseTitle {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.sReport__teacher {
+  font-weight: normal;
+  color: gray;
+}
+
+.sReport__asmt {
+  padding: 10px 15px;
+  border-radius: 12px;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.sReport__textarea {
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  border: none;
+  resize: none;
+}
+
+.sReport__textarea:focus {
+  border: none;
+  outline: none;
+
+}
+
+table {
+  width: 100%;
+}
+
+.th {
+  height: 50px;
+  font-weight: 600;
+
+}
+
+.th--orange {
+  background-color: #ed730a;;
+  color: white;
+}
+
+.th, .td {
+  padding: 7.5px;
+}
+
+.tr--alternativeRows:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+
+/* =========================================
+* Status report: Admin
+*
+*     .    .___   __   __ _ __    _
+*    /|    /   `  |    |  | |\   | 
+*   /  \   |    | |\  /|  | | \  | 
+*  /---'\  |    | | \/ |  | |  \ | 
+*,'      \ /---/  /    /  / |   \| 
+*                                                                               
+============================================ */
+
+.tabs {
+  width: 100%;
+  height: 100%;
+}
+
+.tabs__menu {
+  display: flex;
+  height: 15%;
+}
+
+.tabs__btn {
+  flex: 1;
+  height: 100%;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 10px;
+  font-size: 1.1rem;
+  background-color: #eeeeee;
+  transition: background 0.2s;
+}
+
+.tabs__btn:hover {
+  background-color: #d7d4d4
+}
+
+.tabs__btn--firstChild {
+  border-radius: 15px 0px 0px 0px
+}
+
+.tabs__btn--lastChild {
+  border-radius: 0px 15px 0px 0px
+}
+
+.tabs__btn--active {
+  background-color: #d7d4d4;
+  border-bottom: 2px solid #009879
+}
+
+
+.tabs__section {
+  height: 85%;
+  padding-top: 10px;
+  display: none;
+}
+
+.tabs__section--active {
+  display: block;
+}
+
+.tabs__body {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.openStudent {
+  cursor: pointer;
+}
+
+.openStudent > * {
+  pointer-events: none;
+}
+
+.card__text--alternative {
+  color: rgb(53, 53, 168);
+  font-weight: 300;
+}
+
+
+.search__content {
+  border: 1px solid black;
+  border-radius: 12px;
+  padding: 5px;
+}
+
+.teaStat__col {
+  flex-basis: 50%;
+}
+
+.teaStat__scrollBlock {
+  width: 100%;
+  height: 400px;
+  overflow: scroll;
+}
+
+.td--overflowEllipsis {
+  text-overflow: ellipsis;
+  /* Required for text-overflow to do anything */
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.classRow__col--header {
+  flex-basis: 25%
+}
+
+.classRow__col {
+  flex-basis: 25%;
+  text-align: center;
+}
+
+
+
+
+.classRow__studentRow {
+  border: 1px dotted black;
+}
+
+
+
+/* =========================================
+* Status report: Student
+*   _____  _______ .     . .___   .____  __    _  _______
+*  (      '   /    /     / /   `  /      |\   |  '   /   
+*   `--.      |    |     | |    | |__.   | \  |      |   
+*      |      |    |     | |    | |      |  \ |      |   
+* \___.'      /     `._.'  /---/  /----/ |   \|      /   
+*                                                        
+============================================ */
+
+.nav__logo--student {
+  margin-right: auto !important; /* Alltid längst till vänster*/ 
+}
+
+.nav__user--student {
+  margin-left: auto !important; /* Alltid längst till höger*/
+}
+
+.data__header {
+  margin: 10px 0px;
+}
+
+.data__accordion {
+  margin: 10px 0px;
+}
+
+.data__print {
+  display: flex;
+  justify-content: flex-end;
+}
+
+
+.data__print__button {
+  display: block;
+  padding: 10px 15px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background: rgb(39, 61, 189);
+  transition: background 0.2s;
+  color: white;
+}
+
+.data__print__button:hover {
+  background:rgb(129, 211, 243);
+  color: black;
+}
+
+.accordion__button {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background: #333333;
+  color: #ffffff;
+  text-align: left;
+  transition: background 0.2s;
+}
+
+.accordion__button > * {
+  pointer-events: none;
+}
+
+.accordion__button::after {
+  content: '\25be' /* Hexadecimal for unicode down-triangle*/;
+  float: right;
+  transform: scale(1.5);
+}
+
+.accordion__button--active + .accordion__content { display: block }
+.accordion__button--active {
+  background: #555555;
+}
+
+.accordion__button--active::after {
+  content: '\25b4' /* Hexadecimal for unicode down-triangle*/;
+}
+
+.accordion__content {
+  display: none;
+  overflow: auto; 
+  padding: 0 15px; /* <p> adds margin top and bottom anyway*/
+  background: #eeeeee;
+}
+
+.form__label {
+  display: block;
+  margin: 5px 0px;
+}
+.form__input {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.form-container__button {
+  display: block;
+  padding: 10px 15px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background: rgb(3, 102, 28);
+  transition: background 0.2s;
+  color: white;
 }
 
 
@@ -312,8 +975,8 @@ main {
 	box-shadow: 0 0 0 3px -moz-mac-focusring;
 	color: #222;
 	outline: none;
-
 }
+
 .select-css option {
 	font-weight:normal;
 }
@@ -413,14 +1076,21 @@ main {
 }
 
 
+
 /* =========================================
 * Responsiveness
+*
+* __   __ .____  .___   _     .   
+* |    |  /      /   `  |    /|   
+* |\  /|  |__.   |    | |   /  \  
+* | \/ |  |      |    | |  /---'\ 
+* /    /  /----/ /---/  /,'      \
+*
 ============================================ */
 
 @media screen and (max-width: 1024px) {
-  :root,
-  textarea {
-    font-size: 14px;
+  :root {
+    font-size: 13px;
   }
   .nav__title {
     font-size: 1.2rem;
@@ -436,15 +1106,29 @@ main {
   .nav__email {
     font-size: 0.8rem;
   }
+
+  .th, .td {
+    padding: 5px !important;
+  }
+  .sReport__asmt {
+    padding: 5px 10px !important;
+  }
+
+  .teaStat__row {
+    flex-direction: column;
+  }
+
 }
 
 @media screen and (max-width: 768px) {
-  :root,
-  textarea  {
-    font-size: 8px;
+  :root {
+    font-size: 75%;
   }
-  body {
-    overflow-x: hidden; /* Since nav-links is pushed outside, there will be a scroll if you don't remove it*/ 
+  
+  body, html {
+    /* Since menu is pushed outside, there will be a scroll if you don't remove it. These lines have to do with that*/
+    overflow-x: hidden; 
+    position: relative;
   }
 
   .nav__title {
@@ -477,6 +1161,40 @@ main {
   }
   .nav__hamburger {
     display: block;
+  }
+
+  .reportNav__progressRow {
+    flex-direction: column;
+  }
+  .reportNav__bar {
+    width: 100%;
+  }
+
+  .btn-save {
+    height: 40px;
+  }
+  
+  .student-portrait {
+    display: none;
+  }
+
+  .student-personal-info {
+    width: 100%;
+  }
+  .student-details-container {
+    flex-basis: 20%;
+  }
+
+  .assessment-container {
+    flex-basis: 25%;
+  }
+
+  .comment-container {
+    flex-basis: 50%;
+  }
+  
+  .comment-container textarea::placeholder {
+    letter-spacing: 1px;
   }
 }
 

@@ -1,3 +1,5 @@
+const DB = firebase.firestore();
+
 function signIn() {
   // Sign into Firebase using FORCED account-pick auth & Google as the identity provider.
   let googleAuthProvider = new firebase.auth.GoogleAuthProvider();
@@ -59,29 +61,42 @@ function authStateObserver(user) {
 
     // Initiate load
     let active_page = document.body.dataset.page;
-    try {
+    if (active_page == 'teacher') {
       let user_doc = firebase.firestore().collection("status-report").doc(CURRENT_TERM).collection('teachers').doc(userEmail);
       user_doc.get().then((response) => {
-        if (active_page === 'teacher') {
-          handle_load_teacher(response)
-        } else if (active_page === 'coach') {
-          handle_load_coach(response)
-        } else if (active_page === 'admin') {
-          handle_load_admin(response)
-        }
+        handle_load_teacher(response)
+      }).catch((error) => {
+        console.error('Error loading teacher ... ')
+        console.error(error)
+        handle_load_teacher(null)
       })
-
-    } catch(e) {
-      console.log('error error')
-
     }
-
+    if (active_page == 'coach') {
+      let user_doc = firebase.firestore().collection("status-report").doc(CURRENT_TERM).collection('teachers').doc(userEmail);
+      user_doc.get().then((response) => {
+        handle_load_coach(response)
+      }).catch((error) => {
+        console.error('Error loading coach ... ')
+        console.error(error)
+        handle_load_coach(null)
+      })
+    }
+    if (active_page == 'admin') {
+      let user_doc = firebase.firestore().collection("status-report").doc(CURRENT_TERM).collection('statistics').doc('general');
+      user_doc.get().then((response) => {
+        handle_load_admin(response)
+      }).catch((error) => {
+        console.error('Error loading admin ... ')
+        console.error(error)
+        handle_load_admin(null)
+      })
+    } if (active_page == 'student') {
+    }
   } else { // User is signed out!
     Onload.signedOut()
     // Hide sign-in button.
     signed_in_element.classList.add('hidden');
     signed_out_element.classList.remove('hidden');
-
   }
 }
 
