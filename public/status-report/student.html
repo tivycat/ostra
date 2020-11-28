@@ -10,125 +10,174 @@
 </head>
 
 <body data-page="student">
-  <nav class="nav">
+  <div class="container">
+    <nav class="nav">
     
-    <div class="nav__logo nav__logo--student">
-      <a href="../index.html">
-        <h4 class="nav__title nav__title--thin">
-          <span class="nav__title nav__title--emphasized">ÖSTRA</span>gymnasiet
-        </h4>
-        <span class="nav__subtitle">Studielägesrapportering</span>
-      </a>
-    </div>
-    
-    <div class="nav__user nav__user--student">
-      <div class="nav__signedIn hidden">
-        <div class="nav__userColumn--left">
-          <div class="nav__email" id="user-email"></div>
-          <div class="nav__sign-out" id="sign-out">Logga ut</div>
-        </div>
-        <div class="nav__userColumn--right">
-          <div class="nav__picture" id="user-pic"></div>
-        </div>
-      </div>
-      <div class="nav__signedOut hidden">
-        <div class="nav__sign-in" id="sign-in">Logga in
-          <img class="nav__sign-in-icon" src="../resources/images/login.svg" alt="login">
-        </div>
-      </div>
-    </div>
-    
-    <div class="nav__hamburger">
-      <div class="hamburger__line1"></div>
-      <div class="hamburger__line2"></div>
-      <div class="hamburger__line3"></div>
-    </div>
-  </nav>
-  <main>
-
-    <div id="loader-wrapper">
-      <div id="loader"></div>
-    </div>
-
-    <div id="before-login" class="hidden">
-      <h3>Välkommen till Lägesrapporteringen!</h3>
-      <p>Kom igång genom att logga in med ditt @edu.huddinge.se konto</p>
-      <p>Om du saknar en kurs, elev eller något annat är fel, kontakta <a
-          href="mailto:viktor.tysk@edu.huddinge.se">Viktor Tysk</a></p>
-    </div>
-
-    <div id="no-data" class="hidden">
-      <h3>Ditt konto (<span class="user-email"></span>) returnerade inga kurser</h3>
-      <p>Det beror troligtvis på att du inte är lärare på Östra gymnasiet</p>
-      <p>Kontakta <a href="mailto:viktor.tysk@edu.huddinge.se">Viktor Tysk</a> om data borde finnas att tillgå!</p>
-    </div>
-
-    <div id="data">
-      <h3 class="data__header">Välkommen till Lägesrapporteringen!</h3>
-      <div class="data__accordion">
-        <button type="button" class="accordion__button d-block">
-          Allmän information om Studielägesrapporten
-        </button>
-        <div class="accordion__content">
-          <p>Studielägesrapporteringens funktion är att skriftligt redogöra för elevens progression mot kunskapsmål i
-            sina kurser. Denna information ska dels informera eleven om dennes
-            prestation under den gångna perioden, men också synliggöra om skolan kan behöva tillsätta resurser för att
-            hjälpa eleven uppnå kunskapsmålen. Omdömen skrivs i samtliga kurser en
-            gång per läsår i relation till utvecklingssamtalen
-          </p>
-          <p>
-            <strong><u>Det finns 3 nivåer av omdömen</u></strong>
-          </p>
-          <p>
-            <b> ■ Tillfredsställande</b> - Elevens prestation är tillfredsställande; det vill säga att om elevens
-            prestation håller i sig kan eleven vänta sig ett E-A i slutbetyg.<br>
-            <b>■ Icke tillfredsställande</b>- Elevens prestation är icke tillfredsställande mot kunskapskraven i kursen;
-            det vill säga att om elevens prestation inte förbättras så riskerar eleven F i slutbetyg.<br>
-            <b>■ Underlag bristfälligt</b> - Elevens kunskapsnivå går ej att bedöma på grund av att viktiga
-            examinationsmoment, till exempel inlämningar eller prov, saknas.
-          </p>
-          <p>Vid UB och T så förväntas läraren ge en förtydligande kommentar om vad som krävs för att eleven ska nå
-            Tillfredsställande. Om kommentar saknas uppmanas eleven att kontakta läraren så snart som möjligt.
-          </p>
-          <p>
-            <b>Hur ska omdömet ses i relation till slutbetyg?</b>
-          </p>
-          <p>Ett betyg på en kurs är en helhetsbedömning av elevens sammanlagda prestation under hela kursen. Att sätta
-            ett omdöme innebär att läraren måste göra en bedömning endast utefter de kunskapsmål som examinerats i
-            kursen vid rapporteringstillfället, vilket gör att omdömets reliabilitet kan vara svagt (i synnerhet på
-            höstterminen). Detta kan, till exempel, innebära att särskilda moment kan väga extra tungt, varför det ofta
-            händer att en elev får ett IT eller UB endast baserad på prestationen på ett prov eller en inlämning. Eleven
-            uppmanas ha en öppen dialog med sina lärare om sin prestation för att undvika missförstånd.
-          </p>
-          <p>
-            <a href="https://www.youtube.com/watch?v=ciRJZwiR5OY" target="_blank">För information om hur betyg sätts,
-              följ denna länk till Skolverkets video som förklarar processen</a>
-          </p>
-        </div>
-      </div>
-      <div class="data__print">
-        <button class="data__print__button">Skriv ut</button>
+      <div class="nav__logo nav__logo--student">
+        <a href="../../index.html">
+          <h4 class="nav__title nav__title--thin">
+            <span class="nav__title nav__title--emphasized">ÖSTRA</span>gymnasiet
+          </h4>
+          <span class="nav__subtitle">Studielägesrapportering</span>
+        </a>
       </div>
       
-      <div id="content" class="hidden">
-        <header class="student_name"></header>
+      <div class="nav__user nav__user--student">
+        <div class="nav__signedIn hidden">
+          <div class="nav__userColumn--left">
+            <div class="nav__email" id="user-email"></div>
+            <div class="nav__sign-out" id="sign-out">Logga ut</div>
+          </div>
+          <div class="nav__userColumn--right">
+            <div class="nav__picture" id="user-pic"></div>
+          </div>
+        </div>
+        <div class="nav__signedOut hidden">
+          <div class="nav__sign-in" id="sign-in">Logga in
+            <img class="nav__sign-in-icon" src="../resources/images/login.svg" alt="login">
+          </div>
+        </div>
       </div>
-      <div class="form-container">
-        <form>
-          <label class="form__label for="goals>Hur överensstämmer din lägesrapport med dina mål?</label>
-          <input class="form__input" name="goals" type="text" />
-        </form>
-        <button class="form-container__button">Spara din reflektion</button>
+    </nav>
+    <main>
+  
+      <div id="loader-wrapper">
+        <div id="loader"></div>
       </div>
-    </div>
+  
+      <div id="before-login" class="hidden">
+        <h3>Välkommen till Lägesrapporteringen!</h3>
+        <p>Kom igång genom att logga in med ditt @edu.huddinge.se konto</p>
+        <p>Om du saknar en kurs, elev eller något annat är fel, kontakta <a class="link"
+            href="mailto:viktor.tysk@edu.huddinge.se">Viktor Tysk</a></p>
+      </div>
 
-  </main>
+      <div id="no-data" class="hidden">
+        <h3>Ditt konto (<span class="user-email"></span>) returnerade inget!</h3>
+        <p>Det beror troligtvis på att du inte är elev på Östra gymnasiet</p>
+        <p>Kontakta <a class="link" href="mailto:viktor.tysk@edu.huddinge.se?subject=Omdöme - saknar data">Viktor Tysk</a> om data borde finnas att tillgå!</p>
+      </div>
 
-  <div id="clone" style="display: none">
-    <div class="course">
+      <div id="no-credentials" class="hidden">
+        <h3>Ditt konto (<span class="user-email"></span>) saknar behörighet för din förfrågan!</h3>
+        <p>Det beror troligtvis på att du inte är elev på Östra gymnasiet</p>
+        <p>Kontakta <a class="link" href="mailto:viktor.tysk@edu.huddinge.se?subject=Omdöme - saknar behörighet">Viktor Tysk</a> om data borde finnas att tillgå!</p>
+      </div>
 
-    </div>
+      <div id="data" class="hidden">
+        <div class="data__accordion">
+          <button type="button" class="accordion__button d-block">
+            Allmän information om Studielägesrapporten
+          </button>
+          <div class="accordion__content text-left">
+            <p class="mb-2">Studielägesrapporteringens funktion är att skriftligt redogöra för elevens progression mot
+              kunskapsmål i
+              sina kurser. Denna information ska dels informera eleven om dennes
+              prestation under den gångna perioden, men också synliggöra om skolan kan behöva tillsätta resurser för att
+              hjälpa eleven uppnå kunskapsmålen. Omdömen skrivs i samtliga kurser en
+              gång per läsår i relation till utvecklingssamtalen
+            </p>
+            <p class="mb-2">
+              <strong><u>Det finns 3 nivåer av omdömen</u></strong>
+            </p>
+            <p class="mb-2">
+              <b> ■ Tillfredsställande</b> - Elevens prestation är tillfredsställande; det vill säga att om elevens
+              prestation håller i sig kan eleven vänta sig ett E-A i slutbetyg.<br>
+              <b>■ Icke tillfredsställande</b>- Elevens prestation är icke tillfredsställande mot kunskapskraven i
+              kursen;
+              det vill säga att om elevens prestation inte förbättras så riskerar eleven F i slutbetyg.<br>
+              <b>■ Underlag bristfälligt</b> - Elevens kunskapsnivå går ej att bedöma på grund av att viktiga
+              examinationsmoment, till exempel inlämningar eller prov, saknas.
+            </p>
+            <p class="mb-2">Vid UB och T så förväntas läraren ge en förtydligande kommentar om vad som krävs för att
+              eleven ska nå
+              Tillfredsställande. Om kommentar saknas uppmanas eleven att kontakta läraren så snart som möjligt.
+            </p>
+            <p class="mb-2">
+              <b>Hur ska omdömet ses i relation till slutbetyg?</b>
+            </p>
+            <p class="mb-2">Ett betyg på en kurs är en helhetsbedömning av elevens sammanlagda prestation under hela
+              kursen. Att sätta
+              ett omdöme innebär att läraren måste göra en bedömning endast utefter de kunskapsmål som examinerats i
+              kursen vid rapporteringstillfället, vilket gör att omdömets reliabilitet kan vara svagt (i synnerhet på
+              höstterminen). Detta kan, till exempel, innebära att särskilda moment kan väga extra tungt, varför det
+              ofta
+              händer att en elev får ett IT eller UB endast baserad på prestationen på ett prov eller en inlämning.
+              Eleven
+              uppmanas ha en öppen dialog med sina lärare om sin prestation för att undvika missförstånd.
+            </p>
+            <p class="mb-2">
+              <a class="link" href="https://www.youtube.com/watch?v=ciRJZwiR5OY" target="_blank" class="clr--blue">För information om
+                hur betyg sätts,
+                klicka här för länk till Skolverkets video som förklarar processen</a>
+            </p>
+          </div>
+        </div>
+
+        <div class="student__headerRow mb-3">
+          <button id="print-student" class="student__printBtn button button--blue">Skriv ut</button>              
+        </div>
+        
+        <div class="report" id="report">
+          <header class="report__header">
+            <div class="report__printOnly" style="display: none">
+              <span class="report__school">Östra gymnasiet - </span>
+              <span class="report__term"></span>
+            </div>
+            <h3 class="report__studentName text-uppercase"></h3>
+            <div class="report_infoBlock">
+              <strong>Klass: </strong><span class="report__studentClass"></span>
+            </div>
+            <div class="report_infoBlock">
+              <strong>Coach: </strong><span class="report__studentCoach"></span>
+            </div>
+          </header>
+          <div class="row py-1 sGrid__header mb-2">
+            <div class="col-3 mr-2 sGrid__th">Kurs</div>
+            <div class="col-2 mr-2 sGrid__th">Omdöme</div>
+            <div class="col mr-2 sGrid__th">Kommentar</div>
+          </div>
+          <div class="sGrid__body" id="grid-body">
+
+          </div>
+          <div class="signatur" style="padding-top:30px; margin-left: 20px;">
+            <p style="font-weight:bold; display: inline-block">Signatur </p><span style="font-style:italic">(mynding elev el.
+              målsman)</span>
+            <span style="width : 20%; border-bottom:0.1em solid #000; display:inline-block; margin:0 15px;"></span>
+            <div style="font-weight:bold; display: inline-block;">Datum </div>
+            <span style="width : 20%; border-bottom:0.1em solid #000; display:inline-block; margin:0 15px;"></span>
+          </div>
+          
+          <div id="reflection-form" class="mt-4">
+            <h3>Lägesanalys: tänk och skriv</h3>
+            <p>Utveckling kräver tanke, och endast <span class="text-underline">du</span> kan åstakomma det hos dig själv.</p>
+            <p class="my-2">Lägg några minuter på att besvara frågorna nedan. Dina svar kan komma att utgöra en grund för ditt utvecklingssamtal.</p>
+            <form class="mt-2">
+              <label class="form__label" for="form0">Hur överensstämmer din lägesrapport med dina mål?</label>
+              <textarea id="form0" rows="3" class="textarea"></textarea>
+            </form>
+            <form>
+              <label class="form__label" for="form1">Vilka är dina huvudsakliga utvecklingsområden?</label>
+              <textarea id="form1" rows="3" class="textarea"></textarea>
+            </form>
+            <form>
+              <label class="form__label" for="form2">Vad är din främsta utmaning i dina studier just nu?</label>
+              <textarea id="form2" rows="3" class="textarea"></textarea>
+            </form>
+            <form>
+              <label class="form__label" for="form3">Beskriv din studieteknik. Fungerar den? Hur skulle den kunna förbättras?</label>
+              <textarea id="form3" rows="3" class="textarea"></textarea>
+            </form>
+            <button id="save-reflection" class="button button--green">Spara din reflektion</button>
+          </div>
+
+        </div>
+      </div>
+  
+    </main>
+    
   </div>
+ 
   <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
   <script src="/__/firebase/7.19.1/firebase-app.js"></script>
   <!-- Add Firebase products -->
@@ -139,11 +188,7 @@
   <!-- Rest-->
   <script type="text/javascript" src="js/core.js"></script>
   <script type="text/javascript" src="js/student.js"></script>
-  <!-- <script type="text/javascript" src="js/firebase.js"></script> -->
-
-  <!-- <script type="text/javascript" src="js/update-db.js"></script> -->
-
-  <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js" type="text/javascript"></script> -->
+  <script type="text/javascript" src="js/firebase.js"></script>
 
 
 </body>

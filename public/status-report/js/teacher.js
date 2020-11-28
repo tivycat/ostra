@@ -1,18 +1,20 @@
 // Körs från firebase.js onload. Datan innehåller metafiler så att vi kan köra teacher.exists!
 async function handle_load_teacher(teacher) {
-  const no_data = () => {
-    document.querySelector('#no-data .user-email').textContent = getUserEmail();
-    Onload.noData();
+  let user_email = getUserEmail();
+
+  if (teacher.length === 0) {
+    Onload.noData(user_email);
+    return;
   }
-  if (teacher == null) {
-      // user lacks credentials
-      no_data()
+
+  if (teacher === 'noCredentials') {
+    Onload.noCredentials(user_email)      
       return;
   }
 
   if (!teacher.exists) {
     // Data not found on this doc
-    no_data()
+    Onload.noData(user_email)
     return;
   }
 
@@ -92,8 +94,8 @@ function create_student_row(data) {
 
   // Elevinfo 
   row.querySelector('.student-name').textContent = data.name;
-  row.querySelector('.student-class').textContent = data.class;
-  row.querySelector('.student-pnr').textContent = data.pnr.slice(0, 6) + '-xxxx';
+  row.querySelector('.student-class').textContent += data.class;
+  row.querySelector('.student-pnr').textContent += data.pnr.slice(0, 6) + '-xxxx';
 
   // ==== Omdöme =====
   // Möjliggör TEB för sprintkurser
@@ -115,7 +117,7 @@ function create_student_row(data) {
       data.attendance.not_reported = 'X'
     }
     row.querySelector('.attendance-total').textContent = data.attendance.total
-    row.querySelector('.attendance-unreported').textContent = data.attendance.not_reported
+    // row.querySelector('.attendance-unreported').textContent = data.attendance.not_reported
   }
 
   // Kommentar
@@ -233,19 +235,49 @@ document.addEventListener('change', (ev) => {
       tar.classList.add(`option-${tar.value}`)
 
       // Add to storage that a change has been made:
-      let student = tar.closest('.student.row');
+      let student = tar.closest('.student');
       let email = student.dataset.email;
       let course = student.parentNode.id;
       register_student_change(email, course)
+
+      // Update progressbar in section header (ASMT)
+      let asmt_bar = document.getElementById('asmt_progressBar');
+      let reported = asmt_bar.querySelector('.reportNav__asmtsReported')
+      let reported_n = Number(reported.textContent) + 1;
+      reported.textContent = reported_n;
+
+      let total = Number(asmt_bar.querySelector('.reportNav__totalStudents').textContent)
+      let pct = asmt_bar.querySelector('.reportNav__asmtsReportedPCT');
+      let new_pct = (reported_n / total * 100).toFixed(1)
+      pct.textContent = new_pct;
+      asmt_bar.style.width = new_pct + '%';
+
     }
   }
   if (tar.classList.contains('textarea-comment')) {
     // Add to storage that a change has been made:
-    let student = tar.closest('.student.row');
+    let student = tar.closest('.student');
     let email = student.dataset.email;
     let course = student.parentNode.id;
     register_student_change(email, course)
 
+
+      // Update progressbar in section header (CMT)
+      let asmt_bar = document.getElementById('cmt_progressBar');
+      let reported = asmt_bar.querySelector('.reportNav__commentsReported')
+      let reported_n = Number(reported.textContent) + 1;
+      reported.textContent = reported_n;
+
+      let total = Number(asmt_bar.querySelector('.reportNav__totalStudents').textContent)
+      let pct = asmt_bar.querySelector('.reportNav__commentsReportedPCT');
+      let new_pct = (reported_n / total * 100).toFixed(1)
+      pct.textContent = new_pct;
+      asmt_bar.style.width = new_pct + '%';
+
+  //     document.querySelector('.reportNav__asmtsReportedPCT').textContent = asmt_pct;
+  // document.getElementById('asmt_progressBar').style.width = asmt_pct + '%'
+  // document.querySelector('.reportNav__commentsReportedPCT').textContent = cmt_pct;
+  // document.getElementById('cmt_progressBar').style.width = cmt_pct + '%'
   }
 })
 

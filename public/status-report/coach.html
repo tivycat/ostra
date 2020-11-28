@@ -10,129 +10,155 @@
 </head>
 
 <body data-page="coach">
-  <nav class="nav">
+  <div class="container">
+    <nav class="nav">
 
-    <div class="nav__logo">
-      <a href="../index.html">
-        <h4 class="nav__title nav__title--thin">
-          <span class="nav__title nav__title--emphasized">ÖSTRA</span>gymnasiet
-        </h4>
-        <span class="nav__subtitle">Studielägesrapportering</span>
-      </a>
-    </div>
-
-    <ul class="nav__menu">
-      <li class="nav__li">
-        <a class="nav__a" href="teacher.html">Lägesrapport</a>
-      </li>
-      <li class="nav__li nav__li--active">
-        <a class="nav__a" href="coach.html">Coachgrupp</a>
-      </li>
-      <li class="nav__li">
-        <a class="nav__a" href="admin.html">Statistik</a></li>
-    </ul>
-
-    <div class="nav__user">
-      <div class="nav__signedIn hidden">
-        <div class="nav__userColumn--left">
-          <div class="nav__email" id="user-email"></div>
-          <div class="nav__sign-out" id="sign-out">Logga ut</div>
-        </div>
-        <div class="nav__userColumn--right">
-          <div class="nav__picture" id="user-pic"></div>
-        </div>
+      <div class="nav__logo">
+        <a href="../index.html">
+          <h4 class="nav__title nav__title--thin">
+            <span class="nav__title nav__title--emphasized">ÖSTRA</span>gymnasiet
+          </h4>
+          <span class="nav__subtitle">Studielägesrapportering</span>
+        </a>
       </div>
-      <div class="nav__signedOut hidden">
-        <div class="nav__sign-in" id="sign-in">Logga in
-          <img class="nav__sign-in-icon" src="../resources/images/login.svg" alt="login">
-        </div>
-      </div>
-    </div>
-    <div class="nav__hamburger">
-      <div class="hamburger__line1"></div>
-      <div class="hamburger__line2"></div>
-      <div class="hamburger__line3"></div>
-    </div>
-  </nav>
 
-  <main>
-    <div id="before-login" class="hidden">
-      <h3>Välkommen till Lägesrapporteringen!</h3>
-      <p>Kom igång genom att logga in med ditt @edu.huddinge.se konto</p>
-      <p>Om du saknar en kurs, elev eller något annat är fel, kontakta <a
-          href="mailto:viktor.tysk@edu.huddinge.se">Viktor Tysk</a></p>
-    </div>
-    <div id="no-data" class="hidden">
-      <h3>Ditt konto (<span class="user-email"></span>) returnerade inga coach elever</h3>
-      <p>Det beror troligtvis på att du inte är coach? Eller? </p>
-      <p>Kontakta <a href="mailto:viktor.tysk@edu.huddinge.se">Viktor Tysk</a> om du vill minnas att du faktiskt är
-        coach</p>
-    </div>
-    <div id="data" class="data hidden">
-      <header class="d-header">
-        <h3 class="d-header__title">Din coachgrupps lägesrapport</h3>
-        <div class="d-header__preamble">
-          Klicka på en coachelev i rullmenyn för att visa resultat. Innan vecka 48 kommer utskriftsfunktionalitet lagts
-          till.
-        </div>
-        <div class="d-header__selectContainer">
-          <div class="d-header__col--left">
-            <select class="d-header__select select-css" id="select_coach_student">
-              <option value="" disabled selected>Välj coachelev</option>
-            </select>
+      <ul class="nav__menu">
+        <li class="nav__li">
+          <a class="nav__a" href="teacher.html">Lägesrapport</a>
+        </li>
+        <li class="nav__li nav__li--active">
+          <a class="nav__a" href="coach.html">Coachgrupp</a>
+        </li>
+        <li class="nav__li">
+          <a class="nav__a" href="statistics.html">Statistik</a></li>
+      </ul>
+
+      <div class="nav__user">
+        <div class="nav__signedIn hidden">
+          <div class="nav__userColumn--left">
+            <div class="nav__email" id="user-email"></div>
+            <div class="nav__sign-out" id="sign-out">Logga ut</div>
           </div>
-          <div class="d-header__col--right">
-            <button class="d-header__btn" id="btn-print" type="button">Skriv ut elevrapporter</button>
+          <div class="nav__userColumn--right">
+            <div class="nav__picture" id="user-pic"></div>
           </div>
         </div>
-      </header>
-      <div class="d-content" id="content"></div>
-    </div>
-  </main>
+        <div class="nav__signedOut hidden">
+          <div class="nav__sign-in" id="sign-in">Logga in
+            <img class="nav__sign-in-icon" src="../resources/images/login.svg" alt="login">
+          </div>
+        </div>
+      </div>
+      <div class="nav__hamburger">
+        <div class="hamburger__line1"></div>
+        <div class="hamburger__line2"></div>
+        <div class="hamburger__line3"></div>
+      </div>
+    </nav>
 
-  <div id="loader-wrapper">
-    <div id="loader"></div>
+    <main>
+      <div id="before-login" class="hidden">
+        <h3>Välkommen till Lägesrapporteringen!</h3>
+        <p>Kom igång genom att logga in med ditt @edu.huddinge.se konto</p>
+        <p>Om du saknar en kurs, elev eller något annat är fel, kontakta <a class="link"
+            href="mailto:viktor.tysk@edu.huddinge.se">Viktor Tysk</a></p>
+      </div>
+
+      <div id="no-data" class="hidden">
+        <h3>Ditt konto (<span class="user-email"></span>) returnerade inga coachelever!</h3>
+        <p>Det beror troligtvis på att du inte är coach på Östra gymnasiet. Kontakta <a class="link" href="mailto:viktor.tysk@edu.huddinge.se?subject=Lägesrapportering - saknar data">Viktor Tysk</a> om data borde finnas att tillgå!</p>
+      </div>
+      
+      <div id="no-credentials" class="hidden">
+        <h3>Ditt konto (<span class="user-email"></span>) saknar behörighet för detta!</h3>
+        <p>Det beror troligtvis på att du inte är lärare på Östra gymnasiet. Kontakta <a class="link" href="mailto:viktor.tysk@edu.huddinge.se?subject=Lägesrapportering - saknar behörighet">Viktor Tysk</a> om data borde finnas att tillgå!</p>
+      </div>
+
+      <div id="data" class="data hidden">
+        <header class="d-header">
+          <h3 class="d-header__title">Din coachgrupps lägesrapport</h3>
+          <div class="d-header__preamble">
+            Klicka på en coachelev i rullmenyn för att visa resultat. Tryck på SKRIV UT för att skriva ut samtliga elever.
+            lagts
+            till.
+          </div>
+          <div class="d-header__selectContainer">
+            <div class="d-header__col--left">
+              <select class="d-header__select select-css" id="select_coach_student">
+                <option value="" disabled selected>Välj coachelev</option>
+              </select>
+            </div>
+            <div class="d-header__col--right">
+              <button class="button button--blue" id="btn-print" type="button">Skriv ut elevrapporter</button>
+            </div>
+          </div>
+        </header>
+        <div class="d-content" id="content"></div>
+      </div>
+    </main>
+
+    <div id="loader-wrapper">
+      <div id="loader"></div>
+    </div>
+
+    <div id="clone" style="display: none">
+      <div class="report hidden">
+        <header class="report__header">
+          <div class="report__printOnly" style="display: none">
+            <span class="report__school">Östra gymnasiet - </span>
+            <span class="report__term"></span>
+          </div>
+          <h3 class="report__studentName text-uppercase"></h3>
+            <div class="report_infoBlock">
+              <strong>Klass: </strong><span class="report__studentClass"></span>
+            </div>
+            <div class="report_infoBlock">
+              <strong>Coach: </strong><span class="report__studentCoach"></span>
+            </div>
+        </header>
+        <div class="row py-1 sGrid__header mb-2">
+          <div class="col-3 mr-2 sGrid__th">Kurs</div>
+          <div class="col-2 mr-2 sGrid__th">Omdöme</div>
+          <div class="col mr-2 sGrid__th">Kommentar</div>
+        </div>
+        <div class="sGrid__body">
+        </div>
+        <div class="signatur" style="padding-top:30px; margin-left: 20px;">
+          <p style="font-weight:bold; display: inline-block">Signatur </p><span style="font-style:italic">(mynding elev el.
+            målsman)</span>
+          <span style="width : 20%; border-bottom:0.1em solid #000; display:inline-block; margin:0 15px;"></span>
+          <div style="font-weight:bold; display: inline-block;">Datum </div>
+          <span style="width : 20%; border-bottom:0.1em solid #000; display:inline-block; margin:0 15px;"></span>
+        </div>
+        
+        <div class="reflection-form mt-4">
+          <div class="report__printOnly" style="text-align: center; margin-bottom: 10px">
+            <span class="report__studentName"></span> ( <span class="report__studentClass"></span> )
+          </div>
+          <h3>Lägesanalys: tänk och skriv</h3>
+          <p>Utveckling kräver tanke, och endast <span class="text-underline">du</span> kan åstakomma det hos dig själv.</p>
+          <p class="my-2">Lägg några minuter på att besvara frågorna nedan. Dina svar kan komma att utgöra en grund för ditt utvecklingssamtal.</p>
+          <form class="mt-2">
+            <label class="form__label">Hur överensstämmer din lägesrapport med dina mål?</label>
+            <div data-form-index='0' class="report__formToDiv"></div>
+          </form>
+          <form>
+            <label class="form__label">Vilka är dina huvudsakliga utvecklingsområden?</label>
+            <div data-form-index='1' class="report__formToDiv"></div>
+          </form>
+          <form>
+            <label class="form__label">Vad är din främsta utmaning i dina studier just nu?</label>
+            <div data-form-index='2' class="report__formToDiv"></div>
+          </form>
+          <form>
+            <label class="form__label">Beskriv din studieteknik. Fungerar den? Hur skulle den kunna förbättras?</label>
+            <div data-form-index='3'class="report__formToDiv"></div>
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div id="clone" style="display: none">
-    <div class="student hidden">
-      <header class="student__header">
-        <div class="student__printOnly">
-          <span class="student__school">Östra gymnasiet - </span>
-          <span class="student__currentTerm"></span>
-        </div>
-        <div class="student__info">
-          <div class="student__nameContainer">
-            <span class="student__name"></span>
-          </div>
-          <div class="student__classCoach">
-            <span class="student__classCoach--header">Klass: </span><span
-              class="student__class student__classcoach"></span>
-          </div>
-          <div class="student__classCoach">
-            <span class="student__classCoach--header">Coach: </span><span
-              class="student__coach student__classcoach"></span>
-          </div>
-        </div>
-      </header>
-      <div class="sReport">
-        <table class="sReport__table">
-          <col style="width:25%">
-          <col style="width:20%">
-          <col style="width:55%">
-          <thead class="sReport__thead">
-            <tr class="sReport__tr sReport__tr--head">
-              <th class="th th--orange">Kurs</th>
-              <th class="th th--orange">Omdöme</th>
-              <th class="th th--orange">Kommentar</th>
-            </tr>
-          </thead>
-          <tbody class="sReport__tbody">
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
   <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
   <script src="/__/firebase/7.19.1/firebase-app.js"></script>
   <!-- Add Firebase products -->

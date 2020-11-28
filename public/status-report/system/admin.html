@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/core.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins" rel="stylesheet">
+  <title>Östra gymnasiet - Lägesrapportering</title>
+</head>
+
+<body data-page="admin">
+  <div class="container">
+    <nav class="nav">
+      <div class="nav__logo">
+        <a href="/../../index.html">
+          <h4 class="nav__title nav__title--thin">
+            <span class="nav__title nav__title--emphasized">ÖSTRA</span>gymnasiet
+          </h4>
+          <span class="nav__subtitle">Studielägesrapportering</span>
+        </a>
+      </div>
+
+      <div class="nav__user">
+        <div class="nav__signedIn hidden">
+          <div class="nav__userColumn--left">
+            <div class="nav__email" id="user-email"></div>
+            <div class="nav__sign-out" id="sign-out">Logga ut</div>
+          </div>
+          <div class="nav__userColumn--right">
+            <div class="nav__picture" id="user-pic"></div>
+          </div>
+        </div>
+        <div class="nav__signedOut hidden">
+          <div class="nav__sign-in" id="sign-in">Logga in
+            <img class="nav__sign-in-icon" src="../resources/images/login.svg" alt="login">
+          </div>
+        </div>
+      </div>
+      <div class="nav__hamburger">
+        <div class="hamburger__line1"></div>
+        <div class="hamburger__line2"></div>
+        <div class="hamburger__line3"></div>
+      </div>
+    </nav>
+
+    <main>
+      <div class="admin__interactionRow admin__interactionRow--general btn-group mb-3">
+        <button class="button--coral modal-trigger" data-for-modal="custom" data-modal-type="update_stats">Uppdatera
+          statistik</button>
+        <button class="button--coral modal-trigger" data-for-modal="users">Ändra användare</button>
+        <button class="button--coral modal-trigger" data-for-modal="courses">Ändra kurser</button>
+        <button class="button--coral">Impersonate användare</button>
+
+      </div>
+      <div class="interactionRow--courses btn-group--small ml-3 hidden" data-row-for='courses'>
+        <h4 class="mb-1">Ändra kurser</h4>
+        <button class="button--yellow modal-trigger" data-for-modal="custom" data-modal-type="delete_course">Ta bort
+          kurs</button>
+        <button class="button--yellow modal-trigger" data-for-modal="custom" data-modal-type="change_teacher">Byt
+          lärare</button>
+      </div>
+      <table class="objectTree__mainTable">
+        <colgroup>
+          <!-- Always 3 columns-->
+          <col width="24px"> <!-- Btn-->
+          <col width="24px"> <!-- Btn-->
+          <col> <!-- where values are pasted -->
+        </colgroup>
+        <tbody id="main-tbody">
+        </tbody>
+      </table>
+
+
+    </main>
+
+  </div>
+  <!--CLOSE Container-->
+
+  <div id="loader-wrapper">
+    <div id="loader"></div>
+  </div>
+
+  <div class="modal" data-modal='custom'>
+    <section class="modal__content">
+      <header class="modal__header">
+        <h4 class="modal__title"></h4>
+        <button class="modal__close modal__close--btn">&times;</a>
+      </header>
+      <div class="modal__body">
+      </div>
+      <footer class="modal__footer">
+      </footer>
+    </section>
+  </div>
+
+  <div class="modal" data-modal='users'>
+    <section class="modal__content">
+      <header class="modal__header">
+        <h4 class="modal__title">Ändra användare</h4>
+        <button class="modal__close modal__close--btn">&times;</a>
+      </header>
+      <div class="my2">
+        <div id="modal-users-chooseType" class="btn-group">
+          <button class="clr--purple" id="edit-user">Ändra existerande användare</button>
+          <button class="clr--purple" id="add-user">Lägg till ny användare</button>
+        </div>
+      </div>
+      <div class="modal__section hidden" id="add-new-module">
+        <div class="modal__body">
+          <h4>Lägg till ny användare</h4>
+          <div class="radio-group my-3">
+            <label><input type="radio" name="choose-user-type" value="teacher" checked><span>Lärare</span></label>
+            <label><input type="radio" name="choose-user-type" value="student"><span>Elev</span></label>
+          </div>
+          <div class="inputFields inputFields--teacher mt-4" data-role="teacher">
+            <form class="my-2">
+              <label class="d-block"><strong>Namn</strong> (efternamn, förnamn; e.g "Tysk, Viktor")
+                <input id="newTeacher-name" class="inputText input-user-name" type="text" data-reset='value'>
+              </label>
+            </form>
+            <form class="my-2">
+              <label class="d-block"><strong>Email</strong> (endast till @)
+                <div class="input-group suffix">
+                  <input id="newTeacher-email" class="input-user-email input-group-input" data-reset='value' type="text"
+                    name="input">
+                  <span class="input-group-addon ">@edu.huddinge.se</span>
+                </div>
+              </label>
+            </form>
+            <div class="search my-2">
+              <p><strong>Coachelever</strong></p>
+              <p style="font-size: 0.87rem">Sök på elev och tryck på resultat för att lägga till i listan. Notera att
+                detta överför elever
+                från tidigare coach.</p>
+              <div class="row">
+                <div class="col">
+                  <input class="inputText autocomplete" data-search-type='students' type="text" />
+                  <div class="search__matchList"></div>
+                </div>
+                <div class="col">
+                  <ol id="newTeacher-coachStudents" class="search-output ml-3" data-reset='children'></ol>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="inputFields inputFields--student mt-4 hidden" data-role="student">
+            <form class="my-2">
+              <label class="d-block"><strong>Namn</strong> (Förnamn Efternamn; e.g. "Viktor Tysk")
+                <input id="newStudent-name" class="inputText input-user-name" type="text" data-reset='value'>
+              </label>
+            </form>
+            <form class="my-2">
+              <label class="d-block"><strong>Klass</strong>
+                <input id="newStudent-class" class="inputText input-user-class" type="text" data-reset='value'>
+              </label>
+            </form>
+            <form class="my-2">
+              <label class="d-block"><strong>Email</strong> (endast till @)
+                <div class="input-group suffix">
+                  <input id="newStudent-email" class="input-user-email input-group-input" data-reset='value' type="text"
+                    name="input">
+                  <span class="input-group-addon ">@edu.huddinge.se</span>
+                </div>
+              </label>
+            </form>
+            <form class="my-2">
+              <label class="d-block"><strong>Coach</strong>
+                <select id="newStudent-coach" class="select-css">
+                  <option value="" selected disabled>Välj coach</option>
+                </select>
+              </label>
+            </form>
+            <div class="search my-2">
+              <p><strong>Kurser</strong></p>
+              <p style="font-size: 0.87rem">Sök på kurs och tryck på resultat för att lägga till i listan.</p>
+              <div class="row">
+                <div class="col-6">
+                  <input class="inputText autocomplete" data-search-type='courses' type="text" />
+                  <div class="search__matchList"></div>
+                </div>
+                <div class="col-6">
+                  <ol id="newStudent-courses" class="search-output ml-3" data-reset='children'></ol>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <footer class="modal__footer hidden">
+          <button class="button button--green" id="create-new-user">Skapa</button>
+          <button class="button button--red close-modal">Avbryt</button>
+        </footer>
+      </div>
+      <div class="modal__section hidden" id="edit-module">
+        <div class="modal__body">
+          <div class="search">
+            <h4>Sök på användare (elev/lärare) och tryck på ditt val</h4>
+            <input class="inputText autocomplete" data-search-type='all_users' data-reset='value' type="text" />
+            <div class="search__matchList"></div>
+          </div>
+          <div class="editResult editResult--teacher hidden" data-role='teacher'>
+            <h4 class="mb-3" id="editResult-id--teacher"></h4>
+            <form class="my-2">
+              <label class="d-block"><strong>Namn</strong> (efternamn, förnamn; e.g Tysk, Viktor)
+                <input id="editResult-name--teacher" class="inputText" type="text" data-reset='value'>
+              </label>
+            </form>
+            <form class="my-2">
+              <label class="d-block"><strong>Email/ID</strong>
+                <input id="editResult-email--teacher" class="inputText" type="text" data-reset='value'>
+              </label>
+            </form>
+            <div class="search my-2">
+              <p><strong>Coachelever</strong>: Lägg till/ta bort</p>
+              <div class="row">
+                <div class="col-6">
+                  <input class="inputText autocomplete" data-search-type='students' type="text" />
+                  <div class="search__matchList"></div>
+                </div>
+                <div class="col-6">
+                  <ol id="editResult-coachstudents" class="search-output ml-3" data-reset='children'></ol>
+                </div>
+              </div>
+            </div>
+            <div class="search mt-4">
+              <p><strong>Kurser</strong></p>
+              <p>Notera att du inte kan ta bort kurser här (kurser kan inte vara lärarlösa så enda sättet att ta bort en kurs är att överföra den. Överför den till VAKANT om inget alternativ finns)</p>
+              <div class="row">
+                <div class="col-6">
+                  <input class="inputText autocomplete" data-search-type='courses' type="text" />
+                  <div class="search__matchList"></div>
+                </div>
+                <div class="col-6">
+                  <ol id="editResult-courses--teacher" class="search-output ml-3" data-reset='children'></ol>
+                </div>
+              </div>
+            </div>
+            </p>
+          </div>
+          <div class="editResult editResult--student hidden" data-role='student'>
+            <h4 class="mb-3" id="editResult-id--student"></h4>
+            <form class="my-2">
+              <label class="d-block my-2"><strong>Namn</strong> (format: Förnamn Efternamn; e.g. "Viktor Tysk")
+                <input id="editResult-name--student" class="inputText" type="text" data-reset='value'>
+              </label>
+            </form>
+            <form class="my-2">
+              <label class="d-block my-2"><strong>Personnummer</strong> (kan lämnas tomt)
+                <input id="editResult-pnr--student" class="inputText" type="text" data-reset='value'>
+              </label>
+            </form>
+            <form class="my-2">
+              <label class="d-block"><strong>Email/ID</strong>
+                <input id="editResult-email--student" class="inputText" type="text" data-reset='value'>
+              </label>
+            </form>
+            <form class="my-2">
+              <label class="d-block"><strong>Klass</strong>
+                <input id="editResult-class--student" class="inputText" type="text" data-reset='value'>
+              </label>
+            </form>
+            <form class="my-2">
+              <label class="d-block"><strong>Coach</strong>
+                <select id="editResult-coach--student" class="select-css">
+                  <option value="" selected disabled>Välj coach</option>
+                </select>
+              </label>
+            </form>
+            <div class="search my-2">
+              <p><strong>Kurser</strong></p>
+              <div class="row">
+                <div class="col-5">
+                  <input class="inputText autocomplete" data-search-type='courses' type="text" />
+                  <div class="search__matchList"></div>
+                </div>
+                <div class="col-7">
+                  <ol id="editResult-courses--student" class="search-output ml-3" data-reset='children'></ol>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal__footer hidden">
+          <button class="button button--green" id="confirm-edit-user">Uppdatera</button>
+          <button class="button button--red close-modal">Avbryt</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="modal" data-modal='courses'>
+    <section class="modal__content">
+      <header class="modal__header">
+        <h4 class="modal__title">Visa elevrapport för <span></span></h4>
+        <button class="modal__close modal__close--btn">&times;</a>
+      </header>
+      <div class="modal__body">
+        <div id="search" class="search">
+          <h3 class="header--medium">Sök på kurs</h3>
+          <p> ...</p>
+          <input class="inputText autocomplete" data-search-type='courses' type="text" />
+          <div class="search__matchList"></div>
+        </div>
+      </div>
+      <footer class="modal__footer">
+      </footer>
+    </section>
+  </div>
+  <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+  <script src="/__/firebase/7.19.1/firebase-app.js"></script>
+  <!-- Add Firebase products -->
+  <script src="/__/firebase/7.19.1/firebase-auth.js"></script>
+  <script src="/__/firebase/7.19.1/firebase-firestore.js"></script>
+  <!-- Initiate FB script-->
+  <script src="/__/firebase/init.js"></script>
+  <!-- Rest-->
+  <script type="text/javascript" src="../js/firebase.js"></script>
+  <script type="text/javascript" src="../js/core.js"></script>
+  <script type="text/javascript" src="admin.js"></script>
+
+  <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js" type="text/javascript"></script> -->
+
+
+</body>
+
+</html>

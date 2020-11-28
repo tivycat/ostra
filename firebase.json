@@ -5,6 +5,9 @@
   "hosting": {
     "site" : "ostragymnasiet",
     "public": "./public",
+    "ignore": [
+      "db.js"
+    ],
     "headers": [{
       "source" : "**/*.@(js|html)",
       "headers" : [ {

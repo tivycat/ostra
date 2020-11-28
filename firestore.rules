@@ -1,18 +1,22 @@
 rules_version = '2';
 service cloud.firestore {
-  match /databases/{database}/documents {     
-     match /status-report/{all_terms=**} {
-       allow read, write: if request.auth.token.email in
-       	get(/databases/$(database)/documents/users/teachers).data.valid_ids;
-     }
-     match /{everything=**} {
+  match /databases/{database}/documents {
+    match /users/{document} {
+      allow read;
+    }
+    
+    match /{everything=**} {
      	allow read, write, create, delete: if request.auth.token.email in
       	 	get(/databases/$(database)/documents/users/admins).data.valid_ids;
      }
 
-     match /status-report/HT20/students/{student_email} {
+     match /{everything=**} {
+       allow read, write: if request.auth.token.email in
+       	get(/databases/$(database)/documents/users/teachers).data.valid_ids;
+     }
+
+     match /status-report/HT20/students/{student_email}/courses/{any=**} {
      	allow read, write: if request.auth.token.email == student_email;
-      	 	
      }
   }
-}
+} 

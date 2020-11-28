@@ -5,30 +5,120 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/core.css">
+  <style>
+    .block {
+    background-color: white;
+    border-radius: 15px;
+    font-size: 1.1rem;
+  }
+  </style>
 
   <title>Östra gymnasiet - Lägesrapportering</title>
 </head>
 
 
 <body data-page="home">
-  <header>
-    <div style="text-align: center">
-      <img src="../resources/images/og-logo.jpg">
-      <h1 style="margin-top:10px">Östra gymnasiet</h1>
-      <h2>Lägesrapportering</h2>
+  <div class="container">
+    <div class="col-6" style="margin: .5em auto; text-align: center;">
+    <header>
+        <img src="../resources/images/og-logo.jpg">
+        <h2>Lägesrapportering</h2>
+        <h3 class="data__header">Välkommen till Lägesrapporteringen!</h3>
+        <div class="data__accordion">
+          <button type="button" class="accordion__button">
+            Allmän information om Studielägesrapporten
+          </button>
+          <div class="accordion__content text-left">
+            <p class="mb-2">Studielägesrapporteringens funktion är att skriftligt redogöra för elevens progression mot
+              kunskapsmål i
+              sina kurser. Denna information ska dels informera eleven om dennes
+              prestation under den gångna perioden, men också synliggöra om skolan kan behöva tillsätta resurser för att
+              hjälpa eleven uppnå kunskapsmålen. Omdömen skrivs i samtliga kurser en
+              gång per läsår i relation till utvecklingssamtalen
+            </p>
+            <p class="mb-2">
+              <strong><u>Det finns 3 nivåer av omdömen</u></strong>
+            </p>
+            <p class="mb-2">
+              <b> ■ Tillfredsställande</b> - Elevens prestation är tillfredsställande; det vill säga att om elevens
+              prestation håller i sig kan eleven vänta sig ett E-A i slutbetyg.<br>
+              <b>■ Icke tillfredsställande</b>- Elevens prestation är icke tillfredsställande mot kunskapskraven i
+              kursen;
+              det vill säga att om elevens prestation inte förbättras så riskerar eleven F i slutbetyg.<br>
+              <b>■ Underlag bristfälligt</b> - Elevens kunskapsnivå går ej att bedöma på grund av att viktiga
+              examinationsmoment, till exempel inlämningar eller prov, saknas.
+            </p>
+            <p class="mb-2">Vid UB och T så förväntas läraren ge en förtydligande kommentar om vad som krävs för att
+              eleven ska nå
+              Tillfredsställande. Om kommentar saknas uppmanas eleven att kontakta läraren så snart som möjligt.
+            </p>
+            <p class="mb-2">
+              <b>Hur ska omdömet ses i relation till slutbetyg?</b>
+            </p>
+            <p class="mb-2">Ett betyg på en kurs är en helhetsbedömning av elevens sammanlagda prestation under hela
+              kursen. Att sätta
+              ett omdöme innebär att läraren måste göra en bedömning endast utefter de kunskapsmål som examinerats i
+              kursen vid rapporteringstillfället, vilket gör att omdömets reliabilitet kan vara svagt (i synnerhet på
+              höstterminen). Detta kan, till exempel, innebära att särskilda moment kan väga extra tungt, varför det
+              ofta
+              händer att en elev får ett IT eller UB endast baserad på prestationen på ett prov eller en inlämning.
+              Eleven
+              uppmanas ha en öppen dialog med sina lärare om sin prestation för att undvika missförstånd.
+            </p>
+            <p class="mb-2">
+              <a href="https://www.youtube.com/watch?v=ciRJZwiR5OY" target="_blank" class="clr--blue">För information om
+                hur betyg sätts,
+                klicka här för länk till Skolverkets video som förklarar processen</a>
+            </p>
+          </div>
+        </div>
+      
+    </header>
+    <div class="block countDown">
+      <span>Rapporteringen avslutas om </span><span id="timeRemaining"></span>
     </div>
-  </header>
-  <div class="home__nav">
-    <ul class="home__ul">
-      <a href="teacher.html"><li class="home__li button button--blue">Lärare</li></a>
-      <a href="student.html"><li class="home__li button button--green" >Elev</li></a>
-      <a href="admin.html"><li class="home__li button button--yellow">Admin</li></a>
-    </ul>
+    <div class="home__nav">
+      <a class="button button--blue" href="teacher.html">Lärare</a>
+      <a class="button button--green" href="student.html">Elev</a>
+      <a class="button button--yellow" href="statistics.html">Admin</a>
+    </div>
+    <footer style="text-align: center; font-size: 0.875rem; font-style:italic">
+      Ansvarig: <a class="link text-color--blue" href="mailto: viktor.tysk@edu.huddinge.se">Viktor Tysk</a>
+    </footer>
   </div>
+</div>
+  <script>
+    document.addEventListener('click', (evt) => {
+      evt = evt.target;
+      if (evt.classList.contains('accordion__button')) {
+        evt.classList.toggle('accordion__button--active')
+      }
+    })
 
-  <footer style="text-align: center;">
-    Ansvarig <a href="mailto: viktor.tysk@edu.huddinge.se">Viktor Tysk</a>
-  </footer>
+    var countDownDate = new Date("Nov 25, 2020 00:00:00").getTime();
+
+    var x = setInterval(function () {
+      var now = new Date().getTime();
+      var distance = countDownDate - now;
+
+      // Time calculations for days, hours, minutes and seconds
+      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      // Display the result in the element with id="demo"
+      document.getElementById("timeRemaining").innerHTML = days + "d " + hours + "h "
+        + minutes + "m " + seconds + "s ";
+
+      // If the count down is finished, write some text
+      if (distance < 0) {
+        clearInterval(x);
+        document.querySelector('.countDown').innerHTML = 
+        '<p style="font-color: 1.25rem; color: red">Rapporteringsprocessen är avslutad!</p>'
+      }
+    }, 1000);
+  </script>
 </body>
 
 </html>

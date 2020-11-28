@@ -1,11 +1,21 @@
+/* https://patorjk.com/software/taag/#p=display&h=2&v=1&f=ANSI%20Regular&t=localstorage*/
+
 /* * * * * * * * * * * * * * * * * * * *
-*  _______     .    ____   .     .____         ___   .____        ___    ___   __    _  _______ .____  __    _  _______   _____
-* '   /       /|    /   \  /     /           .'   `. /          .'   \ .'   `. |\   |  '   /    /      |\   |  '   /     (     
-*     |      /  \   |,_-<  |     |__.        |     | |__.       |      |     | | \  |      |    |__.   | \  |      |      `--. 
-*     |     /---'\  |    ` |     |           |     | |          |      |     | |  \ |      |    |      |  \ |      |         | 
-*     /   ,'      \ `----' /---/ /----/       `.__.' /           `.__,  `.__.' |   \|      /    /----/ |   \|      /    \___.'                                                                                                                               
-*                                                                      
-*
+
+████████  █████  ██████  ██      ███████      ██████  ███████          
+   ██    ██   ██ ██   ██ ██      ██          ██    ██ ██               
+   ██    ███████ ██████  ██      █████       ██    ██ █████            
+   ██    ██   ██ ██   ██ ██      ██          ██    ██ ██               
+   ██    ██   ██ ██████  ███████ ███████      ██████  ██               
+                                                                       
+ ██████  ██████  ███    ██ ████████ ███████ ███    ██ ████████ ███████ 
+██      ██    ██ ████   ██    ██    ██      ████   ██    ██    ██      
+██      ██    ██ ██ ██  ██    ██    █████   ██ ██  ██    ██    ███████ 
+██      ██    ██ ██  ██ ██    ██    ██      ██  ██ ██    ██         ██ 
+ ██████  ██████  ██   ████    ██    ███████ ██   ████    ██    ███████ 
+                                                                       
+                                                                       
+
 * = Global Styles
 * = Status Report: Teacher
 * = Status Report: Coach
@@ -15,6 +25,7 @@
 * = Custom select
 * = Loader
 * = Toast
+* = Prio
 * = Responsiveness 
 *
 * * * * * * * * * * * * * * * * * * * * */
@@ -33,10 +44,13 @@
 }
 
 :root {
-  font-size: 16px;
   line-height: 1.4;
   color: rgba(0,0,0,0.85);
   font-family: 'Poppins', sans-serif;
+}
+
+body.wait, body.wait *{
+  cursor: wait !important;
 }
 
 textarea, input, button, select { font-family: inherit; font-size: inherit; }
@@ -50,15 +64,15 @@ h4 {
   font-weight: 600;
 }
 h3 {
-  font-size: 2rem;
+  font-size: 1.8rem;
   color: black;
 }
 h2 {
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-weight: 200;
 }
 h1 {
-  font-size: 4rem;
+  font-size: 3rem;
   font-weight: 100; /* Hairline */
 }
 a {
@@ -66,22 +80,28 @@ a {
   color: inherit;
 }
 
-.d-flex {
-  display: flex;
+body {
+  font-size: 1rem;
+  background-color: #ed730a;
 }
 
-body {
+img {
+  vertical-align: middle;
+}
+
+
+.container {
+  width: 95%;
   max-width: 1366px;
   margin-left: auto;
-  margin-right: auto;
-  background-color: #ed730a;
+  margin-right: auto; 
 }
 
 main {
   min-height: 5vh;
-  margin: 30px 10px 10px 10px;
+  margin: 1.5em .5em .5em .5em;
   border-radius: 15px;
-  padding: 7.5px;
+  padding: 0.67em;
   background-color: #fff;
 }
 
@@ -93,13 +113,36 @@ main {
   text-align: left;
 }
 
+.label {
+  display: block;
+}
+
 .button {
   display: block;
-  padding: 10px 15px;
-  border: none;
+  padding:0.7em 1.4em; /* EM is relative to font-size of element. So you scale up padding based on font-size which you can apply with a separate class*/
+  margin:0 0.3em 0.3em 0;
+  border:0.16em solid rgba(255,255,255,0);
+  border-radius:0.5em;
   outline: none;
   cursor: pointer;
-  transition: 0.4s;
+  box-sizing: border-box;
+  text-decoration:none;
+  box-shadow:inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17);
+  text-align:center;
+  transition: 0.3s; 
+  text-transform:uppercase;
+  font-weight:400;
+}
+
+.button--small {
+  font-size: .875rem;
+  padding: .25rem .5rem;
+  border-radius: .2rem;
+  border:0.16em solid rgba(255,255,255,0.5);
+  text-align: center;
+  text-transform: uppercase;
+  transition: .5s all;
+  cursor: pointer;
 }
 
 .button--blue {
@@ -114,13 +157,72 @@ main {
   background-color: rgb(238, 209, 95);
 }
 
+.button--red {
+  background-color: #c83f49;
+}
+
+.button--coral {
+  background-color: coral;
+  color: white;
+}
+
+
+
 .button:hover {
-  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+  border-color: rgba(255,255,255,1);
+}
+
+.btn-group button {
+  border:0.16em solid rgba(255,255,255,0.5);
+  padding:0.7em 1.4em;
+  font-size: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  float:left;
+  transition: .5s all;
+  cursor: pointer;
+}
+
+.btn-group--small button {
+  font-size: .875rem;
+  padding: .25rem .5rem;
+  border-radius: .2rem;
+  border:0.16em solid rgba(255,255,255,0.5);
+  text-align: center;
+  text-transform: uppercase;
+  float:left;
+  transition: .5s all;
+  cursor: pointer;
+}
+
+.btn-group button:not(:last-child),
+.btn-group--small button:not(:last-child)  {
+  border-right: none; /* Prevent double borders */
+}
+
+.btn-group button:first-of-type {
+  border-radius: .7em 0 0 .7em;
+}
+
+.btn-group button:last-of-type {
+  border-radius: 0 .7em .7em 0;
+}
+
+
+.btn-group button:hover,
+.btn-group--small button:hover {
+  background-color: #4c6;
 }
 
 .row {
   display: flex;
-  width: 100%;
+  max-width: 100%;
+  flex-wrap: wrap;
+}
+
+
+.row--centerX {
+  justify-content: center; /* Center horizontally */
 }
 
 .d-flex {
@@ -139,44 +241,35 @@ main {
   justify-content: center; /* Center horizontally */
 }
 
-.text-italic {
-  font-style: italic;
+a.link {
+  color: blue;;
+  text-decoration: none;
+  text-transform: uppercase;
+  cursor: pointer;
 }
 
-.text-bold {
-  font-weight: 600;
+a.link:hover {
+  transform: scale (1.05);
+  text-decoration: underline;
 }
-
 
 /*
 HOME 
 */
 
 .home__nav {
-  width: 375px;
-  margin: 30px auto;
-}
-
-.home__ul {
+  max-width: 375px;
+  margin: 2rem auto;
   list-style: none;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
 }
-
-.home__li {
-  padding: 25px 30px;
-  border-radius: 25%;
-  font-size: 1rem;
-  font-weight: 600px;
-  text-transform: uppercase;
-}
-
 
 .card {
   /* Add shadows to create the "card" effect */
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
-  margin-bottom: 10px;
+  margin-bottom: .5em;
   background-color: #9e9e9e;
 }
 
@@ -189,17 +282,23 @@ HOME
 
 /* Add some padding inside the card container */
 .card__body {
-  padding: 15px;
+  padding: .5em;
 }
 
 .inputText {
     width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
+    padding: 0.3em 1em;
+    margin: .3em 0;
     box-sizing: border-box;
 }
 
-
+.textarea {
+  width: 100%;
+  padding: 0.33rem;
+  border: 1px solid gray;
+  resize: vertical;
+  overflow-y:hidden;
+}
 
 .mt-1 { margin-top: .25rem; }
 .mt-2 { margin-top: .5rem; }
@@ -227,6 +326,39 @@ HOME
 .my-4 { margin-top: 1.5rem; margin-bottom: 1.5rem }
 
 
+.pt-1 { padding-top: .25rem; }
+.pt-2 { padding-top: .5rem; }
+.pt-3 { padding-top: 1rem; }
+.pt-4 { padding-top: 1.5rem; }
+.pb-1 { padding-bottom: .25rem; }
+.pb-2 { padding-bottom: .5rem; }
+.pb-3 { padding-bottom: 1rem; }
+.pb-4 { padding-bottom: 1.5rem; }
+.pl-1 { padding-left: .25rem; }
+.pl-2 { padding-left: .5rem; }
+.pl-3 { padding-left: 1rem; }
+.pl-4 { padding-left: 1.5rem; }
+.pr-1 { padding-right: .25rem; }
+.pr-2 { padding-right: .5rem; }
+.pr-3 { padding-right: 1rem; }
+.pr-4 { padding-right: 1.5rem; }
+.px-1 { padding-left: .25rem; padding-right: .25rem; }
+.px-2 { padding-left: .5rem; padding-right: .5rem; }
+.px-3 { padding-left: 1rem; padding-right: 1rem; }
+.px-4 { padding-left: 1.5rem; padding-right: 1.5rem; }
+.py-1 { padding-top: .25rem; padding-bottom: .25rem }
+.py-2 { padding-top: .5rem; padding-bottom: .5rem }
+.py-3 { padding-top: 1rem; padding-bottom: 1rem}
+.py-4 { padding-top: 1.5rem; padding-bottom: 1.5rem }
+
+
+.mobile-only--inline {
+  display: none;
+}
+
+.mobile-only--block {
+  display: none;
+}
 
 /* =========================================
 * Header & Nav
@@ -242,8 +374,8 @@ HOME
 }
 
 .nav__logo {
-  margin: 10px 10px 10px 30px;
-  width: calc(25% - 50px);
+  margin: 0.75em 0.75em 0.75em 2em;
+  width: 25%;
   display: flex;
   align-items: center;
 }
@@ -269,7 +401,7 @@ HOME
 
 .nav__menu {
   display: flex;
-  width: calc(50% - 50px);
+  width: 50%;
   align-self: stretch;
   margin-left: auto; /* Center*/
   margin-right: auto; /* Center*/
@@ -285,10 +417,9 @@ HOME
 .nav__a {
   letter-spacing: 2px;
   font-weight: 500;
-  font-size: 0.9rem;
   align-self: center;
   transition: 0.5s;
-  padding: 0 15px;
+  padding: 0 1rem;
   text-decoration: none;
   color: inherit;
 }
@@ -302,8 +433,8 @@ HOME
 }
 
 .nav__user {
-  width: calc(25% - 50px);
-  margin: 10px;
+  width: 25%;
+  margin: 0.67rem;
   align-self: stretch;
   margin-left: auto;
 }
@@ -314,7 +445,10 @@ HOME
   height: 100%;
   display: flex;
   justify-content: flex-end;
-  vertical-align: middle;
+  align-items: center; /* Vertical */
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .nav__userColumn--left {
@@ -323,37 +457,35 @@ HOME
   flex-direction: column;
   justify-content: center;
   align-items: flex-end;
-  width: calc(100% - 30px)
+  overflow: hidden;
 }
 
 .nav__userColumn--right {
   display: flex;
   justify-content: center;
   align-items: center;
-
 }
 
 .nav__sign-in {
   width: 50%;
-  height: 3.5rem;
+  height: 3rem;
   cursor: pointer;
   text-transform: uppercase;
   transition: 0.3s;
-  font-size: 1rem;
   display: flex;
   border: 1px solid black;
-  padding: 8px;
+  padding: 0.5rem;
   align-items: center; /* Center vertically */
   justify-content: center; /* Center horizontally */
 }
 
 .nav__sign-in:hover {
-  transform:scale(1.1);
+  border-color: rgba(255,255,255,1);
 }
 
 .nav__sign-in-icon {
-  height: 20px;
-  width: 20px;
+  height: 1.25rem;
+  width: 1.25rem;
   margin-left: 10px;
 }
 
@@ -362,6 +494,8 @@ HOME
   white-space: nowrap; 
   overflow: hidden;
   text-overflow: ellipsis;
+  max-width: 100%;
+
 }
 
 .nav__sign-out {
@@ -380,7 +514,7 @@ HOME
   background-size:contain;
   height:2rem;
   width:2rem;
-  margin-left: 10px;
+  margin-left: 0.67rem;
   vertical-align: middle;
 }
 
@@ -428,12 +562,13 @@ HOME
 
 /* =========================================
 * Status Report: Teacher
-*
-*  _______ .____      .      ___  __  __ .____  .___ 
-* '   /    /         /|    .'   \ |   |  /      /   \
-*     |    |__.     /  \   |      |___|  |__.   |__-'
-*     |    |       /---'\  |      |   |  |      |  \ 
-*     /    /----/,'      \  `.__, /   /  /----/ /   \
+.___________. _______      ___       ______  __    __   _______ .______      
+|           ||   ____|    /   \     /      ||  |  |  | |   ____||   _  \     
+`---|  |----`|  |__      /  ^  \   |  ,----'|  |__|  | |  |__   |  |_)  |    
+    |  |     |   __|    /  /_\  \  |  |     |   __   | |   __|  |      /     
+    |  |     |  |____  /  _____  \ |  `----.|  |  |  | |  |____ |  |\  \----.
+    |__|     |_______|/__/     \__\ \______||__|  |__| |_______|| _| `._____|
+                                                                             
 * ============================================ */
 
 .reportNav {
@@ -454,20 +589,20 @@ HOME
 
 
 .reportNav__statsBlock {
-  margin: 10px 5px 10px 0px;
+  margin: 0.67rem 0.33rem 0.67rem 0;
 }
 
 .reportNav__progressRow {
   width: 100%;
   display: flex;
-  margin: 5px 0;
+  margin: 0.33rem 0;
 }
 
 .reportNav__barHeader {
   text-transform: uppercase;
   font-weight: 600;
-  margin-right: 5px;
-  text-align:right;
+  margin-right: .33rem;
+  text-align:center;
   font-size: .9rem;
   width: 15%;
 } 
@@ -504,106 +639,89 @@ HOME
   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
-
-.student-details-container {
-  margin-right: 10px;
-  width: calc(25% - 20px);
+.student {
   display: flex;
-  justify-content: center;
 }
 
-.student-portrait {
-  overflow: hidden;
-  background-size: 2.5rem;
-  background-position: top;
-  background-repeat: no-repeat;
-  background-image: url('/resources/images/profile_placeholder.png');
-  margin-right:10px;
-  width: calc(20% - 10px);
+.student:nth-child(even) {
+  background-color: #f2f2f2;
 }
 
-.student-personal-info {
-  width: calc(80% - 10px);
+.student__col--1 {
+  width: 43%;
 }
 
-.student-class, .student-pnr {
+.student__col--2 {
+  width: 57%
+}
+
+.student-class, .student-pnr, .student-attendance {
   font-size: 0.9rem;
-  margin-bottom: -5px;
 }
 
-
-.student-name {
-  font-weight: 600;
-  font-size: 1rem;
+.student__header {
+  margin-bottom: 0.5em;
+  letter-spacing: 1px;
   white-space: nowrap; 
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.assessment-container {
-  margin-right: 10px;
-  width: calc(25% - 20px)
+.student__infoBlock, .student__infoBlock--first {
+  margin-right: 0.33em;
 }
 
-.student-attendance {
-  margin-top: .3rem;
-  font-style: italic;
-  font-size: 0.8rem;
+.student__infoBlock--second {
+  margin-left: auto; /* Pushes to the end */
 }
 
-.student-attendance .tooltip-icon {
+.student__infoBlock {
+  display: flex;
+}
+
+.tooltip-icon {
   height: 1rem;
   width: 1rem;
 }
 
-.comment-container {
-  width: calc(52% - 20px)
-}
-
-.comment-container textarea {
+.textarea-comment {
   width: 100%;
-  padding: 5px;
+  padding: 0.33rem;
   border: 1px solid gray;
   resize: vertical;
   overflow-y:hidden;
 }
-.comment-container textarea::placeholder {
-  letter-spacing: 2px;
+.textarea-comment::placeholder {
+  letter-spacing: 0.125rem;
 }
 
-/* Färgkodning för omdömen */
-.option-IT {
-  background-color: #ffd2cf !important;
-}
-
-.option-T {
-  background-color: #96f2af !important;
-}
-
-.option-TEB {
-  background-color: #6ec76e !important;
-}
-
-.option-UB {
-  background-color: #feffd9 !important;
-}
      
 
 /* =========================================
 * Status Report: Coach
-* 
-*   ___    ___       .      ___  __  __
-* .'   \ .'   `.    /|    .'   \ |   | 
-* |      |     |   /  \   |      |___| 
-* |      |     |  /---'\  |      |   | 
-*  `.__,  `.__.','      \  `.__, /   / 
-*                                      
+  ______   ______        ___       ______  __    __  
+ /      | /  __  \      /   \     /      ||  |  |  | 
+|  ,----'|  |  |  |    /  ^  \   |  ,----'|  |__|  | 
+|  |     |  |  |  |   /  /_\  \  |  |     |   __   | 
+|  `----.|  `--'  |  /  _____  \ |  `----.|  |  |  | 
+ \______| \______/  /__/     \__\ \______||__|  |__| 
+                                                     
+
 * ============================================ */
 
 
 .d-header__selectContainer {
   display: flex;
-  margin: 10px 0px
+  margin: 0.67rem 0px
+}
+
+.report__formToDiv {
+  font-size: 0.85rem;
+  white-space: pre-wrap; 
+  border: 1px solid black; 
+  padding: 0.33rem; 
+  margin: 10px 0;
+  min-height: 10px;
 }
 
 .d-header__col--left{
@@ -611,102 +729,21 @@ HOME
 }
 
 .d-header__col--right{
-  margin-left: 10px;
+  margin-left: 0.67rem;
   flex: 1;
-}
-
-.d-header__btn {
-  padding: 10px;
-  border: none;
-  outline: none;
-}
-
-.d-header__btn:hover {
-  background-color: hotpink;
-}
-
-.student__printOnly {
-  font-style: italic;
-}
-
-.student__name {
-  font-weight: 600;
-  font-size: 2.5rem;
-  text-transform: uppercase;
-}
-
-.student__classCoach {
-  font-weight: .8rem;
-}
-
-.student__classCoach--header {
-  font-weight: 600;
-}
-
-.sReport__courseTitle {
-  font-weight: 600;
-  font-size: 1rem;
-}
-
-.sReport__teacher {
-  font-weight: normal;
-  color: gray;
-}
-
-.sReport__asmt {
-  padding: 10px 15px;
-  border-radius: 12px;
-  text-align: center;
-  font-size: 0.9rem;
-}
-
-.sReport__textarea {
-  width: 100%;
-  height: 100%;
-  background-color: transparent;
-  border: none;
-  resize: none;
-}
-
-.sReport__textarea:focus {
-  border: none;
-  outline: none;
-
-}
-
-table {
-  width: 100%;
-}
-
-.th {
-  height: 50px;
-  font-weight: 600;
-
-}
-
-.th--orange {
-  background-color: #ed730a;;
-  color: white;
-}
-
-.th, .td {
-  padding: 7.5px;
-}
-
-.tr--alternativeRows:nth-child(even) {
-  background-color: #f2f2f2;
 }
 
 
 /* =========================================
-* Status report: Admin
-*
-*     .    .___   __   __ _ __    _
-*    /|    /   `  |    |  | |\   | 
-*   /  \   |    | |\  /|  | | \  | 
-*  /---'\  |    | | \/ |  | |  \ | 
-*,'      \ /---/  /    /  / |   \| 
-*                                                                               
+* Status report: Statistics
+
+     _______..___________.    ___   .___________.    _______.
+    /       ||           |   /   \  |           |   /       |
+   |   (----``---|  |----`  /  ^  \ `---|  |----`  |   (----`
+    \   \        |  |      /  /_\  \    |  |        \   \    
+.----)   |       |  |     /  _____  \   |  |    .----)   |   
+|_______/        |__|    /__/     \__\  |__|    |_______/    
+                                                             
 ============================================ */
 
 .tabs {
@@ -725,7 +762,7 @@ table {
   border: none;
   outline: none;
   cursor: pointer;
-  padding: 10px;
+  padding: 0.67em;
   font-size: 1.1rem;
   background-color: #eeeeee;
   transition: background 0.2s;
@@ -751,7 +788,7 @@ table {
 
 .tabs__section {
   height: 85%;
-  padding-top: 10px;
+  padding-top: 0.67em;
   display: none;
 }
 
@@ -764,11 +801,14 @@ table {
   margin: 0 auto;
 }
 
-.openStudent {
+.openStudent, .openCourse, .addStudentToCoachlist, .openUserToEdit {
   cursor: pointer;
 }
 
-.openStudent > * {
+.openStudent > *, 
+.openCourse > *,
+.addStudentToCoachlist > *,
+.openUserToEdit > * {
   pointer-events: none;
 }
 
@@ -781,11 +821,76 @@ table {
 .search__content {
   border: 1px solid black;
   border-radius: 12px;
-  padding: 5px;
+  padding: 0.33em
 }
 
-.teaStat__col {
-  flex-basis: 50%;
+.search__matchList {
+  max-height: 250px;
+  overflow-y: scroll;
+}
+
+
+.radio-group {
+  float:left;
+  width: 100%;
+  display: block;
+}
+
+
+
+.radio-group label {
+  float:left;
+  width: 20%;
+  border:1px solid #D0D0D0;
+  overflow:auto;
+  cursor: pointer;
+}
+
+.radio-group label:not(:last-child)  {
+  border-right: none; /* Prevent double borders */
+}
+
+.radio-group label:first-of-type {
+  border-radius: .7em 0 0 .7em
+}
+
+.radio-group label:last-of-type {
+  border-radius: 0 .7em .7em 0;
+}
+
+
+.radio-group label span {
+  text-align:center;
+  font-size: 1rem;
+  padding:.7em 0px;
+  display: block;
+}
+
+.radio-group label input[type="radio"] {
+  opacity: 0;
+  position: fixed;
+  width: 0;
+}
+
+.radio-group input:checked + span {
+  background-color: rgb(61, 172, 111);
+  color:#F7F7F7;
+}
+
+
+.teaStat__row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.teaStat__col-1 {
+  width: 30%;
+}
+
+.teaStat__col-2 {
+  width: 60%;
 }
 
 .teaStat__scrollBlock {
@@ -802,7 +907,8 @@ table {
 }
 
 .classRow__col--header {
-  flex-basis: 25%
+  flex-basis: 25%;
+  font-weight: bold;
 }
 
 .classRow__col {
@@ -810,23 +916,27 @@ table {
   text-align: center;
 }
 
-
-
-
 .classRow__studentRow {
-  border: 1px dotted black;
+  display: flex;
+  border-bottom: 1px dotted black;
+  cursor: pointer;
+}
+
+.classRow__studentRow > * {
+  pointer-events: none;
 }
 
 
 
 /* =========================================
 * Status report: Student
-*   _____  _______ .     . .___   .____  __    _  _______
-*  (      '   /    /     / /   `  /      |\   |  '   /   
-*   `--.      |    |     | |    | |__.   | \  |      |   
-*      |      |    |     | |    | |      |  \ |      |   
-* \___.'      /     `._.'  /---/  /----/ |   \|      /   
-*                                                        
+     _______..___________. __    __   _______   _______ .__   __. .___________.
+    /       ||           ||  |  |  | |       \ |   ____||  \ |  | |           |
+   |   (----``---|  |----`|  |  |  | |  .--.  ||  |__   |   \|  | `---|  |----`
+    \   \        |  |     |  |  |  | |  |  |  ||   __|  |  . `  |     |  |     
+.----)   |       |  |     |  `--'  | |  '--'  ||  |____ |  |\   |     |  |     
+|_______/        |__|      \______/  |_______/ |_______||__| \__|     |__|     
+                                                                               
 ============================================ */
 
 .nav__logo--student {
@@ -851,25 +961,9 @@ table {
 }
 
 
-.data__print__button {
-  display: block;
-  padding: 10px 15px;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  background: rgb(39, 61, 189);
-  transition: background 0.2s;
-  color: white;
-}
-
-.data__print__button:hover {
-  background:rgb(129, 211, 243);
-  color: black;
-}
-
 .accordion__button {
   width: 100%;
-  padding: 15px;
+  padding: 1em;
   border: none;
   outline: none;
   cursor: pointer;
@@ -905,19 +999,89 @@ table {
   background: #eeeeee;
 }
 
+.sGrid__body .row {
+  border-bottom: 1px dotted black;
+  
+}
+
+
+.sGrid__row:nth-of-type(even) { 
+  background: #f2f2f2; 
+}
+
+.sGrid__th {
+  font-weight: 600;
+  height: 3rem;
+  background-color: #ed730a;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 1em;
+  border-radius: 1em;
+  box-shadow:inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17);
+}
+
+
+.sGrid__teacher {
+  color: #555555;
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.asmt-box {
+  padding: 0.67em 1em;
+  border-radius: 12px;
+  text-align: center;
+  font-size: 0.85rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.comment-text {
+  font-size: 0.85rem;
+  white-space: pre-wrap;
+}
+
+
+.rs__header {
+  margin-bottom: 1em;
+}
+
+.rs__name {
+  text-transform: uppercase;
+}
+
+.rs__courseTitle {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.rs__teacher {
+  font-weight: normal;
+  color: gray;
+}
+
+
+.student__headerRow {
+  position: relative;
+}
+
+.student__printBtn {
+  position: absolute;
+  top: 0.2em;
+  right: 0.2em;
+}
+
 .form__label {
   display: block;
-  margin: 5px 0px;
-}
-.form__input {
-  display: block;
-  width: 100%;
-  margin-bottom: 10px;
+  margin: 1rem 0;
+  font-weight: 600;
 }
 
 .form-container__button {
   display: block;
-  padding: 10px 15px;
+  padding: 0.67em 1em;
   border: none;
   outline: none;
   cursor: pointer;
@@ -1039,28 +1203,27 @@ table {
 
 .toast {
   position: fixed;
-  top: 0px;
-  right: 0;
-  left: 0;
+  top: 0;
+  left: 50%;
   margin: auto;
   text-align: center;
-  max-width: 250px;
-  padding: 8px;
+  max-width: 350px;
+  padding: 1em;
   background: #cccccc;
   color: #333333;
   z-index: 9999;
   border: 1px solid #aaaaaa;
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
   visibility: hidden;
   opacity: 0;
-  transition: opacity 0.2s, top 0.2s, visibility 0.2s;
+  transform: translate(-50%)
+  /* transition: opacity 0.2s, top 0.2s, visibility 0.2s; */
 }
 
 .toast-show {
-  top: 50px;
-  opacity: 1;
   visibility: visible;
+  animation: toastFadeInOut 3s;
 }
 
 .toast-success {
@@ -1075,6 +1238,397 @@ table {
   color: #ffffff;
 }
 
+@keyframes toastFadeInOut {
+  5%, 95% {opacity: 1; top: 50px;}
+  15%, 85% {opacity: 1; top: 30px}
+}
+
+
+
+/*
+     ___       _______  .___  ___.  __  .__   __. 
+    /   \     |       \ |   \/   | |  | |  \ |  | 
+   /  ^  \    |  .--.  ||  \  /  | |  | |   \|  | 
+  /  /_\  \   |  |  |  ||  |\/|  | |  | |  . `  | 
+ /  _____  \  |  '--'  ||  |  |  | |  | |  |\   | 
+/__/     \__\ |_______/ |__|  |__| |__| |__| \__| 
+                                                  
+*/
+
+.objectTree__mainTable {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+}
+
+.admin__interactionRow {
+  display: flex;
+}
+
+.ot__valuesTable {
+  border-collapse: collapse;
+}
+
+.ot__button {
+  display: block;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  margin: 0;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.ot__button--invisible {
+  visibility: hidden;
+}
+
+.search-output {
+  max-height: 200px;
+  overflow-y: scroll;
+  padding: 0.25em;
+}
+
+.search-output li {
+  margin-left: 1em;
+}
+
+.ot__textformatting {
+  border: 1px solid transparent;
+  min-height: 16px;
+  min-width: 16px;
+  padding: 2px;
+  margin: 1px;
+  word-wrap: break-word;
+  float: left;
+}
+
+.ot__dragArea::before {
+  content: '⛬'
+}
+
+.ot__menuButton::before {
+  content: '☰'
+}
+
+.ot__separator::before {
+  content: ' : '
+}
+
+.ot__btn--collapsed::before {
+  content: '▲'
+}
+
+.ot__btn--expanded::before {
+  content: '▶'
+}
+
+.ot__value--object::before {
+  content: '{'
+}
+.ot__value--object::after {
+  content: '}'
+}
+
+.ot__value--array::before {
+  content: '['
+}
+.ot__value--array::after {
+  content: ']'
+}
+
+.ot__value--string {
+  color: #006000;
+}
+
+.input-group-addon {
+  padding: 6px 12px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1;
+  color: #555;
+  text-align: center;
+  background-color: #eee;
+  border: 1px solid #ccc;
+  width: 1%;
+  white-space: nowrap;
+  vertical-align: middle;
+  display: table-cell;
+}
+
+.input-group-input {
+  position: relative;
+  z-index: 2;
+  float: left;
+  width: 100%;
+  margin-bottom: 0;
+  display: table-cell;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  margin: 0;
+}
+
+.suffix input {
+  border-radius: 4px 0px 0px 4px;
+}
+.suffix .input-group-addon {
+  border-left: 0;
+  border-radius: 0px 4px 4px 0px;
+}
+.prefix input {
+  border-radius: 0px 4px 4px 0px;
+}
+.prefix .input-group-addon {
+  border-right: 0;
+  border-radius: 4px 0px 0px 4px;
+}
+.presuffix input {
+  border-radius: 0px;
+}
+.input-group-addon.prefix {
+  border-radius: 4px 0px 0px 4px;
+  border-right: 0;
+}
+.input-group-addon.suffix {
+  border-radius: 0px 4px 4px 0px;
+  border-left: 0;
+}
+.input-group {
+  position: relative;
+  display: table;
+  border-collapse: separate;
+}
+
+
+
+/*MODAL */
+ .modal {
+   display: none;
+   background: rgba(0,0,0,.8);
+   position: fixed;
+   left: 0;
+   top: 0;
+   bottom: 0;
+   justify-content: center;
+   align-items: center;
+   height: 100%;
+   width: 100%;
+   z-index: 9997;
+ }
+
+ .modal--active {
+   display: flex;
+ }
+
+ .modal__content {
+   background: rgba(255,255,255, 1);
+   width: 60%;
+   min-width: 300px;
+   margin: auto;
+   position: relative;
+   animation: slideUp 0.3s ease-in-out;
+   display: flex;
+   flex-direction: column;
+   max-height: 90%;
+ }
+
+ .modal__content--large {
+   width: 80%;
+ }
+
+ .modal__header {
+   background-color: rebeccapurple;
+   color:rgba(255,255,255,0.8);
+   padding: 1em;
+   position: relative;
+ }
+
+
+ .modal__close--btn {
+   color: #fff;
+   text-decoration: none;
+   position: absolute;
+   top: .75em;
+   right: .75em;
+   font-size: 1.5em;
+   line-height: 0;
+   cursor: pointer;
+   z-index: 9998;
+   outline: none;
+   border: none;
+ }
+
+ .modal__close--btn:hover {
+  transform: scale(1.1)
+ }
+
+ .modal__body {
+   padding: 1em;
+   overflow-y: scroll;
+   max-height: 80%;
+ }
+
+ .modal__footer {
+   padding: 0.25em;
+   display: flex;
+   justify-content: flex-end;
+ }
+
+ @keyframes slideUp{
+   from {
+     opacity: 0;
+     bottom: -200px;
+   }to {
+     opacity: 1;
+     bottom: 0;
+   }
+ }
+
+
+
+ 
+ /*
+ Things that should take precedence
+    _  _    __       ______   .______       _______   _______ .______      
+ _| || |_ /_ |     /  __  \  |   _  \     |       \ |   ____||   _  \     
+|_  __  _| | |    |  |  |  | |  |_)  |    |  .--.  ||  |__   |  |_)  |    
+ _| || |_  | |    |  |  |  | |      /     |  |  |  ||   __|  |      /     
+|_  __  _| | |    |  `--'  | |  |\  \----.|  '--'  ||  |____ |  |\  \----.
+  |_||_|   |_|     \______/  | _| `._____||_______/ |_______|| _| `._____|
+                                                                          
+
+ */
+
+/* Färgkodning för omdömen */
+.option-IT {
+  background-color: #ffd2cf !important;
+}
+
+.option-T {
+  background-color: #96f2af !important;
+}
+
+.option-TEB {
+  background-color: #b5f3b5 !important;
+}
+
+.option-UB {
+  background-color: #feffd9 !important;
+}
+
+.option-IT--sharp {
+  background-color: #eb746c !important;
+}
+
+.option-T--sharp {
+  background-color: #47c769 !important;
+}
+
+.option-UB--sharp {
+  background-color: #e8ee49 !important;
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+}
+
+.text-underline {
+  text-decoration: underline;
+}
+
+ .text-italic {
+  font-style: italic;
+}
+
+.text-bold {
+  font-weight: 600;
+}
+
+.text-small {
+  font-size: .75rem;
+}
+
+.text-color--blue {
+  color: #00BFFF;;
+}
+
+ .clr--yellow {
+  background-color:#FFCC00;
+  color:#333;
+}
+
+.clr--blue {
+  background-color:#00BFFF;
+  color:#333;
+}
+
+.clr--pink {
+  background-color:#FF99FF;
+  color:#333;
+}
+
+.clr--purple {
+  background-color:#B399FF;
+  color:#333;
+}
+
+.col {
+    flex-basis: 0;
+    flex-grow: 1;
+    min-width: 0;
+    max-width: 100%;
+}
+
+.col-1 {
+  flex: 0 0 8.333333%;
+  max-width: 8.333333%;
+}
+
+.col-2 {
+  flex: 0 0 16.666666%;
+  max-width: 16.666666%;
+}
+.col-3 {
+  flex: 0 0 25%;
+  max-width: 25%;
+}
+.col-4 {
+  flex: 0 0 33.333333%;
+  max-width: 33.333333%;
+}
+.col-5 {
+  flex: 0 0 41.666667%;
+  max-width: 41.666667%;
+}
+.col-6 {
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+.col-7 {
+  flex: 0 0 58.333333%;
+  max-width: 58.333333%;
+}
+.col-8 {
+  flex: 0 0 66.666667%;
+  max-width: 66.666667%;
+}
+.col-9 {
+  flex: 0 0 75%;
+  max-width: 75%;
+}
+.col-10 {
+  flex: 0 0 83.333333%;
+  max-width: 83.333333%;
+}
+.col-11 {
+  flex: 0 0 91.666667%;
+  max-width: 91.666667%;
+}
+.col-12 {
+  flex: 0 0 100%;
+  max-width: 100%;
+}
 
 
 /* =========================================
@@ -1096,39 +1650,32 @@ table {
     font-size: 1.2rem;
   }
 
-  .nav__logo {
-    margin: 5px 10px;
+  /* .nav__logo {
     width: calc(15%-50px);
   }
   .nav__menu {
     width: calc(65%-50px);
-  }
+  } */
   .nav__email {
     font-size: 0.8rem;
   }
-
-  .th, .td {
-    padding: 5px !important;
-  }
-  .sReport__asmt {
-    padding: 5px 10px !important;
-  }
-
-  .teaStat__row {
-    flex-direction: column;
-  }
-
 }
 
 @media screen and (max-width: 768px) {
   :root {
-    font-size: 75%;
+    font-size: 10px;
   }
   
-  body, html {
+  .container {
     /* Since menu is pushed outside, there will be a scroll if you don't remove it. These lines have to do with that*/
     overflow-x: hidden; 
     position: relative;
+  }
+
+  [class*="col-"] {
+    width: 100%;
+    max-width: 100%;
+    flex: 0 0 100%;
   }
 
   .nav__title {
@@ -1139,7 +1686,7 @@ table {
   }
   .nav__user {
     flex: 1 0 auto;
-    margin: 5px;
+    margin: .5em;
   }
 
   .nav__menu {
@@ -1157,7 +1704,7 @@ table {
   }
   .nav__li {
     opacity: 0;
-    padding: 10px 0 10px 0;
+    padding: 1em 0 1em 0;
   }
   .nav__hamburger {
     display: block;
@@ -1171,30 +1718,65 @@ table {
   }
 
   .btn-save {
-    height: 40px;
-  }
-  
-  .student-portrait {
-    display: none;
+    height: 4em;
   }
 
-  .student-personal-info {
+  .student {
+    flex-direction: column;;
+  }
+
+  .student__col--1,
+  .student__col--2 {
     width: 100%;
   }
-  .student-details-container {
-    flex-basis: 20%;
+
+  .th, .td {
+    padding: 0;
+  }
+  .signatur {
+    display:none;
   }
 
-  .assessment-container {
-    flex-basis: 25%;
+  .tabs__body {
+    width: 100%;
+  }
+  .teaStat__row {
+    flex-direction: column;
+    align-items: center;
+
   }
 
-  .comment-container {
-    flex-basis: 50%;
+  .teaStat__col-1,
+  .teaStat__col-2 {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* .row {
+    flex-direction: column;
+  } */
+
+  .sGrid__header,
+  .teacher-img { display: none;}
+
+  .mobile-only--inline { 
+    display: inline-block;
   }
   
-  .comment-container textarea::placeholder {
-    letter-spacing: 1px;
+  .mobile-only--block { 
+    display: block;
   }
-}
 
+  .asmt-box {
+    padding: 0.25em 1em;
+    border-radius: 1em;
+    text-align: center;
+    font-size: 1rem; 
+    display: inline-block;
+  }
+
+  .sGrid__courseTitle {
+    font-size: 1.5rem;
+  }
+
+}

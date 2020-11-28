@@ -1,4 +1,11 @@
+/**
+ * Global Variables!
+ */
+
+const CURRENT_TERM = 'HT20'
 const DB = firebase.firestore();
+const DB__STUDENTS = DB.collection('status-report').doc(CURRENT_TERM).collection('students');
+const DB__TEACHERS = DB.collection('status-report').doc(CURRENT_TERM).collection('teachers');
 
 function signIn() {
   // Sign into Firebase using FORCED account-pick auth & Google as the identity provider.
@@ -68,7 +75,7 @@ function authStateObserver(user) {
       }).catch((error) => {
         console.error('Error loading teacher ... ')
         console.error(error)
-        handle_load_teacher(null)
+        handle_load_teacher('noCredentials')
       })
     }
     if (active_page == 'coach') {
@@ -78,20 +85,37 @@ function authStateObserver(user) {
       }).catch((error) => {
         console.error('Error loading coach ... ')
         console.error(error)
-        handle_load_coach(null)
+        handle_load_coach('noCredentials')
       })
     }
-    if (active_page == 'admin') {
+    if (active_page == 'statistics') {
       let user_doc = firebase.firestore().collection("status-report").doc(CURRENT_TERM).collection('statistics').doc('general');
       user_doc.get().then((response) => {
-        handle_load_admin(response)
+        handle_load_statistics(response)
       }).catch((error) => {
-        console.error('Error loading admin ... ')
+        console.error('Error loading statistics ... ')
         console.error(error)
-        handle_load_admin(null)
+        handle_load_statistics('noCredentials')
       })
     } if (active_page == 'student') {
+      let student_c = [];
+      DB.collection('status-report').doc(CURRENT_TERM).collection('students').doc(userEmail).collection('courses').get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          if (doc.exists) {
+            student_c.push(doc.data())
+          }
+        })
+        handle_load_student(student_c)
+
+      }).catch((error) => {
+        console.error('Error loading student ...')
+        console.error(error)
+        handle_load_student('noCredentials')
+      })
+    } if (active_page == 'admin') {
+
     }
+
   } else { // User is signed out!
     Onload.signedOut()
     // Hide sign-in button.
