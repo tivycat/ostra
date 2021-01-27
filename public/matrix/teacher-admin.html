@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Östra gymnasiet - Matrirapportering</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/matris.css">
+  <link rel="stylesheet" href="../resources/css/utility.css">
+</head>
+
+<body class="matris" data-page='teacher-admin'>
+  <nav class="nav bg-yellow-50">
+    <ul class="mainMenu" id="mainMenu">
+        <li class="brand">
+            <a href="../index.html">ÖSTRA<span>APP</span>
+            </a>
+        </li>
+        <li class="menu-item">
+          <a href="teacher.html">Tillbaka till rapportering</a>
+        </li>
+        <li class="menu-item">
+          <a data-toggle="mainSection" data-toggle-target="myCourses">Mina kurser</a>
+        </li>
+        <li class="menu-item">
+          <a data-toggle="mainSection" data-toggle-target="matrices"
+          id="list-user-matrices">Bedömningsmatriser</a>
+        </li>
+        <li class="menu-item loginContainer">
+            <div class="signedIn">
+                <div class="col col--left">
+                    <div class="signedIn__email" id="user-email"></div>
+                    <div class="signOut__btn" id="sign-out">Logga ut</div>
+                </div>
+                <div class="col col--right">
+                    <div class="signedIn__avatar" id="user-pic"></div>
+                </div>
+            </div>
+            <div class="signedOut">
+                <div class="signIn__btn" id="sign-in">Logga in
+                    <img class="signIn__icon" src="../resources/images/login.svg" alt="login">
+                </div>
+            </div>
+        </li>
+        <li class="toggle-main-menu" id="toggle-main-menu">Meny</li>
+    </ul>
+</nav>
+  <div class="container mt-2">
+    <!-- myCourses section-->
+    <section id="section-myCourses" class="mainSection space-y-4">
+      <div class="md:flex">
+        <h2 class="text-indigo-900 md:flex-grow py-2 mb-0">Mina kurser</h2>
+        <div class="flex md:justify-end space-x-1 md:flex-grow">
+          <button class="py-1 px-1 md:py-2 md:px-4 bg-blue-400 rounded shadow-inner hover:bg-blue-600 hover:text-white" id="create-new-course"
+            data-toggle="mainSection" data-toggle-target="newCourse">Lägg till ny</button>
+          <button class="py-1 px-1 md:py-2 md:px-4 bg-pink-400 rounded shadow-inner hover:bg-pink-600 hover:text-white" id="get-courses">Hämta kurser
+            från Classroom</button>
+        </div>
+      </div>
+      <div class="space-y-4">
+        <p>Klicka på kurs för att öppna inställningar för vald kurs</p>
+        <div class="myCourses__active">
+          <h3 class="text-indigo-900 font-hairline">Aktiva kurser</h3>
+          <ul class="list-disc ml-4">
+          </ul>
+        </div>
+        <div class="myCourses__archive">
+          <h3 class="text-indigo-900 font-hairline">Arkiverade kurser (ej synliga för elever)</h3>
+          <ul></ul>
+        </div>
+      </div>
+    </section>
+    <!-- MATRIX SECTION-->
+    <section id="section-matrices" class="mainSection space-y-2 hidden">
+      <div class="md:flex">
+        <h2 class="text-indigo-900 md:flex-grow">Bedömningsmatriser</h2>
+        <div class="md:flex md:justify-end md:flex-grow">
+          <button class="py-2 px-2 md:px-5 md:py-3 rounded bg-blue-400 shadow-inner hover:bg-blue-600 hover:text-white"
+            data-toggle="mainSection" data-toggle-target="newMatrix">Lägg till ny</button>
+        </div>
+      </div>
+      <!-- Nav tabs-->
+      <ul class="navTabs" role="tablist">
+        <li>
+          <a class="active md:text-lg" href="javascript:void(0)" data-tab-target="0">Mina matriser</a>
+        </li>
+        <li>
+          <a class="md:text-lg" href="javascript:void(0)" data-tab-target="1">Alla matriser</a>
+        </li>
+      </ul>
+      <!-- Nav content-->
+      <div class="tabContent mt-2">
+        <div id="myMatrices" data-tab-content="0" class="fade in active">
+          <div class="text-lg mb-2">Aktiva matriser</div>
+          <div class="border-b-2 border-indigo-700 hidden md:flex">
+            <div class="w-4/12">Namn</div>
+            <div class="w-6/12">Beskrivning</div>
+            <div class="w-2/12 ml-auto">Ägare</div>
+          </div>
+          <div id="userMatrices-list" class="space-y-2"></div>
+        </div>
+
+        <div id="matrixDatabase" data-tab-content="1" class="fade">
+          <div>Inte påsatt just nu.. Det ska fixas i samband med att det finns ett behov (det tar typ 5 min så oklart varför jag inte bara gör det🤨)</div>
+        </div>
+      </div>
+    </section>
+    <!-- Create new Matrix-->
+    <section id="section-newMatrix" class="mainSection space-y-4 hidden">
+      <h2 class="section-header bg-indigo-700">Skapa ny bedömningsmatris</h2>
+      <h4 class="mb-2 underline">Så här fungerar matriser:</h4>
+      <p>Varje kurs behöver en bedömningsmatris. Vid skapandet av en uppgift så väljer man områden i matrisen som du vill examinera. Bedömningen du gör på dessa områden adderas sedan i
+        en sammanställning för varje elev vilket ger en god översikt över elevens prestation. När du nu skapar en matris ska du alltså
+        inkludera samtliga områden som kursen ska testa. Du kan till exempel bara ta kunskapskraven och lägga in
+        dem, stycke för stycke, eller bryta upp dem i mer meningsfulla enheter.</p>
+      <p>Först så väljer du vilka nivåer, till exempel E,C,A och sedan väljer du bedömningsområdena. </p>
+      <div class="">
+        <label for="newMatrix-name">Namn på matrisen <span class="text-red-700">*</span></label>
+        <input type="text" class="form-text" maxlength="50" id="newMatrix-name">
+      </div>
+      <div class="">
+        <label for="newMatrix-description">Beskrivning <span class="text-sm">(för att du själv och andra lärare ska känna igen din
+            matris)</span></label>
+        <input type="text" class="form-text" id="newMatrix-description">
+      </div>
+      <div class="">
+        <label for="newMatrix-name">Nivåer <span class="text-red-700">*</span></label>
+        <ul id="newMatrix_gradeLevels" class="flex flex-wrap">
+          <li class="flex space-x-1 mt-2">
+            <input data-input="gradeLevel" class="w-10 form-text" maxlength="10"
+              name="gradelevels" type="text" value="E">
+            <button data-delete="gradeLevel"
+              class="bg-red-500 shadow-sm h-4 ml-1 hover:shadow-md cursor-pointer hover:bg-red-700 hover:text-white">&times;
+            </button>
+          </li>
+          <li class="flex space-x-1 mt-2">
+            <input data-input="gradeLevel" class="w-10 form-text" maxlength="10"
+              name="gradelevels" type="text" value="C">
+            <button data-delete="gradeLevel"
+              class="bg-red-500 shadow-sm h-4 ml-1 hover:shadow-md cursor-pointer hover:bg-red-700 hover:text-white">&times;
+            </button>
+          </li>
+          <li class="flex space-x-1 mt-2">
+            <input data-input="gradeLevel" class="w-10 form-text" maxlength="10"
+              name="gradelevels" type="text" value="A">
+            <button data-delete="gradeLevel"
+              class="bg-red-500 shadow-sm h-4 ml-1 hover:shadow-md cursor-pointer hover:bg-red-700 hover:text-white">&times;
+            </button>
+          </li>
+        </ul>
+        <button class="bg-orange-300 py-2 px-4 mt-2 rounded-md hover:bg-orange-500 hover:text-white"
+          id="newMatrix-addGradelevel">Lägg till fler</button>
+      </div>
+      <div class="flex justify-end mt-4">
+        <button class="bg-indigo-700 text-white rounded py-3 px-4 hover:bg-indigo-900"
+          id="newMatrix-confirmCreate">Spara bedömningsmatris</button>
+      </div>
+    </section>
+    <!-- Edit Matrix-->
+    <section id="section-editMatrix" class="mainSection space-y-4 hidden">
+      <h2 class="section-header bg-indigo-700">Redigera Matris</h2>
+      <div class="">
+        <label for="editMatrix-name">Namn på matrisen <span class="text-red-700">*</span></label>
+        <input type="text" class="form-text" maxlength="50" id="editMatrix-name">
+      </div>
+      <div class="">
+        <label for="editMatrix-description">Beskrivning <span class="text-sm">(för att du själv och andra ska hitta din
+            matris)</span></label>
+        <input type="text" class="form-text" id="editMatrix-description">
+      </div>
+      <div class="">
+        <label for="editMatrix-name">Nivåer <span class="text-red-700">*</span></label>
+        <ul id="editMatrix_gradeLevels" class="flex ml-0 my-2">
+        </ul>
+        <button class="bg-orange-300 py-2 px-4 mt-2 rounded-md hover:bg-orange-500 hover:text-white"
+          id="editMatrix-addGradelevel">Lägg till fler</button>
+      </div>
+      <h4>Bedömningsområden</h4>
+      <p>Bedömningsområden kan likställas till stycken i kunskapskrav. Varenda kursmatris har en rad olika
+        stycken. Syftet med att dela upp dem i avvägda områden är för att kunna organisera dem på ett, för eleverna,
+        tydligt sätt. Döp bedömningsområdet till ett eller ett par ord som beskriver området, till exempel 'Källkritik' eller 'Muntlig
+        produktion'
+      </p>
+      <p>För att ändra ordningen på områden så kan du ta tag i handen i hörnet och dra det till önskad plats!</p>
+      <div class="text-lg mb-1 underline">Formattering:</div>
+        <ul class="list-disc ml-4">
+          <li>Två radbyten krävs för ett nytt stycke</li>
+          <li>För att fetstila ord eller fraser så inneslutar du dem i stjärnor **<span class="font-bold">så här</span>** </li>
+        </ul>
+      <div id="editMatrix-gradeAreas" class="mt-2 space-y-2" ondrop=cancelDefaultBehavior(event) ondragend=dragEnd(event) ondragover=dragOver(event)>
+      </div>
+      
+      <div class="flex justify-end">
+        <button class="text-sm bg-yellow-300 text-black rounded py-2 px-3 hover:bg-yellow-500"
+        id="editMatrix-addArea">Lägg till nytt bedömningsområde</button>
+      </div>
+      
+      <p class="text-xl uppercase">Förhandsvisning</p>
+      <div id="editMatrix-preview" class="my-2 space-y-2 border rounded border-gray-300">
+        
+      </div>
+      <div class="flex justify-end mt-4 space-x-1">
+        <button class="bg-red-700 text-white rounded py-1 px-1 md:py-2 md:px-3 hover:bg-red-900"
+          id="editMatrix-removeMatrix">Ta bort bedömningsmatris</button>
+        <button class="bg-indigo-700 text-white rounded py-1  md:py-2 md:px-3 px-1 hover:bg-indigo-900"
+          id="editMatrix-saveEdit">Spara bedömningsmatris</button>
+      </div>
+    </section>
+    <!-- Edit course-->
+    <section id="section-editCourse" class="mainSection hidden space-y-3">
+      <h2 class="section-header bg-purple-700">Redigera kurs</h2>
+      <div class="">
+        <label class="text-sm">KursID<span class="text-red-700">*</span> (e.g. EN6SABE19)</label>
+        <input type="text" class="form-text" id="editCourse-courseId"  data-reset="value" >
+      </div>
+      <div class="">
+        <label class="text-sm">Kursmatris<span class="text-red-700">*</span></label>
+        <div class="flex flex-col">
+          <div id="editCourse-selectMatrix" class="cSelect__optionsContainer" data-reset="children">
+          </div>
+          <div id="editCourse-selectedMatrix" class="cSelect__selected">Välj matris</div>
+        </div>
+      </div>
+      <div class="flex justify-center items-center flex-col md:block">
+        <div>Kurstillstånd</div>
+        <div class="radioBtnGroup-wrapper">
+          <input type="radio" class="radioBtn" data-state="active" name="courseState" value="active"
+            id="courseState-active" checked />
+          <label for="courseState-active">Aktiv</label>
+          <input type="radio" class="radioBtn" data-state="archive" name="courseState" value="archive"
+            id="courseState-archive" />
+          <label for="courseState-archive">Arkiverad</label>
+        </div>
+      </div>
+      <div class="space-y-2">
+        <div class="flex">
+          <div class="text-indigo-900 font-bold text-xl">Elevlista</div>
+          <button id="getStudentList"
+            class="ml-auto bg-purple-200 rounded px-1 py-1 md:px-2 md:py-2 text-gray-700 hover:bg-purple-500 hover:text-white hover:shadow-lg"
+            >Hämta elevlista</button>
+        </div>
+        <p class="italic text-indigo-700 text-sm">Sök på elever vid namn och tryck på namnet så läggs de till i listan. Om
+          en elev saknas måste den läggas till av <a
+            href="mailto:viktor.tysk@edu.huddinge.se?subject=Lägg till ny elev, tack">Viktor</a></p>
+        <ol id="editCourse-studentList" data-reset="children" ></ol>
+        <form action="/" name="studentInput" class="my-2">
+          <input class="w-full flex-grow border text-gray-900 py-2 px-3" id="editcourse-searchStudents" type="text" name="searchStudents" />
+          <div id="editCourse-matchList"></div>
+        </form>
+      </div>
+      <div id="editCourse-footer" class="flex justify-end">
+        <button id="editCourse-saveCourse" class="bg-green-300 rounded px-3 py-2 shadow-inner hover:bg-green-500 hover:shadow-md">Spara kurs</button>
+      </div>
+    </section>
+    <section class="mainSection hidden" id="section-error">
+      <div data-error-type="no_permissions" class="hidden">
+        <h1 class="text-red-700">Hoppsan!</h1>
+        <h2>Du saknar förmodligen behörighet för detta. Endast användare som är tillagda som lärare kan göra det du försökte göra.</h2>
+        <h4>Kontakta <a class="hover:underline text-blue-500" href="mailto:viktor.tysk@edu.huddinge.se?subject=Saknad%20behörighet%20(matris)&body=Hej%20Viktor!%20Kan%20jag%20få%20behörighet%20till%20matrisappen?">Viktor Tysk</a> med det här problemet.</h4>
+    </div>
+      <div data-error-type="not_logged_in" class="hidden">
+        <h2 class="text-red-700">Hoppsan!</h2>
+        <h3>Du är visst inte inloggad. Logga in och försök igen!</h3>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="modal" data-modal="classroom">
+    <div class="modal__content">
+      <header class="modal__header">
+        <h4>Mina kurser - Classroomhämtning</h4>
+        <button data-dismiss="modal" class="modal__close--btn">&times;</a>
+      </header>
+      <div class="modal__body space-y-2">
+        <h3>Markera önskad kurs som du vill använda i denna app</h3>
+        <p class="italic">Du kan finjustera elevlistan i efterhand.</p>
+        <ul id="classroom-courseList" class="list-none space-y-2"></ul>
+      </div>
+      <div class="modal__footer space-x-2">
+        <button data-dismiss="modal" class="px-2 py-1 md:px-3 md:py-2 rounded bg-yellow-300 hover:bg-yellow-500 hover:text-white">Stäng</button>
+        <button id="classroom-addCourse" class="px-2 py-1 rounded bg-blue-300 hover:bg-blue-500 hover:text-white">Lägg till kurs</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+  <script src="/__/firebase/7.19.1/firebase-app.js"></script>
+
+  <!-- Add Firebase products -->
+  <script src="/__/firebase/7.19.1/firebase-auth.js"></script>
+  <script src="/__/firebase/7.19.1/firebase-firestore.js"></script>
+
+  <!-- Initiate FB script-->
+  <script src="/__/firebase/init.js"></script>
+
+  <!-- The rest of the f*****n owl-->
+  <script type="text/javascript" src="js/backend.js"></script>
+  <script type="text/javascript" src="js/core.js"></script>
+  <script type="text/javascript" src="js/teacher-admin.js"></script>
+
+</body>
+
+</html>

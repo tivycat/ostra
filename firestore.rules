@@ -1,22 +1,95 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function hasRole(role) {
+      return isSignedIn() && 
+      request.auth.token.email in get(/databases/$(database)/documents/users/$(role)).data.valid_ids;
+    }
+
+    function teachesCourse(rsc) {
+      return isSignedIn() && request.auth.token.email == rsc.data.teacher_email;
+    }
+
+    function isActiveStudent(rsc) {
+      return isSignedIn() && request.auth.token.email == rsc.data.email;
+    }
+    
+    match /{everything=**} {
+      allow read,write: if hasRole('super_admins');
+     }
+
+  	// -- !! USERS !! --
+    // Alla ska kunna läsa för att kunna verifiera
     match /users/{document} {
       allow read;
     }
     
-    match /{everything=**} {
-     	allow read, write, create, delete: if request.auth.token.email in
-      	 	get(/databases/$(database)/documents/users/admins).data.valid_ids;
-     }
+    // -- !! YEAR PLAN !! --
+    // Alla ska kunna läsa
+    // Endast admins ska kunna ändra
+    match /planning/{everything=**} {
+    	allow read;
+    	allow write: if hasRole('super_admins');
+    }
+    
+    // -- !! MATRIS !! --
+    // Alla lärare måste kunna läsa och skapa matriser
+  	match /matrix/mMatrices/mMatrices--active/{anyMatrix} {
+  		allow read, write: if hasRole('teachers')
+  	}
+        
+    match /matrix/mStudents/mStudents--active/{student} {
+    // T.o.m Elever måste kunna querya elevlistan
+   		allow read: if isSignedIn();
+    }
+    
+    match /matrix/mCourses/{courseState}/{course} {
+    	// Tillåter lärare att skapa kurser och hantera om de är läraren
+    	allow create: if hasRole('teachers')
+      allow read, write: if hasRole('teachers') && teachesCourse(resource);
+    }
+    
+    match /matrix/mCourses/{courseState}/{course}/asmts/{asmt} {
+    // Tillåter rätt lärare att skapa och ta bort assessments
+    	allow read, write: if hasRole('teachers') && 
+      teachesCourse(get(/databases/$(database)/documents/matrix/mCourses/$(courseState)/$(course)))
+    }
+    
+      
+    match /matrix/mStudents/mStudents--active/{student}/studentCourseList/{course} {
+    	// Lärare får edita kurser som eleven har där lärarens epost finns
+    	allow read: if isSignedIn();
+      allow create: if hasRole('teachers'); // för att kunna skapa
+  		allow write: if hasRole('teachers') && teachesCourse(resource);
+		}
+     
+    
+    match /{path=**}/studentCourseList/{course} {
+    	// Nödvändigt för collectionGroup querys (den måste kunna querya alla collections)
+    	allow read: if hasRole('teachers')
+    }
+    
+    match /matrix/mStudents/mStudents--active/{student}/studentCourseList/{course}/asmts/{asmt} {
+  	  // Tillåter lärare att hantera asmts i kurser de är lärare i, och rätt elev att läsa
+    	allow read, write: if teachesCourse(get(/databases/$(database)/documents/matrix/mStudents/mStudents--active/$(student)/studentCourseList/$(course)))
+      allow read: if isActiveStudent(get(/databases/$(database)/documents/matrix/mStudents/mStudents--active/$(student)))
+    }
 
-     match /{everything=**} {
-       allow read, write: if request.auth.token.email in
-       	get(/databases/$(database)/documents/users/teachers).data.valid_ids;
-     }
-
-     match /status-report/HT20/students/{student_email}/courses/{any=**} {
-     	allow read, write: if request.auth.token.email == student_email;
+     // -- !! STATUS-REPORT !! --
+		// Elevdokument
+     match /status-report/HT20/students/{any=**} {
+     	allow read, write: if isSignedIn();
      }
   }
 } 
+
+
+ // guide https://firebase.google.com/docs/firestore/security/rules-query
+  // Guide2 https://jek-bao-choo.medium.com/my-firestore-security-rules-learning-notes-14316400f160
+  // write = create, update, delete
+  // read = get, list. Använt alltid read (list är typ queread
+  // {name=**} <-- wildcard för arbiträrt djup (men bör inte användas)

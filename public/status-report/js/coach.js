@@ -233,8 +233,6 @@ function populate_reflections(ref, parent) {
   }
 }
 
-
-
 function print_coach_students() {
   let divContents = document.getElementById('content').innerHTML;
   let printWindow = window.open('', '', 'height=600,width=1000');

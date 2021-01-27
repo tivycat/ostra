@@ -4,32 +4,72 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="resources/css/general.css">
-  <title>Östra gymnasiet webapp - Startsida</title>
+  <link rel="stylesheet" href="resources/css/index.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+  <title>Östra gymnasiet webportal - Startsida</title>
 </head>
 
 <body>
-  <div class="container">
-    <header>
-      <div style="text-align: center">
-        <img src="resources/images/og-logo.jpg">
+  <header class="bg-light text-center text-primary-500">
+      <div class="container container--narrow">
+        <h1>Östra gymnasiet</h1>
+        <h2>Webportal</h2>
       </div>
-    </header>
-    <div class="col-6" style="margin: 1em auto;">
-      <div class="row row--centerX">
-        <div class="col-6">
-          <a class="button button--disabled" href="#" id="year-plan" disabled>Läsårsplanering</a>
+  </header>
+
+  <section class="bg-primary">
+    <div class="container">
+      <h2 class="text-primary-200 text-center">Webappar</h2>
+      <div class="split">
+        <div>
+          <a href="year-plan.html">
+            <h3 class="app__title bg-teal">Läsårsplanering</h3>
+          </a>
+          <p>Östra gymnasiets läsårsplanering i digitalt format med möjlighet att bara visa önskade händelser. </p>
         </div>
-        <div class="col-6">
-          <a class="button button--green" id="status-report" href="status-report/home.html">Lägesrapportering</a>
+        <div>
+          <a href="status-report/home.html">
+            <h3 class="app__title bg-yellow">Lägesrapportering</h3>
+          </a>
+          <p>Östra gymnasiets lägesrapportering som görs en gång per termin.</p>
+        </div>
+        <div>
+          <a href="matrix/home.html">
+            <h3 class="app__title bg-dark">Matrisbedömning</h3>
+          </a>
+          <p>Ett enkelt sätt att sammanställa elevers prestationer över flera uppgifter. Kommer snart.</p>
         </div>
       </div>
     </div>
-    <footer>
-      Ansvarig <a href="mailto: viktor.tysk@edu.huddinge.se">Viktor Tysk</a>
-    </footer>
+  </section>
 
-  </div>
+  <section class="bg-dark">
+    <div class="container">
+      <h2 class="text-primary-200 text-center">Resurser</h2>
+      <p>Nyttigt material för egenutveckling, i första hand IKT-relaterat.</p>
+      <div class="split">
+        <ul>
+          <li>...</li>
+          <li>...</li>
+          <li>...</li>
+        </ul>
+        <ul>
+          <li>...</li>
+          <li>...</li>
+          <li>...</li>
+        </ul>
+
+
+      </div>
+
+    </div>
+  </section>
+  <section class="bg-primary text-center">
+    <div class="container">
+      Ansvarig: <a href="mailto:viktor.tysk@edu.huddinge.se">Viktor Tysk</a>
+    </div>
+  </section>
 
 </body>
 

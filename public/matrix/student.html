@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Östra gymnasiet - Matrisrapportering</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../resources/css/utility.css">
+    <link rel="stylesheet" href="css/matris.css">
+
+</head>
+
+<body class="matris" data-page='student'>
+    <nav class="nav">
+        <div class="bg-primary-400">
+            <div class="nav__container nav__container--top">
+                <div class="nav__logo">
+                    <a href="../index.html">
+                        <h4 class="nav__title">ÖSTRA<span class="nav__title--alternative">APP</span>
+                        </h4>
+                    </a>
+                    <div class="nav__subtitle">Matris</div>
+                </div>
+                <div class="nav__loginContainer">
+                    <div class="nav__signedIn hidden">
+                        <div class="nav__userColumn--left">
+                            <div class="nav__email" id="user-email"></div>
+                            <div class="nav__sign-out" id="sign-out">Logga ut</div>
+                        </div>
+                        <div class="nav__userColumn--right">
+                            <div class="nav__picture" id="user-pic"></div>
+                        </div>
+                    </div>
+                    <div class="nav__signedOut">
+                        <div class="nav__sign-in" id="sign-in">Logga in
+                            <img class="nav__sign-in-icon" src="../resources/images/login.svg" alt="login">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-primary-900 hidden" id="userOnly-nav">
+            <div class="nav__container nav__container--bottom">
+                <ul class="navMenu">
+                    <li class="navMenu__item">
+                        <select id="choose-course" class="form__select">
+                            <option value="" class="do_not_delete" disabled selected>Välj kurs</option>
+                        </select>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section id="userOnly-main" class="hidden relative">
+        </div>
+        <section id="userOnly-main_noCourses" class="container container--narrow hidden">
+            <h1 class="text-primary-700">Välkommen!</h1>
+            <h2>Osis!</h2>
+            <h3>Inga kurser funna för detta id (<span class="user__email"></span>)</h3>
+        </section>
+        <div id="userOnly-main_start" class="container container--narrow hidden">
+            <h1 class="text-primary-700">Välkommen!</h1>
+            <h2>Välj en kurs från rullmenyn ovan för att visa resultat</h2>
+            <p>Om du behöver något, kontakta <a
+                    href="mailto:viktor.tysk@edu.huddinge.se">viktor.tysk@edu.huddinge.se</a></p>
+        </div>
+        <div id="course-container" class="container"></div>
+    </section>
+
+    <section id="preSignIn" class="container container--narrow">
+        <h1 class="text-primary-700">Välkommen till matrisrapporteringen!</h1>
+        <p class="text-lg">Det här är en webapp för sammanställning och rapportering av bedömningar. Läraren skapar
+            uppgifter, väljer bedömningsområden och bedömer eleverna enskilt och bedömningar sammanställs (tillsammans
+            med feedback) på ett <span class="text-sm">förhoppningsvis</span> översiktligt vis.</p>
+        <h3>Logga in för att se om det finns något rapporterat för dig!</h3>
+    </section>
+
+    <div id="clone" class="hidden">
+        <div class="course flex-col justify-center items-center">
+            <header class="course__details">
+                <h1 class="course__courseId"></h1>
+                <div class="course__courseTitle"></div>
+            </header>
+            <div class="tabContainer">
+                <ul class="navTabs w-full justify-center" role="tablist">
+                    <li>
+                        <a href="javascript:void(0)" data-tab-target="0" class="hover:bg-primary-100">Visa
+                            sammanställning</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" data-tab-target="1" class="hover:bg-primary-100">Visa uppgifter</a>
+                    </li>
+                </ul>
+                <!-- Nav content-->
+                <div class="tabContent mt-5 w-full">
+                    <div data-tab-content="0" class="course__summary fade in">
+                        <header class="my-3 text-lg">
+                            Detta är en sammanställning av din prestation i kursen just nu. Den vilar på bedömningar som
+                            gjorts i kursen. Läraren skapar uppgifter där de väljer ut olika områden som uppgiften ämnar
+                            testa, sedan sammanställs lärarens bedömning i vyn nedan. Du kan se enskilda uppgifters
+                            bedömningar och kommentarer om du går in i "Visa uppgifter" ovan.
+                        </header>
+                        <div class="table__legend mb-3">
+                            <h3>Vad betyder färgerna?</h3>
+                            <div class="flex space-x-2">
+                                <div class="w-40">
+                                    <div>
+                                        <div>Ej uppnått</div>
+                                        <div class="color-box" data-status='unmet'></div>
+                                    </div>
+                                </div>
+                                <div class="w-80 text-center">
+                                    <div>Uppnått (antal gånger)</div>
+                                    <div class="flex">
+                                        <div class="w-4/12">
+                                            <div class="color-box" data-status='met1'>1</div>
+                                        </div>
+                                        <div class="w-4/12">
+                                            <div class="color-box" data-status='met2'>2</div>
+                                        </div>
+                                        <div class="w-4/12">
+                                            <div class="color-box" data-status='met3'>3+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="assessment__container assessment__container--master">
+                        </div>
+                    </div>
+                    <div data-tab-content="1" class="course__asmts fade in">
+                        <h1 class="my-3 underline">Uppgifter</h1>
+                        <p class="text-lg">Nedan finner du uppgifterna eller situationerna som bedömts i kursen just nu.
+                            I varje uppgift väljer läraren en de områden som ska bedömas. Bedömningen läggs sedan ihop i
+                            sammanställningen, som du finner i en separat vy.</p>
+                        <div class="tabContainer">
+                            <ul class="asmtTab__list"></ul>
+                            <div class="asmtTab__container"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="asmt mt-5">
+            <div class="asmt__date text-neutral-300"></div>
+            <h2 class="asmt__caption"></h2>
+            <div class="asmt__description mt-2 italic text-sm"></div>
+            <div class="assessment__container assessment__container--minion"></div>
+        </div>
+    </div>
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="/__/firebase/7.19.1/firebase-app.js"></script>
+
+    <!-- Add Firebase products -->
+    <script src="/__/firebase/7.19.1/firebase-auth.js"></script>
+    <script src="/__/firebase/7.19.1/firebase-firestore.js"></script>
+
+    <!-- Initiate FB script-->
+    <script src="/__/firebase/init.js"></script>
+
+    <!-- The rest of the f*****n owl-->
+    <script type="text/javascript" src="js/backend.js"></script>
+    <script type="text/javascript" src="js/core.js"></script>
+    <script type="text/javascript" src="js/student.js"></script>
+</body>
+</html>

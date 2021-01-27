@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/core.css">
+  <link rel="stylesheet" href="css/status-report.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins" rel="stylesheet">
   <title>Östra gymnasiet - Lägesrapportering</title>
 </head>
@@ -133,7 +133,7 @@
             </p>
           </div>
           <div class="student__infoBlock--second">
-            <select class="select-css select-assessment">
+            <select class="select-css select-assessment" disabled> <!-- Season is over-->
               <option selected value="">Välj omdöme</option>
               <option value="T" class="option-T">Tillfredsställande</option>
               <option value="TEB" class="option-TEB hidden" disabled>Tillfredsställande (ej betyg)</option>
@@ -144,8 +144,8 @@
         </div>
       </div>
       <div class="student__col--2">
-        <textarea oninput='auto_grow(this)' class="textarea-comment" rows=3
-          placeholder="Personlig kommentar till eleven"></textarea>
+        <textarea oninput='auto_grow(this)' class="textarea-comment" rows=3 
+          placeholder="Personlig kommentar till eleven" disabled></textarea> <!-- Season is over-->
       </div>
 
 

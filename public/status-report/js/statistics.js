@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }
     
-    if (tar.classList.contains('modal__close')) {
+    if (tar.classList.contains('close-modal')) {
       Modal.hide()
     }
 
@@ -543,9 +543,6 @@ function handle_student_to_modal(type, studentID) {
   let modal = document.querySelector(`[data-modal="${type}"]`)
   let title = modal.querySelector('.modal__title');
   
-
-
-
   // Återställ elementen;
   let tbody = modal.querySelector('.sGrid__body')
   while (tbody.firstChild) { tbody.removeChild(tbody.firstChild) }

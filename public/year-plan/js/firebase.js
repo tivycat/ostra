@@ -1,14 +1,31 @@
+// -- DOM SHORTCUTS
+const userPicElement = document.getElementById("user-pic");
+const userEmailElement = document.getElementById("user-email");
+const signInButtonElement = document.getElementById("sign-in");
+const signOutButtonElement = document.getElementById("sign-out");
+
+// -- EVENT LISTENERS
+signOutButtonElement.addEventListener("click", signOut);
+signInButtonElement.addEventListener("click", signIn);
+
+// -- DB SHORTCUTS
+const CURRENT_SCHOOLYEAR = "20-21";
+const DB = firebase.firestore();
+const PLANNING_DB = firebase
+  .firestore()
+  .collection("planning")
+  .doc(CURRENT_SCHOOLYEAR);
+
+// -- FUNCTIONS
 
 function signIn() {
   // Sign into Firebase using FORCED account-pick auth & Google as the identity provider.
   let googleAuthProvider = new firebase.auth.GoogleAuthProvider();
   googleAuthProvider.setCustomParameters({
-    prompt: 'select_account'
+    prompt: "select_account",
   });
-  firebase.auth().signInWithRedirect(googleAuthProvider)
+  firebase.auth().signInWithRedirect(googleAuthProvider);
 }
-
-
 
 function signOut() {
   // Sign out of Firebase.
@@ -23,7 +40,10 @@ function initFirebaseAuth() {
 
 // Returns the signed-in user's profile pic URL.
 function getProfilePicUrl() {
-  return firebase.auth().currentUser.photoURL || '/images/profile_placeholder.png';
+  return (
+    firebase.auth().currentUser.photoURL ||
+    "../../resources/images/profile_placeholder.png"
+  );
 }
 
 // Returns the signed-in user's display name.
@@ -33,183 +53,99 @@ function getUserName() {
 
 // Returns the signed-in user's display name.
 function getUserEmail() {
-  return firebase.auth().currentUser.displayName;
+  return firebase.auth().currentUser.email;
 }
-
 
 // Returns true if a user is signed-in.
 function isUserSignedIn() {
   return !!firebase.auth().currentUser;
 }
 
-
 // Triggers when the auth state change for instance when the user signs-in or signs-out.
-function authStateObserver(user) {
-  if (user) { // User is signed in!
+async function authStateObserver(user) {
+  const admin_element = document.getElementById("admin-content");
+  let signed_in_element = document.querySelector(".nav__signedIn");
+  let signed_out_element = document.querySelector(".nav__signedOut");
+  if (user) {
+    // User is signed in!
+
     // Get the signed-in user's profile pic and name.
     var profilePicUrl = getProfilePicUrl();
-    var userName = getUserName();
+    let userEmail = getUserEmail();
 
     // Set the user's profile pic and name.
-    userPicElement.style.backgroundImage = 'url(' + addSizeToGoogleProfilePic(profilePicUrl) + ')';
-    userNameElement.textContent = userName;
+    userPicElement.style.backgroundImage =
+      "url(" + addSizeToGoogleProfilePic(profilePicUrl) + ")";
+    userEmailElement.textContent = userEmail;
 
     // Show user's profile and sign-out button.
-    userNameElement.removeAttribute('hidden');
-    userPicElement.removeAttribute('hidden');
-    signOutButtonElement.removeAttribute('hidden');
-
+    signed_in_element.classList.remove("hidden");
     // Hide sign-in button.
-    signInButtonElement.setAttribute('hidden', 'true');
+    signed_out_element.classList.add("hidden");
 
-    // Check user credentials to unlock functions
-    let cred = check_user_credentials(firebase.auth().currentUser.email)
-    cred.then((result) => {
-      add_admin_functions(result)
-    })
-  } else { // User is signed out!
-    // Hide user's profile and sign-out button.
-    userNameElement.setAttribute('hidden', 'true');
-    userPicElement.setAttribute('hidden', 'true');
-    signOutButtonElement.setAttribute('hidden', 'true');
-
-    // Show sign-in button.
-    signInButtonElement.removeAttribute('hidden');
-  }
-}
-
-// Returns true if user is signed-in. Otherwise false and displays a message.
-function checkSignedInWithMessage() {
-  // Return true if the user is signed in Firebase
-  if (isUserSignedIn()) {
-    return true;
+    // Initiate admin load (if successful shows admin, else does nothing)
+    let admin = await isUserAdmin(userEmail);
+    if (admin) {
+      admin_element.classList.remove("hidden");
+    } else {
+      remove_admin_funcs();
+    }
+  } else {
+    // User is signed out!
+    remove_admin_funcs();
+    // Hide sign-in button.
+    signed_in_element.classList.add("hidden");
+    signed_out_element.classList.remove("hidden");
   }
 
-  // Display a message to the user using a Toast.
-  display_toast('Du måste logga in först!')
-  // signInSnackbarElement.MaterialSnackbar.showSnackbar(data);
-  return false;
+  // -- HELPER FUNCTIONS
+  function isUserAdmin(user) {
+    return new Promise((res) => {
+      let adminRef = DB.collection("users").doc("super_admins");
+      adminRef.get().then((doc) => {
+        if (doc.exists) {
+          let response = doc.data();
+          let admins = response.valid_ids;
+          if (admins.includes(user)) {
+            res(true);
+          } else {
+            res(false);
+          }
+        }
+      });
+    });
+  }
+  function remove_admin_funcs() {
+    // -- ELEMENTS
+    const removeEvent_btn = document.querySelectorAll(
+      "#clone .modal-removeEvent"
+    );
+    const saveEvent_btn = document.querySelectorAll(
+      "#clone .modal-saveChanges"
+    );
+    const allowChanges_btn = document.querySelectorAll(
+      "#clone .modal-makeChanges"
+    );
+
+    admin_element.parentElement.removeChild(admin_element);
+    remove_buttons(removeEvent_btn);
+    remove_buttons(saveEvent_btn);
+    remove_buttons(allowChanges_btn);
+
+    // -- FUNCTIONS
+    function remove_buttons(btn) {
+      btn.forEach((x) => x.parentElement.removeChild(x));
+    }
+  }
 }
 
 // Adds a size to Google Profile pics URLs.
 function addSizeToGoogleProfilePic(url) {
-  if (url.indexOf('googleusercontent.com') !== -1 && url.indexOf('?') === -1) {
-    return url + '?sz=150';
+  if (url.indexOf("googleusercontent.com") !== -1 && url.indexOf("?") === -1) {
+    return url + "?sz=150";
   }
   return url;
 }
 
-// Initialize load
-function get_load_data() {
-  firebase.auth().onAuthStateChanged(function () {
-    let weeks = firebase.firestore().collection('weeks');
-    weeks.get().then((snapshot) => {
-      snapshot.forEach((doc) => {
-        add_week_to_calendar(doc.data())
-
-      })
-    }).then(() => {
-      let events = firebase.firestore().collection('events');
-      events.get().then((e_snapshot) => {
-        e_snapshot.forEach((doc) => {
-          add_event_to_calendar(doc.id, doc.data())
-        })
-      })
-    }).then(() => {
-      // After load complete, show the weeks, then remove preloader and show the UI
-      display_active_weeks()
-      document.getElementById('loading').classList.add('hidden')
-      document.getElementById('ui').classList.remove('hidden')
-    }).catch(e => {
-      console.error(e)
-    })
-  });
-}
-
-function check_user_credentials(user) {
-  // <button class="btn btn-primary ml-1" id="add_test" type="button">Lägg till prov/större inlämning</button>
-  return new Promise(function (resolve, reject) {
-    let docRef = firebase.firestore().collection('users').doc(user)
-    docRef.get().then((doc) => {
-      if (doc.exists) {
-        let data = doc.data()
-        resolve(data.role)
-      } else { // No role found for user
-        resolve('None')
-      }
-    });
-  })
-}
-
-function create_event_firebase(event) {
-  return new Promise( (resolve, reject) => {
-
-    firebase.auth().onAuthStateChanged(function (user) {
-      event.creator = firebase.auth().currentUser.email
-      
-      let docRef = firebase.firestore().collection("events");
-      docRef.add(event).then((doc) => {
-        event.event_id = doc.id;
-        resolve({id: doc.id, event: event})  
-      })
-    })
-  }) 
-}
-
-function delete_event_firebase(id) {
-  let db = firebase.firestore();
-  db.collection("events").doc(id).delete()
-  .catch(function (error) {
-    console.error("Error removing document: ", error);
-  });
-
-}
-
-
-function save_edit_event_firebase(id, ev_details) {
-  return new Promise ((resolve, reject) => {
-    let db = firebase.firestore();
-    db.collection("events").doc(id).set(ev_details).catch(function (error) {
-      console.error("Error removing document: ", error);
-    });
-    resolve()
-
-  })
- 
-
-}
-
-
-
-
-
-// A loading image URL.
-var LOADING_IMAGE_URL = 'https://www.google.com/images/spin-32.gif?a';
-
-// Checks that the Firebase SDK has been correctly setup and configured.
-// function checkSetup() {
-//   if (!window.firebase || !(firebase.app instanceof Function) || !firebase.app().options) {
-//     window.alert('You have not configured and imported the Firebase SDK. ' +
-//         'Make sure you go through the codelab setup instructions and make ' +
-//         'sure you are running the codelab using `firebase serve`');
-//   }
-// }
-
-// // Checks that Firebase has been imported.
-// checkSetup();
-
-// Shortcuts to DOM Elements.
-var userPicElement = document.getElementById('user-pic');
-var userNameElement = document.getElementById('user-name');
-var signInButtonElement = document.getElementById('sign-in');
-var signOutButtonElement = document.getElementById('sign-out');
-
-signOutButtonElement.addEventListener('click', signOut);
-signInButtonElement.addEventListener('click', signIn);
-
-
 // initialize Firebase
 initFirebaseAuth();
-
-// Initialize load process
-get_load_data();

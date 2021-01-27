@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Östra gymnasiet - Matrisrapportering</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/matris.css">
+    <link rel="stylesheet" href="../resources/css/utility.css">
+</head>
+
+<body class="matris" data-page='teacher'>
+    <nav class="nav bg-yellow-50">
+        <ul class="mainMenu" id="mainMenu">
+            <li class="brand">
+                <a href="../index.html">ÖSTRA<span>APP</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <select id="choose-course" class="outline-none focus:ring border rounded py-1 px-2 text-lg">
+                    <option value="" class="do_not_delete" selected>Välj kurs</option>
+                </select>
+            </li>
+            <li class="menu-item has-subMenu">
+                <a tabindex="0">Bedömningar</a>
+                <ul class="subMenu">
+                    <li class="sub-item">
+                        <a id="new-asmt">Ny 📝</a>
+                    </li>
+                    <li class="sub-item">
+                        <a id="new-asmt">Redigera 📝</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="menu-item">
+                <a id="saveChanges-btn">Spara</a>
+            </li>
+            <li class="menu-item has-subMenu">
+                <a tabindex="0">Administration</a>
+                <ul class="subMenu">
+                    <li class="sub-item">
+                        <a href="teacher-admin.html">Hantera kurser</a>
+                    </li>
+                    <li class="sub-item">
+                        <a id="studentExample-btn">Visa elevexempel</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="menu-item loginContainer">
+                <div class="signedIn">
+                    <div class="col col--left">
+                        <div class="signedIn__email" id="user-email"></div>
+                        <div class="signOut__btn" id="sign-out">Logga ut</div>
+                    </div>
+                    <div class="col col--right">
+                        <div class="signedIn__avatar" id="user-pic"></div>
+                    </div>
+                </div>
+                <div class="signedOut">
+                    <div class="signIn__btn" id="sign-in">Logga in
+                        <img class="signIn__icon" src="../resources/images/login.svg" alt="login">
+                    </div>
+                </div>
+            </li>
+            <li class="toggle-main-menu" id="toggle-main-menu">Meny
+            </li>
+        </ul>
+    </nav>
+    <section data-section="content" class="mainSection hidden">
+        <div id="content-start" class="container container--narrow space-y-4 mt-4">
+            <h1 class="text-indigo-700">Välkommen!</h1>
+            <h2 class="mb-4">Välj en kurs från rullmenyn ovan för att sätta igång.</h2>
+            <h4>Skapa en uppgift och bedöm elever genom klicka på nivåerna i din valda matris. Avsluta med feedback.
+                Spara görs automatiskt, eller via knappen i bannern.</h4>
+            <p class="text-lg">Tankar? Åsikter? Kontakta <a class="text-blue-700 hover:underline"
+                    href="mailto:viktor.tysk@edu.huddinge.se">Viktor</a></p>
+        </div>
+        <div id="course-container"></div>
+
+    </section>
+    <section data-section="noCourses" class="mainSection container container--narrow hidden mt-4">
+        <h1 class="text-indigo-700">Välkommen!</h1>
+        <h2>Inga kurser funna för detta id</h2>
+        <h3><a class="underline text-blue-700 hover:text-blue-500" href="teacher-admin.html">Tryck här för att skapa
+                kurser eller hämta från Classroom</a></h3>
+    </section>
+    <section data-section="preSign-in" class="mainSection container container--narrow mt-4">
+        <h1 class="text-indigo-700">Välkommen till matrisappen!</h1>
+        <p class="text-lg">Det här är en webapp för sammanställning och rapportering av bedömningar. Läraren skapar
+            uppgifter, väljer bedömningsområden och bedömer eleverna enskilt och bedömningar sammanställs (tillsammans
+            med feedback) på ett <span class="text-sm">förhoppningsvis</span> översiktligt vis.</p>
+        <h3></h3>
+        <h2>Logga in för att sätta igång.</h2>
+    </section>
+    <section data-section="error" class="mainSection hidden container container--narrow mt-4" id="error-section">
+        <div data-error-type="no_permissions" class="hidden">
+            <h1 class="text-red-700">Hoppsan!</h1>
+            <h2>Du saknar förmodligen behörighet för detta. Endast användare som är tillagda som lärare kan göra det du
+                försökte göra. Om det är första gången du är här så måste Viktor lägga till dig som lärare.</h2>
+            <h4>Kontakta <a class="hover:underline text-blue-500"
+                    href="mailto:viktor.tysk@edu.huddinge.se?subject=Saknad%20behörighet%20(matris)&body=Hej%20Viktor!%20Kan%20jag%20få%20behörighet%20till%20matrisappen?">Viktor
+                    Tysk</a> med det här problemet.</h4>
+        </div>
+        <div data-error-type="not_logged_in" class="hidden mt-4">
+            <h2 class="text-red-700">Hoppsan!</h2>
+            <h3>Du är visst inte inloggad. Logga in och försök igen!</h3>
+        </div>
+    </section>
+    <!-- ELEVEXEMPEL-->
+    <section data-section="example" class="mainSection hidden container mt-4">
+
+        <div class="rounded-2xl bg-blue-700 text-white text-center mb-5 py-2">
+            <h2 class="text-white">Elevexempel</h2>
+            <p class="text-lg">Här är ett elevexempel från en Digitalt Skapande kurs.
+            </p>
+        </div>
+        ...Ny version uppdateras snart. Så mycket ändringar har gjorts så jag började om.
+    </section>
+
+    <div class="modal modal--asmt" data-modal="asmt">
+    </div>
+    <div id="saveDialogue" class="saveDialogue__wrapper">
+        <div class="saveDialogue__text">
+            Sparar...
+        </div>
+
+        <div id="clone" class="hidden">
+            <div class="course relative">
+                <div class="course__col course__col--left">
+                    <div class="courseIndex">
+                        <header class="my-2 flex">
+                            <div class="courseIndex__caption"></div>
+                        </header>
+                        <ol class="courseIndex__list"></ol>
+                    </div>
+                </div>
+                <div class="course__col course__col--right">
+                    <div class="course__content">
+                        <div class="no-assessments no_student_selected">
+                            <h2>Skapa en uppgift och välj en elev i listan för att börja rapportera</h2>
+                        </div>
+                        <div class="course-data no_student_selected">
+                            <h2>Kursstatistik</h2>
+                            <p class="text-lg">Kom ihåg att du kan ge feedback på varje bedömningsområde!</p>
+                            <p class="mt-5 italic">Här ska lite häftig kursstaistik visas ...</p>
+                        </div>
+                        <div class="course__students"></div>
+                    </div>
+                </div>
+                <div class="toggle-courseIndex hamburger toggle">
+                    <div class="hamburger-line1"></div>
+                    <div class="hamburger-line2"></div>
+                    <div class="hamburger-line3"></div>
+                  </div>
+            </div>
+            <div class="student">
+                <h1 class="student__name"></h1>
+                <div class="accordion__wrapper">
+                    <button class="accordion__button hover:bg-black">Sammanställning</button>
+                    <div class="accordion__content">
+                        <div class="table__header">
+                            <div class="table__warning" role="alert">
+                                Denna tabell kan inte manipuleras självt, utan visar en
+                                sammanställning av den
+                                bedömning du gjort i olika uppgifter nedan
+                            </div>
+                            <div class="table__legend mb-3">
+                                <h3>Vad betyder färgerna?</h3>
+                                <div class="flex space-x-2">
+                                    <div class="w-40">
+                                        <div>
+                                            <div>Ej uppnått</div>
+                                            <div class="color-box" data-status='unmet'></div>
+                                        </div>
+                                    </div>
+                                    <div class="w-80 text-center">
+                                        <div>Uppnått (antal gånger)</div>
+                                        <div class="flex">
+                                            <div class="w-4/12">
+                                                <div class="color-box" data-status='met1'>1</div>
+                                            </div>
+                                            <div class="w-4/12">
+                                                <div class="color-box" data-status='met2'>2</div>
+                                            </div>
+                                            <div class="w-4/12">
+                                                <div class="color-box" data-status='met3'>3+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="assessment__container assessment__container--master">
+                        </div>
+                    </div>
+                </div>
+                <div class="assessments mt-5">
+                    <h2 class="mb-4"><span class="text-indigo-900">Uppgifter:</span> Klicka på en uppgift för att visa
+                        detaljer och bedöma</h2>
+                    <div class="tabContainer">
+                        <ul class="navTabs asmtTab__list" role="tablist">
+                          </ul>
+                        <div class="asmtTab__container tabContent mt-2"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ASMT-->
+            <div class="asmt">
+                <div class="md:flex">
+                    <div class="md:w-10/12">
+                        <div class="asmt__date text-gray-300"></div>
+                        <h2 class="asmt__caption text-indigo-900"></h2>
+                    </div>
+                    <div class="md:flex-grow md:flex md:justify-end">
+                        <div class="md:flex md:justify-center md:items-center mr-2">
+                            <label class="roundCheckbox__wrapper">
+                                <input type="checkbox" class="asmt__gradingFinished">
+                                <span class="roundCheckbox_label">
+                                    Färdigrättad
+                                </span>
+                                <span class="roundCheckbox_span"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="asmt__description text-sm border border-solid border-gray-200 py-2 px-3 my-1"></div>
+                <div class="asmt__container asmt__container--minion">
+                </div>
+            </div>
+            <div class="modal__content modal__content--editAsmt">
+                <header class="modal__header">
+                    <h4 class="modal__title">Ny bedömning</h4>
+                    <button class="modal__close modal__close--btn" data-dismiss="modal">&times;</a>
+                </header>
+                <div class="modal__body">
+                    <form>
+                        <div class="form__group">
+                            <label class="form__label">Uppgiftsnamn<span class="required"></span></label>
+                            <input data-alias="caption" type="text" class="form__input" placeholder="...">
+                        </div>
+                        <div class="form__group">
+                            <label class="form__label">Kurs<span class="required"></span></label>
+                            <select data-alias="course" class="form__select">
+                                <option value="" disabled selected>Välj kurs</option>
+                            </select>
+                        </div>
+                        <div class="form__group">
+                            <label class="form__label">Uppgiftsbeskrivning</label>
+                            <textarea data-alias="description" class="form__textarea" rows="3" placeholder="..."
+                                oninput='auto_grow(this)'></textarea>
+                        </div>
+                        <section data-alias="asmtAreas-section" class="form__group hidden">
+                            <h4>Välj områden för denna uppgift</h4>
+                            <div data-alias="asmtAreas-container">
+
+                            </div>
+
+                        </section>
+                    </form>
+                </div>
+                <div class="modal__footer">
+                    <button type="button" class="btn bg-red-300 text-gray-700 hover:bg-red-500 mr-auto hidden"
+                        data-function="delete-event">Ta bort uppgift</button>
+                    <button type="button" class="btn bg-green-300 text-gray-700 hover:bg-green-500"
+                        data-function="save-event">Spara</button>
+                    <button type="button" class="btn bg-yellow-300 text-gray-700 hover:bg-yellow-500"
+                        data-dismiss="modal">Stäng</button>
+                </div>
+            </div>
+        </div>
+        <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+        <script src="/__/firebase/7.19.1/firebase-app.js"></script>
+
+        <!-- Add Firebase products -->
+        <script src="/__/firebase/7.19.1/firebase-auth.js"></script>
+        <script src="/__/firebase/7.19.1/firebase-firestore.js"></script>
+
+        <!-- Initiate FB script-->
+        <script src="/__/firebase/init.js"></script>
+
+        <!-- The rest of the f*****n owl-->
+        <script type="text/javascript" src="js/backend.js"></script>
+        <script type="text/javascript" src="js/core.js"></script>
+        <script type="text/javascript" src="js/teacher.js"></script>
+
+</body>
+
+</html>
